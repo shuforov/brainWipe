@@ -52,4 +52,4 @@ out/src/miniGame.o: src/miniGame.c \
  /opt/toolchains/mars/m68k-elf/inc/string.h \
  /opt/toolchains/mars/m68k-elf/inc/maths.h \
  /opt/toolchains/mars/m68k-elf/inc/dma.h src/../res/resources.h \
- src/miniGame.h
+ src/miniGame.h src/gameEngine.h

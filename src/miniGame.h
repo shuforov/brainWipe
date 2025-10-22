@@ -3,7 +3,28 @@
 
 #include <genesis.h>
 
-// Draws a popup window at (x,y) with width w and height h in tiles
+struct popUpTransform {
+  u16 x;
+  u16 y;
+  u16 w;
+  u16 h;
+};
+
+struct buttonMetadata {
+  u16 x;
+  u16 y;
+  u16 idTag;
+};
+
 void drawPopup(u16 x, u16 y, u16 w, u16 h);
+bool popUpAnimation(u16 x, u16 y, u16 w, u16 h);
+void drawButtonShape(u16 x, u16 y, int buttonType);
+void drawButtons();
+void countDownGo();
+void setCountDownGo(bool value);
+void buttonAnimation();
+void buttonAnimationProcess(u16 buttonIndex, u16 buttonType[]);
+void setButtonAnimationState(u16 buttonType, bool state);
+bool isButtonAnimation();
 
 #endif // MINI_GAME_H
