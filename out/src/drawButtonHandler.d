@@ -1,4 +1,4 @@
-out/src/miniGame.o: src/miniGame.c \
+out/src/drawButtonHandler.o: src/drawButtonHandler.c \
  /opt/toolchains/mars/m68k-elf/inc/genesis.h \
  /opt/toolchains/mars/m68k-elf/inc/types.h \
  /opt/toolchains/mars/m68k-elf/inc/config.h \
@@ -51,6 +51,5 @@ out/src/miniGame.o: src/miniGame.c \
  /opt/toolchains/mars/m68k-elf/inc/config.h \
  /opt/toolchains/mars/m68k-elf/inc/string.h \
  /opt/toolchains/mars/m68k-elf/inc/maths.h \
- /opt/toolchains/mars/m68k-elf/inc/dma.h src/../res/resources.h \
- src/headers/miniGame.h src/headers/gameEngine.h \
- src/headers/miniGameConstants.h src/headers/handlers/drawButtonHandler.h
+ /opt/toolchains/mars/m68k-elf/inc/dma.h src/headers/miniGameConstants.h \
+ src/headers/handlers/drawButtonHandler.h

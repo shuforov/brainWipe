@@ -18,7 +18,6 @@ struct buttonMetadata {
 
 void drawPopup(u16 x, u16 y, u16 w, u16 h);
 bool popUpAnimation(u16 x, u16 y, u16 w, u16 h);
-void drawButtonShape(u16 x, u16 y, int buttonType);
 void drawButtons();
 void countDownGo();
 void setCountDownGo(bool value);

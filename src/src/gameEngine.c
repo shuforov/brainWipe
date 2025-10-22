@@ -1,7 +1,7 @@
 #include <genesis.h>
 #include <../res/resources.h>
-#include "gameEngine.h"
-#include "miniGame.h"
+#include "../headers/gameEngine.h"
+#include "../headers/miniGame.h"
 
 u16 counter = 60;
 u16 currentFrame = 0;

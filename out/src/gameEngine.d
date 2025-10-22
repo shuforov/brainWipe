@@ -52,4 +52,4 @@ out/src/gameEngine.o: src/gameEngine.c \
  /opt/toolchains/mars/m68k-elf/inc/string.h \
  /opt/toolchains/mars/m68k-elf/inc/maths.h \
  /opt/toolchains/mars/m68k-elf/inc/dma.h src/../res/resources.h \
- src/gameEngine.h src/miniGame.h
+ src/headers/gameEngine.h src/headers/miniGame.h
