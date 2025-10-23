@@ -54,4 +54,7 @@ out/src/src/miniGame.o: src/src/miniGame.c \
  /opt/toolchains/mars/m68k-elf/inc/dma.h src/../res/resources.h \
  src/src/../headers/miniGame.h src/src/../headers/gameEngine.h \
  src/src/../headers/miniGameConstants.h \
- src/src/../headers/handlers/drawButtonHandler.h
+ src/src/../headers/handlers/drawButtonHandler.h \
+ src/src/../headers/handlers/buttonAnimationHandler.h \
+ src/src/../headers/handlers/commonMiniGameHandler.h \
+ src/src/../headers/handlers/debugHandler.h

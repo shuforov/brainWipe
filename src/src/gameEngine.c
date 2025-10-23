@@ -2,6 +2,8 @@
 #include <../res/resources.h>
 #include "../headers/gameEngine.h"
 #include "../headers/miniGame.h"
+#include "../headers/handlers/debugHandler.h"
+#include "../headers/handlers/buttonAnimationHandler.h"
 
 u16 counter = 60;
 u16 currentFrame = 0;
@@ -30,14 +32,6 @@ void loadTiles() {
 
   VDP_loadTileSet(buttonShape.tileset, ind, DMA);
   ind += buttonShape.tileset->numTile;
-}
-
-void printInt(u16 x, u16 y, u16 printNumber) {
-  char currentFrameChar[6];
-
-  sprintf(currentFrameChar, "%d", printNumber);
-  VDP_clearTextArea(x, y, 5, 1);
-  VDP_drawText(currentFrameChar, x, y);
 }
 
 void update() {
