@@ -4,6 +4,8 @@
 #include "../../headers/handlers/commonMiniGameHandler.h"
 
 bool isButtonAnimationActive = false;
+bool isStadyButtonsAnimationActive = false;
+u16 stadyButtonAnimationsArray[2] = {31, 30};
 u16 buttonAnimationType = 0;
 u16 buttonCountDown = 1;
 
@@ -47,33 +49,72 @@ void buttonAnimation() {
       buttonAnimationsArray[2] = 29;
       buttonAnimationProcess(8, buttonAnimationsArray);
       break;
+    case 6: // Stady buttons animation
+      buttonAnimationsArray[0] = 31;
+      buttonAnimationsArray[1] = 30;
+      buttonAnimationProcess(0, buttonAnimationsArray);
+      break;
     }
   }
 }
 
 void setButtonAnimationState(u16 buttonType, bool state) {
   buttonAnimationType = buttonType;
+  if (buttonType >= 0 && buttonType <= 5) {
+    buttonCountDown =
+        2; // Set button count down timer for X Y Z A B C buttons animation
+  } else if (buttonType == 6) {
+    buttonCountDown =
+        1; // Set button count down timer for Stady button animation
+  }
   isButtonAnimationActive = state;
+}
+
+void setStadyButtonsAnimation(bool state) {
+  if (state) {
+    isStadyButtonsAnimationActive = true;
+  } else {
+    isStadyButtonsAnimationActive = false;
+    getButtonsInPopUp()[3].idTag = 4; // Set to X button
+    getButtonsInPopUp()[4].idTag = 5; // Set to Y button
+    getButtonsInPopUp()[5].idTag = 6; // Set to Z button
+    getButtonsInPopUp()[6].idTag = 1; // Set to A button
+    getButtonsInPopUp()[7].idTag = 2; // Set to B button
+    getButtonsInPopUp()[8].idTag = 3; // Set to C button
+  }
 }
 
 void buttonAnimationProcess(u16 buttonIndex, u16 buttonType[]) {
   bool passState = getTick() % 25 == 0;
   if (passState && buttonCountDown >= 0) {
-    printInt(4, 6, buttonCountDown);
     if (buttonCountDown == 0) {
-      getButtonsInPopUp()[buttonIndex].idTag = buttonType[buttonCountDown]; // Set default X shape button
+      getButtonsInPopUp()[buttonIndex].idTag = buttonType[buttonCountDown]; // Set default BUTTON shape button
       buttonCountDown = 2;
       isButtonAnimationActive = false;
-    } else if (buttonCountDown == 1) {
-      getButtonsInPopUp()[buttonIndex].idTag = buttonType[buttonCountDown]; // Set X fill shape
-      buttonCountDown--;
-    } else if (buttonCountDown == 2) {
-      getButtonsInPopUp()[buttonIndex].idTag = buttonType[buttonCountDown]; // Set X fill shape and border
+    } else {
+      getButtonsInPopUp()[buttonIndex].idTag = buttonType[buttonCountDown]; // Set other BUTTON shape
       buttonCountDown--;
     }
   }
 }
 
-bool isButtonAnimation() {
-  return isButtonAnimationActive;
+void stadyButtonsAnimation() {
+  bool passState = getTick() % 120 == 0;
+  if (passState && buttonCountDown >= 0) {
+    if (buttonCountDown == 0) {
+      buttonCountDown = 2;
+    } else {
+      buttonCountDown--;
+    }
+    getButtonsInPopUp()[3].idTag = stadyButtonAnimationsArray[buttonCountDown];
+    getButtonsInPopUp()[4].idTag = stadyButtonAnimationsArray[buttonCountDown];
+    getButtonsInPopUp()[5].idTag = stadyButtonAnimationsArray[buttonCountDown];
+    getButtonsInPopUp()[6].idTag = stadyButtonAnimationsArray[buttonCountDown];
+    getButtonsInPopUp()[7].idTag = stadyButtonAnimationsArray[buttonCountDown];
+    getButtonsInPopUp()[8].idTag = stadyButtonAnimationsArray[buttonCountDown];
+  }
 }
+
+bool isButtonAnimation() { return isButtonAnimationActive; }
+
+bool isStadyButtonsAnimation() { return isStadyButtonsAnimationActive; }

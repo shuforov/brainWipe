@@ -8,5 +8,5 @@ int main() {
 
     SYS_doVBlankProcess();
   }
-  return(0);  
-}  
+  return (0);
+}

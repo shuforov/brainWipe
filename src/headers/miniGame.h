@@ -13,7 +13,10 @@ struct popUpTransform {
 void drawPopup(u16 x, u16 y, u16 w, u16 h);
 bool popUpAnimation(u16 x, u16 y, u16 w, u16 h);
 void drawButtons();
-void countDownGo();
-void setCountDownGo(bool value);
+void setCountDownState(u16 state);
+void countDownStateProcess();
+void enableCountDown();
+void disableCountDown();
+bool getCountDownActive();
 
 #endif // MINI_GAME_H

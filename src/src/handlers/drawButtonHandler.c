@@ -131,7 +131,6 @@ void drawButtonShape(u16 x, u16 y, int buttonType) {
     VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, G_S_B_L), x, y + 1);
     VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, G_S_B_R), x + 1,
                      y + 1);
-
     break;
   case 18: // X fill shape
     VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, X_F_S_T_L), x, y);
@@ -227,6 +226,22 @@ void drawButtonShape(u16 x, u16 y, int buttonType) {
     VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, C_F_S_B_B_L), x,
                      y + 1);
     VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, C_F_S_B_B_R), x + 1,
+                     y + 1);
+    break;
+  case 30: // Stady button shape
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, STDY_S_T_L), x, y);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, STDY_S_T_R), x + 1, y);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, STDY_S_B_L), x, y + 1);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, STDY_S_B_R), x + 1,
+                     y + 1);
+    break;
+  case 31: // Stady fill shape
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, STDY_F_S_T_L), x, y);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, STDY_F_S_T_R), x + 1,
+                     y);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, STDY_F_S_B_L), x,
+                     y + 1);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, STDY_F_S_B_R), x + 1,
                      y + 1);
     break;
   }

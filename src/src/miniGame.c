@@ -12,8 +12,10 @@ bool isRendered = false;
 u16 curW = 3;
 u16 curH = 3;
 u16 countDown = 5;
-bool isCountDownGo = false;
+bool countDownActive = false;
+u16 countDownCurrentState;
 struct popUpTransform popUpData;
+
 void drawPopup(u16 x, u16 y, u16 w, u16 h) {
   // e.g. w = 5, h = 4 gives you a 5x4 popup box
 
@@ -48,19 +50,31 @@ void drawPopup(u16 x, u16 y, u16 w, u16 h) {
   }
 }
 
-void countDownGo() {
-  if (isCountDownGo) {
-    bool secondPass = getTick() % 240 == 0;
-    if (secondPass && countDown >= 0) {
-      printInt(4, 5, countDown);
-      if (countDown == 0) {
-	getButtonsInPopUp()[0].idTag = 17; // set button shape to GO state
-        setCountDownGo(false);
-        countDown = 5;
-      } else {
-	getButtonsInPopUp()[0].idTag = BUTTON_NUMBERS[countDown];
-        countDown--;
-      }
+void setCountDownState(u16 state) {
+  switch (state) {
+  case 0: // set button shape to GO state
+    countDownCurrentState = 17;
+    enableCountDown();
+    break;
+  case 1: // set button shape to Stady state
+    countDownCurrentState = 31;
+    enableCountDown();
+    setStadyButtonsAnimation(true);
+    break;
+  }
+}
+
+void countDownStateProcess() {
+  bool secondPass = getTick() % 240 == 0;
+  if (secondPass && countDown >= 0) {
+    if (countDown == 0) {
+      getButtonsInPopUp()[0].idTag = countDownCurrentState;
+      disableCountDown();
+      setStadyButtonsAnimation(false);
+      countDown = 5;
+    } else {
+      getButtonsInPopUp()[0].idTag = BUTTON_NUMBERS[countDown];
+      countDown--;
     }
   }
 }
@@ -72,9 +86,11 @@ void drawButtons() {
   }
 }
 
-void setCountDownGo(bool value) {
-  isCountDownGo = value;
-}
+void enableCountDown() { countDownActive = true; }
+
+void disableCountDown() { countDownActive = false; }
+
+bool getCountDownActive() { return countDownActive; }
 
 bool popUpAnimation(u16 x, u16 y, u16 w, u16 h) {
   popUpData.x = x;

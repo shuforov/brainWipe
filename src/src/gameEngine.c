@@ -41,16 +41,26 @@ void update() {
     drawButtons();
   }
 
-  countDownGo();
-  buttonAnimation();
+  if (getCountDownActive()) {
+    countDownStateProcess();
+  }
+  if (isButtonAnimation()) {
+    buttonAnimation();
+  }
+  if (isStadyButtonsAnimation()) {
+    stadyButtonsAnimation();
+  }
 
-  printInt(10, 17, getTick());
+  printInt(10, 17, getTick()); // print current frame from start of rom
 }
 
 void myJoyHandler(u16 joy, u16 changed, u16 state) {
   if (joy == JOY_1) {
     if (state & BUTTON_START) {
-      setCountDownGo(true);
+      setCountDownState(1);
+      /* if (!isButtonAnimation()) { */
+      /*   setButtonAnimationState(6, true); */
+      /* } */
     }
     if (state & BUTTON_X) {
       if (!isButtonAnimation()) {

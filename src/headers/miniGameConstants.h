@@ -181,5 +181,18 @@ static const u16 N_S_T_R = 0x94; // Nine shape top right
 static const u16 N_S_B_L = 0xAF; // Nine shape bottom left
 static const u16 N_S_B_R = 0xB0; // Nine shape bottom right
 
+// Stady buttons
+// Stady button shape
+static const u16 STDY_S_T_L = 0xB9; // Stady shape top left
+static const u16 STDY_S_T_R = 0xBA; // Stady shape top right
+static const u16 STDY_S_B_L = 0xC5; // Stady shape bottom left
+static const u16 STDY_S_B_R = 0xC6; // Stady shape bottom right
+
+// Stady fill shape
+static const u16 STDY_F_S_T_L = 0xBB; // Stady fill shape top left
+static const u16 STDY_F_S_T_R = 0xBC; // Stady fill shape top right
+static const u16 STDY_F_S_B_L = 0xC7; // Stady fill shape bottom left
+static const u16 STDY_F_S_B_R = 0xC8; // Stady fill shape bottom right
+
 static const int BUTTON_NUMBERS[] = {16, 9, 8, 7, 10, 11, 12, 13, 14, 15};
 #endif

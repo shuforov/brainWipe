@@ -7,5 +7,8 @@ void buttonAnimation();
 void setButtonAnimationState(u16 buttonType, bool state);
 void buttonAnimationProcess(u16 buttonIndex, u16 buttonType[]);
 bool isButtonAnimation();
+void stadyButtonsAnimation();
+bool isStadyButtonsAnimation();
+void setStadyButtonsAnimation(bool state);
 
 #endif
