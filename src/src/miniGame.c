@@ -122,3 +122,8 @@ bool popUpAnimation(u16 x, u16 y, u16 w, u16 h) {
   }
   return false;
 }
+
+void startMgna() {
+  generateMgna(0, 5, 3);
+  setPuzzleButtonAnimation(true);
+}

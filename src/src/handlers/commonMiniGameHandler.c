@@ -16,3 +16,32 @@ struct buttonMetadata buttonsInPopUp[] = {
 struct buttonMetadata* getButtonsInPopUp() {
   return buttonsInPopUp;
 }
+
+u16 mgna[M_G_N_A_MAX_SIZE];
+u16 mgnaCounter = 0; // how many numbers are currently in mgna array
+
+void generateMgna(u16 min, u16 max, u16 howMany) {
+  // prevent overflow
+  if (howMany > M_G_N_A_MAX_SIZE) { howMany = M_G_N_A_MAX_SIZE; }
+  // clear array before generating new numbers
+  mgnaCounter = 0;
+
+  for (u16 i = 0; i < howMany; i++) {
+    mgna[mgnaCounter++] = (random() % (max - min + 1)) + min;
+  }
+}
+
+u16 *getMgna() { return mgna; }
+
+void printMgna() {
+  for (u16 i = 0; i < mgnaCounter; i++) {
+    u16 num = mgna[i];
+    char numS[3];
+    sprintf(numS, "%d", num);
+    KLog(numS);
+  }
+}
+
+u16 getMgnaCounter() {
+  return mgnaCounter;
+}

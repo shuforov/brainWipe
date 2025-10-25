@@ -18,5 +18,6 @@ void countDownStateProcess();
 void enableCountDown();
 void disableCountDown();
 bool getCountDownActive();
+void startMgna();
 
 #endif // MINI_GAME_H

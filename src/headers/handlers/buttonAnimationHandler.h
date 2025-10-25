@@ -14,5 +14,8 @@ bool isStadyButtonsAnimation();
 void setTimerPieButtonAnimation(bool state, u16 totalTime);
 bool isTimerPieButtonAnimation();
 void timerPieButtonAnimation();
+void setPuzzleButtonAnimation(bool state);
+void puzzleButtonAnimation();
+bool isPuzzleButtonAnimation();
 
 #endif

@@ -5,9 +5,6 @@
 #include "../headers/handlers/debugHandler.h"
 #include "../headers/handlers/buttonAnimationHandler.h"
 
-u16 counter = 60;
-u16 currentFrame = 0;
-
 void init() {
   // init inputs
   JOY_init();
@@ -19,6 +16,7 @@ void init() {
   // Set background color
   PAL_setColor(0, RGB24_TO_VDPCOLOR(0x6dc2ca));
   VDP_drawText("Hello!", 10, 20);
+  setRandomSeed(getTick());
 }
 
 void loadTiles() {
@@ -53,6 +51,9 @@ void update() {
   if (isTimerPieButtonAnimation()) {
     timerPieButtonAnimation();
   }
+  if (isPuzzleButtonAnimation()) {
+    puzzleButtonAnimation();
+  }
 
   printInt(10, 17, getTick()); // print current frame from start of rom
 }
@@ -64,7 +65,9 @@ void myJoyHandler(u16 joy, u16 changed, u16 state) {
       /* if (!isButtonAnimation()) { */
       /*   setButtonAnimationState(6, true); */
       /* } */
-      setTimerPieButtonAnimation(true, 12); // 12 sec of coundown timer animation
+      /* setTimerPieButtonAnimation(true, 12); // 12 sec of coundown timer
+       * animation */
+      startMgna();
     }
     if (state & BUTTON_X) {
       if (!isButtonAnimation()) {

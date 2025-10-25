@@ -8,9 +8,11 @@
 bool isButtonAnimationActive = false;
 bool isStadyButtonsAnimationActive = false;
 bool isTimerPieButtonAnimationActive = false;
+bool isPuzzleButtonANimationActive = false;
 u16 stadyButtonAnimationsArray[2] = {31, 30};
 u16 buttonAnimationType = 0;
 u16 buttonCountDown = 1;
+u16 puzzleCounter;
 
 void buttonAnimation() {
   if (isButtonAnimationActive) {
@@ -145,8 +147,33 @@ void timerPieButtonAnimation() {
   }
 }
 
+void setPuzzleButtonAnimation(bool state) {
+  if (state) {
+    puzzleCounter = 0;
+    isPuzzleButtonANimationActive = true;
+  } else {
+    isPuzzleButtonANimationActive = false;
+  }
+}
+
+void puzzleButtonAnimation() {
+  bool passState = getTick() % 120 == 0;
+  if (passState) {
+    if (!isButtonAnimation()) {
+      setButtonAnimationState(getMgna()[puzzleCounter], true);
+      if (puzzleCounter == getMgnaCounter() - 1) {
+        setPuzzleButtonAnimation(false);
+      } else {
+        puzzleCounter++;
+      }
+    }
+  }
+}
+
 bool isButtonAnimation() { return isButtonAnimationActive; }
 
 bool isStadyButtonsAnimation() { return isStadyButtonsAnimationActive; }
 
 bool isTimerPieButtonAnimation() { return isTimerPieButtonAnimationActive; }
+
+bool isPuzzleButtonAnimation() { return isPuzzleButtonANimationActive; }
