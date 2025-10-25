@@ -2,9 +2,12 @@
 #include "../../headers/handlers/buttonAnimationHandler.h"
 #include "../../headers/handlers/debugHandler.h"
 #include "../../headers/handlers/commonMiniGameHandler.h"
+#include "../../headers/handlers/timerHandler.h"
+#include "../../headers/miniGameConstants.h"
 
 bool isButtonAnimationActive = false;
 bool isStadyButtonsAnimationActive = false;
+bool isTimerPieButtonAnimationActive = false;
 u16 stadyButtonAnimationsArray[2] = {31, 30};
 u16 buttonAnimationType = 0;
 u16 buttonCountDown = 1;
@@ -106,15 +109,44 @@ void stadyButtonsAnimation() {
     } else {
       buttonCountDown--;
     }
-    getButtonsInPopUp()[3].idTag = stadyButtonAnimationsArray[buttonCountDown];
-    getButtonsInPopUp()[4].idTag = stadyButtonAnimationsArray[buttonCountDown];
-    getButtonsInPopUp()[5].idTag = stadyButtonAnimationsArray[buttonCountDown];
-    getButtonsInPopUp()[6].idTag = stadyButtonAnimationsArray[buttonCountDown];
-    getButtonsInPopUp()[7].idTag = stadyButtonAnimationsArray[buttonCountDown];
-    getButtonsInPopUp()[8].idTag = stadyButtonAnimationsArray[buttonCountDown];
+    for (int index = 3; index <= 8; index++) {
+      getButtonsInPopUp()[index].idTag =
+          stadyButtonAnimationsArray[buttonCountDown];
+    }
+  }
+}
+
+void setTimerPieButtonAnimation(bool state, u16 totalTime) {
+  if (state) {
+    setTimerTotalTime(totalTime);
+    setTimerTimeLeft(totalTime);
+    getButtonsInPopUp()[1].idTag = 44;
+    isTimerPieButtonAnimationActive = true;
+  } else {
+    isTimerPieButtonAnimationActive = false;
+  }
+}
+
+void timerPieButtonAnimation() {
+  bool secondPass = getTick() % 240 == 0;
+  if (secondPass) {
+    if (getTimerTimeLeft() >= 6) {
+      getButtonsInPopUp()[0].idTag = TIMER_SEGMENT_NUMBERS[getSegmentNum()];
+    } else if (getTimerTimeLeft() <= 5) {
+      getButtonsInPopUp()[0].idTag =
+          TIMER_LAST_SEGMENT_NUMBERS[getSegmentNum()];
+    }
+    if (getTimerTimeLeft() == 0) {
+      getButtonsInPopUp()[1].idTag = 45;
+      setTimerPieButtonAnimation(false, 0);
+    } else {
+      setTimerTimeLeft(getTimerTimeLeft() - 1);
+    }
   }
 }
 
 bool isButtonAnimation() { return isButtonAnimationActive; }
 
 bool isStadyButtonsAnimation() { return isStadyButtonsAnimationActive; }
+
+bool isTimerPieButtonAnimation() { return isTimerPieButtonAnimationActive; }

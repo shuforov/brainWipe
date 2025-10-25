@@ -1,5 +1,4 @@
-out/src/src/handlers/buttonAnimationHandler.o: \
- src/src/handlers/buttonAnimationHandler.c \
+out/src/src/handlers/timerHandler.o: src/src/handlers/timerHandler.c \
  /opt/toolchains/mars/m68k-elf/inc/genesis.h \
  /opt/toolchains/mars/m68k-elf/inc/types.h \
  /opt/toolchains/mars/m68k-elf/inc/config.h \
@@ -52,9 +51,4 @@ out/src/src/handlers/buttonAnimationHandler.o: \
  /opt/toolchains/mars/m68k-elf/inc/config.h \
  /opt/toolchains/mars/m68k-elf/inc/string.h \
  /opt/toolchains/mars/m68k-elf/inc/maths.h \
- /opt/toolchains/mars/m68k-elf/inc/dma.h \
- src/src/handlers/../../headers/handlers/buttonAnimationHandler.h \
- src/src/handlers/../../headers/handlers/debugHandler.h \
- src/src/handlers/../../headers/handlers/commonMiniGameHandler.h \
- src/src/handlers/../../headers/handlers/timerHandler.h \
- src/src/handlers/../../headers/miniGameConstants.h
+ /opt/toolchains/mars/m68k-elf/inc/dma.h

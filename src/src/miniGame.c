@@ -61,6 +61,8 @@ void setCountDownState(u16 state) {
     enableCountDown();
     setStadyButtonsAnimation(true);
     break;
+  case 2: // set button shape to Timer pie countdown
+    break;
   }
 }
 

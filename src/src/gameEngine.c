@@ -50,6 +50,9 @@ void update() {
   if (isStadyButtonsAnimation()) {
     stadyButtonsAnimation();
   }
+  if (isTimerPieButtonAnimation()) {
+    timerPieButtonAnimation();
+  }
 
   printInt(10, 17, getTick()); // print current frame from start of rom
 }
@@ -57,10 +60,11 @@ void update() {
 void myJoyHandler(u16 joy, u16 changed, u16 state) {
   if (joy == JOY_1) {
     if (state & BUTTON_START) {
-      setCountDownState(1);
+      /* setCountDownState(1); */
       /* if (!isButtonAnimation()) { */
       /*   setButtonAnimationState(6, true); */
       /* } */
+      setTimerPieButtonAnimation(true, 12); // 12 sec of coundown timer animation
     }
     if (state & BUTTON_X) {
       if (!isButtonAnimation()) {

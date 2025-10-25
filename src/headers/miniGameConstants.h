@@ -125,11 +125,16 @@ static const u16 S_S_T_L = 0xB5; // Success shape top left
 static const u16 S_S_T_R = 0xB6; // Success shape top right
 static const u16 S_S_B_L = 0xB8; // Success shape bottom left
 static const u16 S_S_B_R = 0xB9; // Success shape bottom right
+// Wait input shape
+static const u16 WI_S_T_L = 0xBD; // Wait input shape top left
+static const u16 WI_S_T_R = 0xBE; // Wait input shape rop right
+static const u16 WI_S_B_L = 0xC9; // Wait input shape bottom left
+static const u16 WI_S_B_R = 0xCA; // Wait input shape bottom right
 // Lose shape
-static const u16 L_S_T_L = 0xBA; // Lose shape top left
-static const u16 L_S_T_R = 0xBB; // Lose shape top right
-static const u16 L_S_B_L = 0xBC; // Lose shape bottom left
-static const u16 L_S_B_R = 0xBD; // Lose shape bottom right
+static const u16 L_S_T_L = 0xB5; // Lose shape top left
+static const u16 L_S_T_R = 0xB6; // Lose shape top right
+static const u16 L_S_B_L = 0xC1; // Lose shape bottom left
+static const u16 L_S_B_R = 0xC2; // Lose shape bottom right
 // Zero shape
 static const u16 ZERO_S_T_L = 0x44; // Zero shape top left
 static const u16 ZERO_S_T_R = 0x94; // Zero shape top right
@@ -194,5 +199,82 @@ static const u16 STDY_F_S_T_R = 0xBC; // Stady fill shape top right
 static const u16 STDY_F_S_B_L = 0xC7; // Stady fill shape bottom left
 static const u16 STDY_F_S_B_R = 0xC8; // Stady fill shape bottom right
 
+// Timer pie
+// 11 point
+static const u16 EL_P_S_T_L = 0xCD; // 11 point shape top left
+static const u16 EL_P_S_T_R = 0xCE; // 11 point shape top right
+static const u16 EL_P_S_B_L = 0xCF; // 11 point shape bottom left
+static const u16 EL_P_S_B_R = 0xD0; // 11 point shape bottom right
+
+// 9 point
+static const u16 NIN_P_S_T_L = 0xAB; // 9 point shape top left
+static const u16 NIN_P_S_T_R = 0xCE; // 9 point shape top right
+static const u16 NIN_P_S_B_L = 0xCF; // 9 point shape bottom left
+static const u16 NIN_P_S_B_R = 0xD0; // 9 point shape bottom right
+
+// 7 point
+static const u16 SVN_P_S_T_L = 0xAB; // 7 point shape top left
+static const u16 SVN_P_S_T_R = 0xCE; // 7 point shape top right
+static const u16 SVN_P_S_B_L = 0xD1; // 7 point shape bottom left
+static const u16 SVN_P_S_B_R = 0xD0; // 7 point shape bottom right
+
+// 6 point
+static const u16 SIX_P_S_T_L = 0xAB; // 6 point shape top left
+static const u16 SIX_P_S_T_R = 0xCE; // 6 point shape top right
+static const u16 SIX_P_S_B_L = 0xB3; // 6 point shape bottom left
+static const u16 SIX_P_S_B_R = 0xD0; // 6 point shape bottom right
+
+// 5 point
+static const u16 FIVE_P_S_T_L = 0xAB; // 5 point shape top left
+static const u16 FIVE_P_S_T_R = 0xC0; // 5 point shape top right
+static const u16 FIVE_P_S_B_L = 0xB3; // 5 point shape bottom left
+static const u16 FIVE_P_S_B_R = 0xD2; // 5 point shape bottom right
+
+// 3 point
+static const u16 THREE_P_S_T_L = 0xAB; // 3 point shape top left
+static const u16 THREE_P_S_T_R = 0xC0; // 3 point shape top right
+static const u16 THREE_P_S_B_L = 0xB3; // 3 point shape bottom left
+static const u16 THREE_P_S_B_R = 0xB4; // 3 point shape bottom right
+
+// 2 points
+// 5 countdown point
+static const u16 TWO_F_P_S_T_L = 0x40; // 2 point countdown 5 shape top left
+static const u16 TWO_F_P_S_T_R = 0xD3; // 2 point countdown 5 shape top right
+static const u16 TWO_F_P_S_B_L = 0xA0; // 2 point countdown 5 shape bottom left
+static const u16 TWO_F_P_S_B_R = 0x4D; // 2 point countdown 5 shape bottom right
+
+// 4 countdown point
+static const u16 TWO_FR_P_S_T_L = 0x98; // 2 point countdown 4 shape top left
+static const u16 TWO_FR_P_S_T_R = 0xD4; // 2 point countdown 4 shape top right
+static const u16 TWO_FR_P_S_B_L = 0xA2; // 2 point countdown 4 shape bottom left
+static const u16 TWO_FR_P_S_B_R = 0xA3; // 2 point countdown 4 shape bottom right
+
+// 3 countdown point
+static const u16 TWO_THR_P_S_T_L = 0x70; // 2 point countdown 3 shape top left
+static const u16 TWO_THR_P_S_T_R = 0xD5; // 2 point countdown 3 shape top right
+static const u16 TWO_THR_P_S_B_L = 0xA0; // 2 point countdown 3 shape bottom left
+static const u16 TWO_THR_P_S_B_R = 0xA1; // 2 point countdown 3 shape bottom right
+
+// 2 countdown point
+static const u16 TWO_TWO_P_S_T_L = 0x97; // 2 point countdown 2 shape top left
+static const u16 TWO_TWO_P_S_T_R = 0xD6; // 2 point countdown 2 shape top right
+static const u16 TWO_TWO_P_S_B_L = 0x9E; // 2 point countdown 2 shape bottom left
+static const u16 TWO_TWO_P_S_B_R = 0x9F; // 2 point countdown 2 shape bottom right
+
+// 1 countdown point
+static const u16 TWO_ONE_P_S_T_L = 0x95; // 2 point countdown 1 shape top left
+static const u16 TWO_ONE_P_S_T_R = 0xD7; // 2 point countdown 1 shape top right
+static const u16 TWO_ONE_P_S_B_L = 0x9C; // 2 point countdown 1 shape bottom left
+static const u16 TWO_ONE_P_S_B_R = 0x9D; // 2 point countdown 1 shape bottom right
+
+// Time out point
+static const u16 TIME_OUT_P_S_T_L = 0xD8; // Time out point shape top left
+static const u16 TIME_OUT_P_S_T_R = 0xD9; // Time out point shape top right
+static const u16 TIME_OUT_P_S_B_L = 0xDA; // Time out point shape bottom left
+static const u16 TIME_OUT_P_S_B_R = 0xDB; // Time out point shape bottom right
+
 static const int BUTTON_NUMBERS[] = {16, 9, 8, 7, 10, 11, 12, 13, 14, 15};
+
+static const u16 TIMER_SEGMENT_NUMBERS[] = {32, 33, 34, 35, 36, 37};
+static const u16 TIMER_LAST_SEGMENT_NUMBERS[] = {43, 42, 41, 40, 39, 38};
 #endif

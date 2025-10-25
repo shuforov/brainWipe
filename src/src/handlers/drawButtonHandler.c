@@ -244,5 +244,136 @@ void drawButtonShape(u16 x, u16 y, int buttonType) {
     VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, STDY_F_S_B_R), x + 1,
                      y + 1);
     break;
+  case 32: // Timer pie 11 point
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, EL_P_S_T_L), x, y);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, EL_P_S_T_R), x + 1, y);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, EL_P_S_B_L), x, y + 1);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, EL_P_S_B_R), x + 1,
+                     y + 1);
+    break;
+  case 33: // Timer pie 9 point
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, NIN_P_S_T_L), x, y);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, NIN_P_S_T_R), x + 1,
+                     y);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, NIN_P_S_B_L), x,
+                     y + 1);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, NIN_P_S_B_R), x + 1,
+                     y + 1);
+    break;
+  case 34: // Timer pie 7 point
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, SVN_P_S_T_L), x, y);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, SVN_P_S_T_R), x + 1,
+                     y);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, SVN_P_S_B_L), x,
+                     y + 1);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, SVN_P_S_B_R), x + 1,
+                     y + 1);
+    break;
+  case 35: // Timer pie 6 point
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, SIX_P_S_T_L), x, y);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, SIX_P_S_T_R), x + 1,
+                     y);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, SIX_P_S_B_L), x,
+                     y + 1);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, SIX_P_S_B_R), x + 1,
+                     y + 1);
+    break;
+  case 36: // Timer pie 5 point
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, FIVE_P_S_T_L), x, y);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, FIVE_P_S_T_R), x + 1,
+                     y);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, FIVE_P_S_B_L), x,
+                     y + 1);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, FIVE_P_S_B_R), x + 1,
+                     y + 1);
+    break;
+  case 37: // Timer pie 3 point
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, THREE_P_S_T_L), x, y);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, THREE_P_S_T_R), x + 1,
+                     y);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, THREE_P_S_B_L), x,
+                     y + 1);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, THREE_P_S_B_R), x + 1,
+                     y + 1);
+    break;
+  case 38: // Timer pie 2 point 5 countdown
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, TWO_F_P_S_T_L), x, y);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, TWO_F_P_S_T_R), x + 1,
+                     y);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, TWO_F_P_S_B_L), x,
+                     y + 1);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, TWO_F_P_S_B_R), x + 1,
+                     y + 1);
+    break;
+  case 39: // Timer pie 2 point 4 countdown
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, TWO_FR_P_S_T_L), x, y);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, TWO_FR_P_S_T_R), x + 1,
+                     y);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, TWO_FR_P_S_B_L), x,
+                     y + 1);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, TWO_FR_P_S_B_R), x + 1,
+                     y + 1);
+    break;
+  case 40: // Timer pie 2 point 3 countdown
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, TWO_THR_P_S_T_L), x,
+                     y);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, TWO_THR_P_S_T_R),
+                     x + 1, y);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, TWO_THR_P_S_B_L), x,
+                     y + 1);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, TWO_THR_P_S_B_R),
+                     x + 1, y + 1);
+    break;
+  case 41: // Timer pie 2 point 2 countdown
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, TWO_TWO_P_S_T_L), x,
+                     y);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, TWO_TWO_P_S_T_R),
+                     x + 1, y);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, TWO_TWO_P_S_B_L), x,
+                     y + 1);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, TWO_TWO_P_S_B_R),
+                     x + 1, y + 1);
+    break;
+  case 42: // Timer pie 2 point 1 countdown
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, TWO_ONE_P_S_T_L), x,
+                     y);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, TWO_ONE_P_S_T_R),
+                     x + 1, y);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, TWO_ONE_P_S_B_L), x,
+                     y + 1);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, TWO_ONE_P_S_B_R),
+                     x + 1, y + 1);
+    break;
+  case 43: // Time out point
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, TIME_OUT_P_S_T_L), x,
+                     y);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, TIME_OUT_P_S_T_R),
+                     x + 1, y);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, TIME_OUT_P_S_B_L), x,
+                     y + 1);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, TIME_OUT_P_S_B_R),
+                     x + 1, y + 1);
+    break;
+  case 44: // Wait input shape
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, WI_S_T_L), x, y);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, WI_S_T_R), x + 1, y);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, WI_S_B_L), x, y + 1);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, WI_S_B_R), x + 1,
+                     y + 1);
+    break;
+  case 45: // Lose shape
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, L_S_T_L), x, y);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, L_S_T_R), x + 1, y);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, L_S_B_L), x, y + 1);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, L_S_B_R), x + 1,
+                     y + 1);
+    break;
+  case 46: // Success shape
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, S_S_T_L), x, y);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, S_S_T_R), x + 1, y);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, S_S_B_L), x, y + 1);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, S_S_B_R), x + 1,
+                     y + 1);
+    break;
   }
 }
