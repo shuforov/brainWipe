@@ -11,9 +11,6 @@
 bool isRendered = false;
 u16 curW = 3;
 u16 curH = 3;
-u16 countDown = 5;
-bool countDownActive = false;
-u16 countDownCurrentState;
 struct popUpTransform popUpData;
 
 void drawPopup(u16 x, u16 y, u16 w, u16 h) {
@@ -38,45 +35,17 @@ void drawPopup(u16 x, u16 y, u16 w, u16 h) {
 
   // left and right edges
   for (u16 j = 1; j < h - 1; j++) {
-    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, TILE_LEFT_EDGE), x, y + j);
-    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, TILE_RIGHT_EDGE), x + w - 1, y + j);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, TILE_LEFT_EDGE), x,
+                     y + j);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, TILE_RIGHT_EDGE),
+                     x + w - 1, y + j);
   }
 
   // fill center
   for (u16 j = 1; j < h - 1; j++) {
     for (u16 i = 1; i < w - 1; i++) {
-      VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, TILE_BLACK), x + i, y + j);
-    }
-  }
-}
-
-void setCountDownState(u16 state) {
-  switch (state) {
-  case 0: // set button shape to GO state
-    countDownCurrentState = 17;
-    enableCountDown();
-    break;
-  case 1: // set button shape to Stady state
-    countDownCurrentState = 31;
-    enableCountDown();
-    setStadyButtonsAnimation(true);
-    break;
-  case 2: // set button shape to Timer pie countdown
-    break;
-  }
-}
-
-void countDownStateProcess() {
-  bool secondPass = getTick() % 240 == 0;
-  if (secondPass && countDown >= 0) {
-    if (countDown == 0) {
-      getButtonsInPopUp()[0].idTag = countDownCurrentState;
-      disableCountDown();
-      setStadyButtonsAnimation(false);
-      countDown = 5;
-    } else {
-      getButtonsInPopUp()[0].idTag = BUTTON_NUMBERS[countDown];
-      countDown--;
+      VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, TILE_BLACK), x + i,
+                       y + j);
     }
   }
 }
@@ -87,12 +56,6 @@ void drawButtons() {
                     getButtonsInPopUp()[i].idTag);
   }
 }
-
-void enableCountDown() { countDownActive = true; }
-
-void disableCountDown() { countDownActive = false; }
-
-bool getCountDownActive() { return countDownActive; }
 
 bool popUpAnimation(u16 x, u16 y, u16 w, u16 h) {
   popUpData.x = x;
@@ -125,5 +88,31 @@ bool popUpAnimation(u16 x, u16 y, u16 w, u16 h) {
 
 void startMgna() {
   generateMgna(0, 5, 3);
-  setPuzzleButtonAnimation(true);
+  setCountDownState(1);
+  getButtonsInPopUp()[1].idTag = 0; // reset to clear shape
+}
+
+bool sizeMgnaEqlPuzzlePlayerInputArray() {
+  return getMgnaCounter() == getPuzzlePlayerInputArrayCounter();
+}
+
+bool checkPuzzlePlayerPass() { return mgnaEqlPpia(); }
+
+bool isPuzzleProcessActive() { return getPuzzleWaitPlayerInput(); }
+
+void stopMgna() {
+  resetMgnaArray();
+  resetPuzzlePlayerInputArray();
+  setPuzzleWaitPlayerInput(false);
+  setTimerPieButtonAnimation(false, 0);
+  disableCountDown();
+  getButtonsInPopUp()[0].idTag = 0; // reset to clear shape
+}
+
+void lostRound() {
+  getButtonsInPopUp()[1].idTag = 45; // Swap to lose shape
+}
+
+void winRound() {
+  getButtonsInPopUp()[1].idTag = 46; // Swap to success shape
 }

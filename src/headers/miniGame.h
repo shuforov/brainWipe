@@ -13,11 +13,12 @@ struct popUpTransform {
 void drawPopup(u16 x, u16 y, u16 w, u16 h);
 bool popUpAnimation(u16 x, u16 y, u16 w, u16 h);
 void drawButtons();
-void setCountDownState(u16 state);
-void countDownStateProcess();
-void enableCountDown();
-void disableCountDown();
-bool getCountDownActive();
 void startMgna();
+bool sizeMgnaEqlPuzzlePlayerInputArray();
+bool checkPuzzlePlayerPass();
+bool isPuzzleProcessActive();
+void stopMgna();
+void lostRound();
+void winRound();
 
 #endif // MINI_GAME_H

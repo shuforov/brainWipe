@@ -1,7 +1,7 @@
 #include <genesis.h>
 #include "../../headers/handlers/buttonAnimationHandler.h"
-#include "../../headers/handlers/debugHandler.h"
 #include "../../headers/handlers/commonMiniGameHandler.h"
+#include "../../headers/handlers/debugHandler.h"
 #include "../../headers/handlers/timerHandler.h"
 #include "../../headers/miniGameConstants.h"
 
@@ -9,10 +9,15 @@ bool isButtonAnimationActive = false;
 bool isStadyButtonsAnimationActive = false;
 bool isTimerPieButtonAnimationActive = false;
 bool isPuzzleButtonANimationActive = false;
+u16 puzzleCounter;
 u16 stadyButtonAnimationsArray[2] = {31, 30};
 u16 buttonAnimationType = 0;
 u16 buttonCountDown = 1;
-u16 puzzleCounter;
+u16 delayTimerCounter = 0;
+bool delayTimerActive = false;
+u16 countDown = 5;
+bool countDownActive = false;
+u16 countDownCurrentState;
 
 void buttonAnimation() {
   if (isButtonAnimationActive) {
@@ -68,7 +73,7 @@ void setButtonAnimationState(u16 buttonType, bool state) {
   if (buttonType >= 0 && buttonType <= 5) {
     buttonCountDown =
         2; // Set button count down timer for X Y Z A B C buttons animation
-  } else if (buttonType == 6) {
+  } else if (buttonType == 6) { // TODO: REMOVE maybe not using this else if
     buttonCountDown =
         1; // Set button count down timer for Stady button animation
   }
@@ -93,11 +98,13 @@ void buttonAnimationProcess(u16 buttonIndex, u16 buttonType[]) {
   bool passState = getTick() % 25 == 0;
   if (passState && buttonCountDown >= 0) {
     if (buttonCountDown == 0) {
-      getButtonsInPopUp()[buttonIndex].idTag = buttonType[buttonCountDown]; // Set default BUTTON shape button
+      getButtonsInPopUp()[buttonIndex].idTag =
+          buttonType[buttonCountDown]; // Set default BUTTON shape button
       buttonCountDown = 2;
       isButtonAnimationActive = false;
     } else {
-      getButtonsInPopUp()[buttonIndex].idTag = buttonType[buttonCountDown]; // Set other BUTTON shape
+      getButtonsInPopUp()[buttonIndex].idTag =
+          buttonType[buttonCountDown]; // Set other BUTTON shape
       buttonCountDown--;
     }
   }
@@ -107,7 +114,7 @@ void stadyButtonsAnimation() {
   bool passState = getTick() % 120 == 0;
   if (passState && buttonCountDown >= 0) {
     if (buttonCountDown == 0) {
-      buttonCountDown = 2;
+      buttonCountDown = 1;
     } else {
       buttonCountDown--;
     }
@@ -122,7 +129,6 @@ void setTimerPieButtonAnimation(bool state, u16 totalTime) {
   if (state) {
     setTimerTotalTime(totalTime);
     setTimerTimeLeft(totalTime);
-    getButtonsInPopUp()[1].idTag = 44;
     isTimerPieButtonAnimationActive = true;
   } else {
     isTimerPieButtonAnimationActive = false;
@@ -138,6 +144,7 @@ void timerPieButtonAnimation() {
       getButtonsInPopUp()[0].idTag =
           TIMER_LAST_SEGMENT_NUMBERS[getSegmentNum()];
     }
+    getButtonsInPopUp()[1].idTag = 44;
     if (getTimerTimeLeft() == 0) {
       getButtonsInPopUp()[1].idTag = 45;
       setTimerPieButtonAnimation(false, 0);
@@ -150,14 +157,17 @@ void timerPieButtonAnimation() {
 void setPuzzleButtonAnimation(bool state) {
   if (state) {
     puzzleCounter = 0;
+    setDelayTimerAnimation(true, 2);
     isPuzzleButtonANimationActive = true;
   } else {
     isPuzzleButtonANimationActive = false;
+    setDelayTimerAnimation(true, 2);
+    setCountDownState(0);
   }
 }
 
 void puzzleButtonAnimation() {
-  bool passState = getTick() % 120 == 0;
+  bool passState = getTick() % 240 == 0;
   if (passState) {
     if (!isButtonAnimation()) {
       setButtonAnimationState(getMgna()[puzzleCounter], true);
@@ -177,3 +187,61 @@ bool isStadyButtonsAnimation() { return isStadyButtonsAnimationActive; }
 bool isTimerPieButtonAnimation() { return isTimerPieButtonAnimationActive; }
 
 bool isPuzzleButtonAnimation() { return isPuzzleButtonANimationActive; }
+
+void setDelayTimerAnimation(bool state, u16 time) {
+  delayTimerCounter = time;
+  delayTimerActive = state;
+}
+
+bool isDelayTimerAnimation() { return delayTimerActive; }
+
+void delayTimerAnimationProcess() {
+  bool passState = getTick() % 240 == 0;
+  if (passState) {
+    if (delayTimerCounter == 0) {
+      delayTimerActive = false;
+    } else {
+      delayTimerCounter--;
+    }
+  }
+}
+
+void setCountDownState(u16 state) {
+  switch (state) {
+  case 0: // set button shape to GO state
+    countDownCurrentState = 17;
+    enableCountDown();
+    break;
+  case 1: // set button shape to Stady state
+    countDownCurrentState = 31;
+    enableCountDown();
+    setStadyButtonsAnimation(true);
+    break;
+  }
+}
+
+void countDownStateProcess() {
+  bool secondPass = getTick() % 240 == 0;
+  if (secondPass && countDown >= 0) {
+    if (countDown == 0) {
+      getButtonsInPopUp()[0].idTag = countDownCurrentState;
+      if (countDownCurrentState == 17) { // if count down state is GO state
+        resetPuzzlePlayerInputArray();
+        setDelayTimerAnimation(true, 1);
+        setPuzzleWaitPlayerInput(true);
+        setTimerPieButtonAnimation(true, 30);
+      }
+      disableCountDown();
+      countDown = 5;
+    } else {
+      getButtonsInPopUp()[0].idTag = BUTTON_NUMBERS[countDown];
+      countDown--;
+    }
+  }
+}
+
+void enableCountDown() { countDownActive = true; }
+
+void disableCountDown() { countDownActive = false; }
+
+bool getCountDownActive() { return countDownActive; }

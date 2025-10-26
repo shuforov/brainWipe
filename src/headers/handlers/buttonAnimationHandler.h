@@ -17,5 +17,13 @@ void timerPieButtonAnimation();
 void setPuzzleButtonAnimation(bool state);
 void puzzleButtonAnimation();
 bool isPuzzleButtonAnimation();
+bool isDelayTimerAnimation();
+void delayTimerAnimationProcess();
+void setDelayTimerAnimation(bool state, u16 time);
+void setCountDownState(u16 state);
+void countDownStateProcess();
+void enableCountDown();
+void disableCountDown();
+bool getCountDownActive();
 
 #endif

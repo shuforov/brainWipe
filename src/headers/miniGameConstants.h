@@ -121,10 +121,10 @@ static const u16 G_S_T_R = 0xAA; // GO shape top right
 static const u16 G_S_B_L = 0xB1; // GO shape bottom left
 static const u16 G_S_B_R = 0xB2; // GO shape bottom right
 // Success shape
-static const u16 S_S_T_L = 0xB5; // Success shape top left
-static const u16 S_S_T_R = 0xB6; // Success shape top right
-static const u16 S_S_B_L = 0xB8; // Success shape bottom left
-static const u16 S_S_B_R = 0xB9; // Success shape bottom right
+static const u16 S_S_T_L = 0xB7; // Success shape top left
+static const u16 S_S_T_R = 0xB8; // Success shape top right
+static const u16 S_S_B_L = 0xC3; // Success shape bottom left
+static const u16 S_S_B_R = 0xC4; // Success shape bottom right
 // Wait input shape
 static const u16 WI_S_T_L = 0xBD; // Wait input shape top left
 static const u16 WI_S_T_R = 0xBE; // Wait input shape rop right

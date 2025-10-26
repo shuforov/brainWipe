@@ -4,6 +4,7 @@
 #include "../headers/miniGame.h"
 #include "../headers/handlers/debugHandler.h"
 #include "../headers/handlers/buttonAnimationHandler.h"
+#include "../headers/handlers/inputHandler.h"
 
 void init() {
   // init inputs
@@ -46,58 +47,43 @@ void update() {
     buttonAnimation();
   }
   if (isStadyButtonsAnimation()) {
-    stadyButtonsAnimation();
+    if (getCountDownActive()) {
+      stadyButtonsAnimation();
+    } else {
+      setPuzzleButtonAnimation(true);
+      setStadyButtonsAnimation(false);
+    }
   }
   if (isTimerPieButtonAnimation()) {
-    timerPieButtonAnimation();
+    if (!isDelayTimerAnimation()) {
+      timerPieButtonAnimation();
+      if (isPuzzleProcessActive()) {
+        if (sizeMgnaEqlPuzzlePlayerInputArray()) {
+          if (checkPuzzlePlayerPass()) {
+            KLog("its eql");
+            stopMgna();
+            winRound();
+          } else {
+            KLog("its NOT eql");
+            stopMgna();
+            lostRound();
+          }
+        }
+      }
+    }
   }
   if (isPuzzleButtonAnimation()) {
-    puzzleButtonAnimation();
+    if (!isDelayTimerAnimation())
+      puzzleButtonAnimation();
+  }
+
+  if (isDelayTimerAnimation()) {
+    delayTimerAnimationProcess();
   }
 
   printInt(10, 17, getTick()); // print current frame from start of rom
 }
 
 void myJoyHandler(u16 joy, u16 changed, u16 state) {
-  if (joy == JOY_1) {
-    if (state & BUTTON_START) {
-      /* setCountDownState(1); */
-      /* if (!isButtonAnimation()) { */
-      /*   setButtonAnimationState(6, true); */
-      /* } */
-      /* setTimerPieButtonAnimation(true, 12); // 12 sec of coundown timer
-       * animation */
-      startMgna();
-    }
-    if (state & BUTTON_X) {
-      if (!isButtonAnimation()) {
-        setButtonAnimationState(0, true);
-      }
-    }
-    if (state & BUTTON_Y) {
-      if (!isButtonAnimation()) {
-        setButtonAnimationState(1, true);
-      }
-    }
-    if (state & BUTTON_Z) {
-      if (!isButtonAnimation()) {
-        setButtonAnimationState(2, true);
-      }
-    }
-    if (state & BUTTON_A) {
-      if (!isButtonAnimation()) {
-        setButtonAnimationState(3, true);
-      }
-    }
-    if (state & BUTTON_B) {
-      if (!isButtonAnimation()) {
-        setButtonAnimationState(4, true);
-      }
-    }
-    if (state & BUTTON_C) {
-      if (!isButtonAnimation()) {
-        setButtonAnimationState(5, true);
-      }
-    }
-  }
+  joyUpdate(joy, changed, state);
 }
