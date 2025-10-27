@@ -4,7 +4,7 @@
 int main() {
   init();
   while (1) {
-    update();
+    updateGameEngine();
 
     SYS_doVBlankProcess();
   }

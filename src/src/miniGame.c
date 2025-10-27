@@ -12,6 +12,11 @@ bool isRendered = false;
 u16 curW = 3;
 u16 curH = 3;
 struct popUpTransform popUpData;
+bool isReadyToFirstStartMgna = false;
+bool isPopUpRenderAnimationActive = false;
+bool isButtonRedrawActive = false;
+bool isPauseBetweenRoundActive = false;
+bool canRunStartMgna = true;
 
 void drawPopup(u16 x, u16 y, u16 w, u16 h) {
   // e.g. w = 5, h = 4 gives you a 5x4 popup box
@@ -57,39 +62,42 @@ void drawButtons() {
   }
 }
 
-bool popUpAnimation(u16 x, u16 y, u16 w, u16 h) {
+void popUpAnimation(u16 x, u16 y, u16 w, u16 h) {
   popUpData.x = x;
   popUpData.y = y;
   popUpData.w = w;
   popUpData.h = h;
-  if (isRendered) {
-    drawPopup(x, y, w, h);
-    return true;
-  }
   if ((getTick() % 20) == 0) { // every 1/4 of second
     if (w != curW || h != curH) {
-      if (curW < w) {
+      if (curW <= w) {
         drawPopup(x, y, curW, curH);
-        curW++;
+        if (curW < w) {
+          curW++;
+        }
       }
-      if (curH < h) {
+      if (curH <= h) {
         drawPopup(x, y, curW, curH);
-        curH++;
+        if (curH < h) {
+          curH++;
+        }
       }
     } else {
-      isRendered = true;
+      isPopUpRenderAnimationActive = false;
       curH = 3;
       curW = 3;
-      return true;
+      isButtonRedrawActive = true;
+      isReadyToFirstStartMgna = true;
     }
   }
-  return false;
 }
 
 void startMgna() {
-  generateMgna(0, 5, 3);
-  setCountDownState(1);
-  getButtonsInPopUp()[1].idTag = 0; // reset to clear shape
+  canRunStartMgna = false;
+  if (getRoundCount() > 0) {
+    generateMgna(0, 5, 3);
+    setCountDownState(1);
+    getButtonsInPopUp()[1].idTag = 0; // reset to clear shape
+  }
 }
 
 bool sizeMgnaEqlPuzzlePlayerInputArray() {
@@ -107,12 +115,102 @@ void stopMgna() {
   setTimerPieButtonAnimation(false, 0);
   disableCountDown();
   getButtonsInPopUp()[0].idTag = 0; // reset to clear shape
+  canRunStartMgna = true;
 }
 
 void lostRound() {
   getButtonsInPopUp()[1].idTag = 45; // Swap to lose shape
+  decreaseRoundCountNumber();
+  getButtonsInPopUp()[2].idTag = BUTTON_NUMBERS[getRoundCount()];
+  setPauseBetweenRound(true);
 }
 
 void winRound() {
   getButtonsInPopUp()[1].idTag = 46; // Swap to success shape
+  decreaseRoundCountNumber();
+  getButtonsInPopUp()[2].idTag = BUTTON_NUMBERS[getRoundCount()];
+  setPauseBetweenRound(true);
+}
+
+bool getReadyToFirstStartMgna() { return isReadyToFirstStartMgna; }
+
+void firstStartMgna() {
+  setRoundCountNumber(5);
+  startMgna();
+  isReadyToFirstStartMgna = false;
+}
+
+bool isPopUpRenderAnimation() { return isPopUpRenderAnimationActive; }
+
+void setPopUpRenderAnimationState(bool state) {
+  isPopUpRenderAnimationActive = true;
+}
+
+bool isButtonRedraw() { return isButtonRedrawActive; }
+
+void updateMiniGame() {
+  if (isPopUpRenderAnimation()) {
+    popUpAnimation(10, 8, 8, 9);
+  }
+
+  if (isButtonRedraw()) {
+    drawButtons();
+  }
+
+  if (getReadyToFirstStartMgna()) {
+    firstStartMgna();
+  }
+
+  if (getPauseBetweenRoundActive()) {
+    if (!isDelayTimerAnimation()) {
+      if (canRunStartMgna) {
+        startMgna();
+      }
+    }
+  }
+
+  if (getCountDownActive()) {
+    countDownStateProcess();
+  }
+  if (isButtonAnimation()) {
+    buttonAnimation();
+  }
+  if (isStadyButtonsAnimation()) {
+    if (getCountDownActive()) {
+      stadyButtonsAnimation();
+    } else {
+      setPuzzleButtonAnimation(true);
+      setStadyButtonsAnimation(false);
+    }
+  }
+  if (isTimerPieButtonAnimation()) {
+    if (!isDelayTimerAnimation()) {
+      timerPieButtonAnimation();
+      if (isPuzzleProcessActive()) {
+        if (sizeMgnaEqlPuzzlePlayerInputArray()) {
+          if (checkPuzzlePlayerPass()) {
+            winRound();
+          } else {
+            lostRound();
+          }
+        }
+      }
+    }
+  }
+  if (isPuzzleButtonAnimation()) {
+    if (!isDelayTimerAnimation())
+      puzzleButtonAnimation();
+  }
+
+  if (isDelayTimerAnimation()) {
+    delayTimerAnimationProcess();
+  }
+}
+
+bool getPauseBetweenRoundActive() { return isPauseBetweenRoundActive; }
+
+void setPauseBetweenRound(bool state) {
+  stopMgna();
+  isPauseBetweenRoundActive = true;
+  setDelayTimerAnimation(true, 1);
 }

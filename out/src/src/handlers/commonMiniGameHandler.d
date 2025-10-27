@@ -53,4 +53,5 @@ out/src/src/handlers/commonMiniGameHandler.o: \
  /opt/toolchains/mars/m68k-elf/inc/string.h \
  /opt/toolchains/mars/m68k-elf/inc/maths.h \
  /opt/toolchains/mars/m68k-elf/inc/dma.h \
- src/src/handlers/../../headers/handlers/commonMiniGameHandler.h
+ src/src/handlers/../../headers/handlers/commonMiniGameHandler.h \
+ src/src/handlers/../../headers/miniGameConstants.h

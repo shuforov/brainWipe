@@ -25,5 +25,9 @@ void printPuzzlePlayerInputArray();
 void resetMgnaArray();
 u16 getPuzzlePlayerInputArrayCounter();
 bool mgnaEqlPpia();
+void resetRoundCount();
+void setRoundCountNumber(u16 roundNum);
+void decreaseRoundCountNumber();
+u16 getRoundCount();
 
 #endif

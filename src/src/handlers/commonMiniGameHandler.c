@@ -1,5 +1,6 @@
 #include <genesis.h>
 #include "../../headers/handlers/commonMiniGameHandler.h"
+#include "../../headers/miniGameConstants.h"
 
 struct buttonMetadata buttonsInPopUp[] = {
     {11, 9, 0},  // count down timer
@@ -20,6 +21,7 @@ u16 mgnaCounter = 0; // how many numbers are currently in mgna array
 bool isPuzzleWaitPlayerInput = false;
 u16 puzzlePlayerInputArray[M_G_N_A_MAX_SIZE] = {};
 u16 puzzlePlayerInputArrayCounter = 0;
+u16 roundCounter = 5;
 
 void generateMgna(u16 min, u16 max, u16 howMany) {
   // prevent overflow
@@ -87,3 +89,17 @@ bool mgnaEqlPpia() {
   }
   return true;
 }
+
+void resetRoundCount() {
+  getButtonsInPopUp()[2].idTag = BUTTON_NUMBERS[5]; // set number to 5
+}
+
+void setRoundCountNumber(u16 roundNum) { roundCounter = roundNum; }
+
+void decreaseRoundCountNumber() {
+  if (roundCounter > 0) {
+    roundCounter--;
+  }
+}
+
+u16 getRoundCount() { return roundCounter; }

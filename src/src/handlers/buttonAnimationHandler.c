@@ -226,6 +226,7 @@ void countDownStateProcess() {
     if (countDown == 0) {
       getButtonsInPopUp()[0].idTag = countDownCurrentState;
       if (countDownCurrentState == 17) { // if count down state is GO state
+        getButtonsInPopUp()[1].idTag = 44;
         resetPuzzlePlayerInputArray();
         setDelayTimerAnimation(true, 1);
         setPuzzleWaitPlayerInput(true);

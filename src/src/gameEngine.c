@@ -18,6 +18,9 @@ void init() {
   PAL_setColor(0, RGB24_TO_VDPCOLOR(0x6dc2ca));
   VDP_drawText("Hello!", 10, 20);
   setRandomSeed(getTick());
+
+  // Start render minigame
+  setPopUpRenderAnimationState(true);
 }
 
 void loadTiles() {
@@ -33,53 +36,8 @@ void loadTiles() {
   ind += buttonShape.tileset->numTile;
 }
 
-void update() {
-  bool popUpRendered = popUpAnimation(10, 8, 8, 8);
-
-  if (popUpRendered) {
-    drawButtons();
-  }
-
-  if (getCountDownActive()) {
-    countDownStateProcess();
-  }
-  if (isButtonAnimation()) {
-    buttonAnimation();
-  }
-  if (isStadyButtonsAnimation()) {
-    if (getCountDownActive()) {
-      stadyButtonsAnimation();
-    } else {
-      setPuzzleButtonAnimation(true);
-      setStadyButtonsAnimation(false);
-    }
-  }
-  if (isTimerPieButtonAnimation()) {
-    if (!isDelayTimerAnimation()) {
-      timerPieButtonAnimation();
-      if (isPuzzleProcessActive()) {
-        if (sizeMgnaEqlPuzzlePlayerInputArray()) {
-          if (checkPuzzlePlayerPass()) {
-            KLog("its eql");
-            stopMgna();
-            winRound();
-          } else {
-            KLog("its NOT eql");
-            stopMgna();
-            lostRound();
-          }
-        }
-      }
-    }
-  }
-  if (isPuzzleButtonAnimation()) {
-    if (!isDelayTimerAnimation())
-      puzzleButtonAnimation();
-  }
-
-  if (isDelayTimerAnimation()) {
-    delayTimerAnimationProcess();
-  }
+void updateGameEngine() {
+  updateMiniGame();
 
   printInt(10, 17, getTick()); // print current frame from start of rom
 }
