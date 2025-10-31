@@ -12,7 +12,7 @@ void init() {
   JOY_setEventHandler(&myJoyHandler);
 
   loadTiles();
-  PAL_setPalette(PAL1, borderTiles.palette->data, DMA);
+  PAL_setPalette(PAL1, commonPalette.data, DMA);
 
   // Set background color
   PAL_setColor(0, RGB24_TO_VDPCOLOR(0x6dc2ca));
