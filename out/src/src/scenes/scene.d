@@ -1,4 +1,4 @@
-out/src/src/gameEngine.o: src/src/gameEngine.c \
+out/src/src/scenes/scene.o: src/src/scenes/scene.c \
  /opt/toolchains/mars/m68k-elf/inc/genesis.h \
  /opt/toolchains/mars/m68k-elf/inc/types.h \
  /opt/toolchains/mars/m68k-elf/inc/config.h \
@@ -51,9 +51,5 @@ out/src/src/gameEngine.o: src/src/gameEngine.c \
  /opt/toolchains/mars/m68k-elf/inc/config.h \
  /opt/toolchains/mars/m68k-elf/inc/string.h \
  /opt/toolchains/mars/m68k-elf/inc/maths.h \
- /opt/toolchains/mars/m68k-elf/inc/dma.h src/../res/resources.h \
- src/src/../headers/gameEngine.h src/src/../headers/miniGame.h \
- src/src/../headers/handlers/debugHandler.h \
- src/src/../headers/handlers/buttonAnimationHandler.h \
- src/src/../headers/handlers/inputHandler.h \
- src/src/../headers/scenes/scene.h
+ /opt/toolchains/mars/m68k-elf/inc/dma.h \
+ src/src/scenes/../../headers/scenes/scene.h

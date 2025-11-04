@@ -5,8 +5,17 @@
 #include "../headers/handlers/debugHandler.h"
 #include "../headers/handlers/buttonAnimationHandler.h"
 #include "../headers/handlers/inputHandler.h"
+#include "../headers/scenes/scene.h"
 
 void init() {
+  // init SceneManager
+  initSceneManager();
+  KLog("Scene init");
+  // create Scene
+  KLog_U1("Count scenes: ", getSceneManager().sceneCount);
+  createScene("testName");
+  KLog_U1("Count scenes: ", getSceneManager().sceneCount);
+
   // init inputs
   JOY_init();
   JOY_setEventHandler(&myJoyHandler);
