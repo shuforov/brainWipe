@@ -2,9 +2,9 @@
 #include "headers/gameEngine.h"
 
 int main() {
-  init();
+  gameEngineInit();
   while (1) {
-    updateGameEngine();
+    gameEngineUpdate();
 
     SYS_doVBlankProcess();
   }

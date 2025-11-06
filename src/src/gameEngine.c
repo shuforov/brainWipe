@@ -6,49 +6,24 @@
 #include "../headers/handlers/buttonAnimationHandler.h"
 #include "../headers/handlers/inputHandler.h"
 #include "../headers/scenes/scene.h"
+#include "../headers/scenes/mainMenuScene.h"
 
-void init() {
+void gameEngineInit() {
   // init SceneManager
-  initSceneManager();
-  KLog("Scene init");
+  sceneManagerInit();
   // create Scene
-  KLog_U1("Count scenes: ", getSceneManager().sceneCount);
-  createScene("testName");
-  KLog_U1("Count scenes: ", getSceneManager().sceneCount);
+  createScene("main menu", 0, SCENE_MAIN_MENU);
+
+  // set Scene
+  setScene(SCENE_MAIN_MENU);
 
   // init inputs
   JOY_init();
   JOY_setEventHandler(&myJoyHandler);
-
-  loadTiles();
-  PAL_setPalette(PAL1, commonPalette.data, DMA);
-
-  // Set background color
-  PAL_setColor(0, RGB24_TO_VDPCOLOR(0x6dc2ca));
-  VDP_drawText("Hello!", 10, 20);
-  setRandomSeed(getTick());
-
-  // Start render minigame
-  setPopUpRenderAnimationState(true);
 }
 
-void loadTiles() {
-  u16 ind = TILE_USER_INDEX;
-
-  VDP_loadTileSet(borderTiles.tileset, ind, DMA);
-  ind += borderTiles.tileset->numTile;
-
-  VDP_loadTileSet(alphabetUa.tileset, ind, DMA);
-  ind += alphabetUa.tileset->numTile;
-
-  VDP_loadTileSet(buttonShape.tileset, ind, DMA);
-  ind += buttonShape.tileset->numTile;
-}
-
-void updateGameEngine() {
-  updateMiniGame();
-
-  printInt(10, 17, getTick()); // print current frame from start of rom
+void gameEngineUpdate() {
+  sceneUpdate();
 }
 
 void myJoyHandler(u16 joy, u16 changed, u16 state) {

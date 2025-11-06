@@ -19,9 +19,14 @@ typedef struct {
   Scene scenes[MAX_SCENES];
 } SceneManager;
 
-void initSceneManager();
+typedef enum { SCENE_MAIN_MENU, SCENE_HIDE_OUT } SceneId;
+
+void sceneManagerInit();
 SceneManager getSceneManager();
-u16 createScene(char name[]);
+Scene createScene(char name[], u16 entityCount, SceneId idTag);
+bool isScenePresent(char name[]);
+void setScene(SceneId sceneTagId);
 Scene getSceneByName(char name[]);
+void sceneUpdate();
 
 #endif

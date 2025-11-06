@@ -56,4 +56,6 @@ out/src/src/gameEngine.o: src/src/gameEngine.c \
  src/src/../headers/handlers/debugHandler.h \
  src/src/../headers/handlers/buttonAnimationHandler.h \
  src/src/../headers/handlers/inputHandler.h \
+ src/src/../headers/scenes/scene.h \
+ src/src/../headers/scenes/mainMenuScene.h \
  src/src/../headers/scenes/scene.h
