@@ -4,14 +4,15 @@
 #include "../../headers/scenes/mainMenuScene.h"
 #include "../../headers/miniGame.h"
 #include "../../headers/handlers/debugHandler.h"
+#include "../../headers/handlers/inputHandler.h"
+#include "../../headers/handlers/buttonAnimationHandler.h"
+#include "../../headers/handlers/commonMiniGameHandler.h"
 
 Scene mainMenuSceneInit() {
   mainMenuSceneLoadTiles();
   PAL_setPalette(PAL1, commonPalette.data, DMA);
 
-  // Set background color
-  PAL_setColor(0, RGB24_TO_VDPCOLOR(0x6dc2ca));
-  VDP_drawText("Hello!", 10, 20);
+  VDP_drawText("Brain Wipe", 15, 2);
   setRandomSeed(getTick());
 
   // Start render minigame
@@ -33,7 +34,58 @@ void mainMenuSceneLoadTiles() {
 }
 
 void mainMenuSceneUpdate() {
-  miniGameUpdate();
+  printInt(0, 0, getTick()); // print current frame from start of rom
+}
 
-  printInt(10, 17, getTick()); // print current frame from start of rom
+void mainMenuInputHandler() {
+  if (getJoyStates().startButton) {
+  }
+  if (getJoyStates().xButton) {
+    if (getPuzzleWaitPlayerInput()) {
+      if (!isButtonAnimation()) {
+        pushPuzzlePlayerInputArray(0);
+        setButtonAnimationState(0, true);
+      }
+    }
+  }
+  if (getJoyStates().yButton) {
+    if (getPuzzleWaitPlayerInput()) {
+      if (!isButtonAnimation()) {
+        pushPuzzlePlayerInputArray(1);
+        setButtonAnimationState(1, true);
+      }
+    }
+  }
+  if (getJoyStates().zButton) {
+    if (getPuzzleWaitPlayerInput()) {
+      if (!isButtonAnimation()) {
+        pushPuzzlePlayerInputArray(2);
+        setButtonAnimationState(2, true);
+      }
+    }
+  }
+  if (getJoyStates().aButton) {
+    if (getPuzzleWaitPlayerInput()) {
+      if (!isButtonAnimation()) {
+        pushPuzzlePlayerInputArray(3);
+        setButtonAnimationState(3, true);
+      }
+    }
+  }
+  if (getJoyStates().bButton) {
+    if (getPuzzleWaitPlayerInput()) {
+      if (!isButtonAnimation()) {
+        pushPuzzlePlayerInputArray(4);
+        setButtonAnimationState(4, true);
+      }
+    }
+  }
+  if (getJoyStates().cButton) {
+    if (getPuzzleWaitPlayerInput()) {
+      if (!isButtonAnimation()) {
+        pushPuzzlePlayerInputArray(5);
+        setButtonAnimationState(5, true);
+      }
+    }
+  }
 }

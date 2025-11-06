@@ -28,5 +28,6 @@ bool isScenePresent(char name[]);
 void setScene(SceneId sceneTagId);
 Scene getSceneByName(char name[]);
 void sceneUpdate();
+void sceneInputHandle();
 
 #endif

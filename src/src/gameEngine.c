@@ -13,10 +13,8 @@ void gameEngineInit() {
   sceneManagerInit();
   // create Scene
   createScene("main menu", 0, SCENE_MAIN_MENU);
-
   // set Scene
   setScene(SCENE_MAIN_MENU);
-
   // init inputs
   JOY_init();
   JOY_setEventHandler(&myJoyHandler);

@@ -54,3 +54,10 @@ void sceneUpdate() {
     mainMenuSceneUpdate();
   }
 }
+
+void sceneInputHandle() {
+  SceneId idTagScene = currentSceneManager.currentScene->idTag;
+  if (idTagScene == SCENE_MAIN_MENU) {
+    mainMenuInputHandler();
+  }
+}

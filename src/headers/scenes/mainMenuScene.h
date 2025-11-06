@@ -6,5 +6,6 @@
 Scene mainMenuSceneInit();
 void mainMenuSceneLoadTiles();
 void mainMenuSceneUpdate();
+void mainMenuInputHandler();
 
 #endif

@@ -56,4 +56,7 @@ out/src/src/scenes/mainMenuScene.o: src/src/scenes/mainMenuScene.c \
  src/src/scenes/../../headers/scenes/mainMenuScene.h \
  src/src/scenes/../../headers/scenes/scene.h \
  src/src/scenes/../../headers/miniGame.h \
- src/src/scenes/../../headers/handlers/debugHandler.h
+ src/src/scenes/../../headers/handlers/debugHandler.h \
+ src/src/scenes/../../headers/handlers/inputHandler.h \
+ src/src/scenes/../../headers/handlers/buttonAnimationHandler.h \
+ src/src/scenes/../../headers/handlers/commonMiniGameHandler.h
