@@ -54,4 +54,5 @@ out/src/src/scenes/scene.o: src/src/scenes/scene.c \
  /opt/toolchains/mars/m68k-elf/inc/dma.h \
  src/src/scenes/../../headers/scenes/scene.h \
  src/src/scenes/../../headers/scenes/mainMenuScene.h \
- src/src/scenes/../../headers/scenes/scene.h
+ src/src/scenes/../../headers/scenes/scene.h \
+ src/src/scenes/../../headers/scenes/../handlers/commonStructHandler.h

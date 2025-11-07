@@ -375,5 +375,12 @@ void drawButtonShape(u16 x, u16 y, int buttonType) {
     VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, S_S_B_R), x + 1,
                      y + 1);
     break;
+  case 47: // Blank black square
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, TILE_BLACK), x, y);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, TILE_BLACK), x + 1, y);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, TILE_BLACK), x, y + 1);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, TILE_BLACK), x + 1,
+                     y + 1);
+    break;
   }
 }

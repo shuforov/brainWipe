@@ -7,6 +7,10 @@
 #include "../../headers/handlers/inputHandler.h"
 #include "../../headers/handlers/buttonAnimationHandler.h"
 #include "../../headers/handlers/commonMiniGameHandler.h"
+#include "../../headers/handlers/drawButtonHandler.h"
+#include "../../headers/handlers/commonMiniGameHandler.h"
+
+MainMenuPopupData metaData;
 
 Scene mainMenuSceneInit() {
   mainMenuSceneLoadTiles();
@@ -17,6 +21,16 @@ Scene mainMenuSceneInit() {
 
   // Start render minigame
   setPopUpRenderAnimationState(true);
+
+  // Init popup metadata
+  metaData.mainSelectorIndex = 0;
+  metaData.loadSelectorIndex = 0;
+  metaData.loadSelectorPosition.x = 3;
+  metaData.loadSelectorPosition.y = 1;
+  metaData.mainSelectorPosition.x = 1;
+  metaData.mainSelectorPosition.y = 1;
+  metaData.currentPopup = MAIN_MENU_POPUP_BOX;
+
   return createScene("main menu", 0, SCENE_MAIN_MENU);
 }
 
@@ -34,7 +48,47 @@ void mainMenuSceneLoadTiles() {
 }
 
 void mainMenuSceneUpdate() {
+  drawButtonShape(metaData.mainSelectorPosition.x,
+                  metaData.mainSelectorPosition.y, 0);
+  drawButtonShape(metaData.loadSelectorPosition.x,
+                  metaData.loadSelectorPosition.y, 0);
   printInt(0, 0, getTick()); // print current frame from start of rom
+}
+
+void mainMenuSelectorHandle(u16 typePopUp, u16 typeDiraction) {
+  if (typePopUp == MAIN_MENU_POPUP_BOX) {
+    if (typeDiraction == MAIN_MENU_MOVE_SELECTOR_UP) {
+      if (metaData.mainSelectorIndex > 0) {
+        drawButtonShape(metaData.mainSelectorPosition.x,
+                        metaData.mainSelectorPosition.y, 47);
+        metaData.mainSelectorIndex--;
+        metaData.mainSelectorPosition.y--;
+      }
+    } else if (typeDiraction == MAIN_MENU_MOVE_SELECTOR_DOWN) {
+      if (metaData.mainSelectorIndex < 1) {
+        drawButtonShape(metaData.mainSelectorPosition.x,
+                        metaData.mainSelectorPosition.y, 47);
+        metaData.mainSelectorIndex++;
+        metaData.mainSelectorPosition.y++;
+      }
+    }
+  } else if (typePopUp == MAIN_MENU_LOAD_POPUP_BOX) {
+    if (typeDiraction == MAIN_MENU_MOVE_SELECTOR_UP) {
+      if (metaData.loadSelectorIndex > 0) {
+        drawButtonShape(metaData.loadSelectorPosition.x,
+                        metaData.loadSelectorPosition.y, 47);
+        metaData.loadSelectorIndex--;
+        metaData.loadSelectorPosition.y--;
+      }
+    } else if (typeDiraction == MAIN_MENU_MOVE_SELECTOR_DOWN) {
+      if (metaData.loadSelectorIndex < 1) {
+        drawButtonShape(metaData.loadSelectorPosition.x,
+                        metaData.loadSelectorPosition.y, 47);
+        metaData.loadSelectorIndex++;
+        metaData.loadSelectorPosition.y++;
+      }
+    }
+  }
 }
 
 void mainMenuInputHandler() {
@@ -65,19 +119,13 @@ void mainMenuInputHandler() {
     }
   }
   if (getJoyStates().aButton) {
-    if (getPuzzleWaitPlayerInput()) {
-      if (!isButtonAnimation()) {
-        pushPuzzlePlayerInputArray(3);
-        setButtonAnimationState(3, true);
-      }
+    if (metaData.currentPopup == MAIN_MENU_POPUP_BOX) {
+      metaData.currentPopup = MAIN_MENU_LOAD_POPUP_BOX;
     }
   }
   if (getJoyStates().bButton) {
-    if (getPuzzleWaitPlayerInput()) {
-      if (!isButtonAnimation()) {
-        pushPuzzlePlayerInputArray(4);
-        setButtonAnimationState(4, true);
-      }
+    if (metaData.currentPopup == MAIN_MENU_LOAD_POPUP_BOX) {
+      metaData.currentPopup = MAIN_MENU_POPUP_BOX;
     }
   }
   if (getJoyStates().cButton) {
@@ -86,6 +134,22 @@ void mainMenuInputHandler() {
         pushPuzzlePlayerInputArray(5);
         setButtonAnimationState(5, true);
       }
+    }
+  }
+  if (getJoyStates().upButton) {
+    if (metaData.currentPopup == MAIN_MENU_POPUP_BOX) {
+      mainMenuSelectorHandle(MAIN_MENU_POPUP_BOX, MAIN_MENU_MOVE_SELECTOR_UP);
+    } else if (metaData.currentPopup == MAIN_MENU_LOAD_POPUP_BOX) {
+      mainMenuSelectorHandle(MAIN_MENU_LOAD_POPUP_BOX,
+                             MAIN_MENU_MOVE_SELECTOR_UP);
+    }
+  }
+  if (getJoyStates().downButton) {
+    if (metaData.currentPopup == MAIN_MENU_POPUP_BOX) {
+      mainMenuSelectorHandle(MAIN_MENU_POPUP_BOX, MAIN_MENU_MOVE_SELECTOR_DOWN);
+    } else if (metaData.currentPopup == MAIN_MENU_LOAD_POPUP_BOX) {
+      mainMenuSelectorHandle(MAIN_MENU_LOAD_POPUP_BOX,
+                             MAIN_MENU_MOVE_SELECTOR_DOWN);
     }
   }
 }
