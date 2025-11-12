@@ -3,6 +3,13 @@
 #include "../../headers/handlers/drawButtonHandler.h"
 #include "../../headers/handlers/commonStructHandler.h"
 
+void drawTiles(Vec2 position, u16 tiles[]) {
+  for (u16 i = 0; i < sizeof(&tiles); i++) {
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, tiles[i]),
+                     position.x + i, position.y);
+  }
+}
+
 void drawTile(Vec2 position, u16 tile) {
   VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, tile), position.x,
                    position.y);

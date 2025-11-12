@@ -50,6 +50,12 @@ Scene mainMenuSceneInit() {
   metaData.mainAButtonPosition.y = 5;
   metaData.mainCursorRightPosition.x = 4;
   metaData.mainCursorRightPosition.y = 5;
+  metaData.mainMenuTextTiles[0] = A15;
+  metaData.mainMenuTextTiles[1] = A39;
+  metaData.mainMenuTextTiles[2] = A50;
+  metaData.mainMenuTextTiles[3] = A64;
+  metaData.mainMenuTextPosition.x = 4;
+  metaData.mainMenuTextPosition.y = 3;
 
   return createScene("main menu", 0, SCENE_MAIN_MENU);
 }
@@ -87,6 +93,7 @@ void mainMenuSceneUpdate() {
       BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, metaData.cursorTilesData.right),
       metaData.mainCursorRightPosition.x, metaData.mainCursorRightPosition.y);
   // Draw Text in border
+  drawTiles(metaData.mainMenuTextPosition, metaData.mainMenuTextTiles);
 
   printInt(0, 0, getTick()); // print current frame from start of rom
 }

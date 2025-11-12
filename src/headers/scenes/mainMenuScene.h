@@ -30,6 +30,8 @@ typedef struct {
   Vec2 loadBButtonPosition;
   CursorTiles cursorTilesData;
   Vec2 mainCursorRightPosition;
+  u16 mainMenuTextTiles[4];
+  Vec2 mainMenuTextPosition;
 } MainMenuPopupData;
 
 Scene mainMenuSceneInit();
