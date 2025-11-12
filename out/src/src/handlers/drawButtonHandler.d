@@ -54,4 +54,6 @@ out/src/src/handlers/drawButtonHandler.o: \
  /opt/toolchains/mars/m68k-elf/inc/maths.h \
  /opt/toolchains/mars/m68k-elf/inc/dma.h \
  src/src/handlers/../../headers/miniGameConstants.h \
- src/src/handlers/../../headers/handlers/drawButtonHandler.h
+ src/src/handlers/../../headers/handlers/drawButtonHandler.h \
+ src/src/handlers/../../headers/handlers/commonStructHandler.h \
+ src/src/handlers/../../headers/handlers/commonStructHandler.h

@@ -1,6 +1,7 @@
 #include <genesis.h>
 #include "../../headers/scenes/scene.h"
 #include "../../headers/scenes/mainMenuScene.h"
+#include "../../headers/scenes/hideoutScene.h"
 
 SceneManager currentSceneManager;
 
@@ -14,7 +15,7 @@ Scene createScene(char name[], u16 entityCount, SceneId idTag) {
   }
   Scene sceneEntity;
   sceneEntity.entityCount = 0;
-  sceneEntity.idTag = SCENE_MAIN_MENU;
+  sceneEntity.idTag = idTag;
   strncpy(sceneEntity.name, name, sizeof(sceneEntity.name) - 1);
   currentSceneManager.scenes[currentSceneManager.sceneCount++] = sceneEntity;
   return sceneEntity;
@@ -23,8 +24,15 @@ Scene createScene(char name[], u16 entityCount, SceneId idTag) {
 void setScene(SceneId sceneTagId) {
   if (sceneTagId == SCENE_MAIN_MENU) {
     Scene resultInit = mainMenuSceneInit();
-    if (!isScenePresent(currentSceneManager.currentScene->name)) {
+    if (!isScenePresent(resultInit.name)) {
       currentSceneManager.scenes[currentSceneManager.sceneCount] = resultInit;
+      currentSceneManager.currentScene = resultInit;
+    }
+  } else if (sceneTagId == SCENE_HIDEOUT) {
+    Scene resultInit = hideoutSceneInit();
+    if (!isScenePresent(resultInit.name)) {
+      currentSceneManager.scenes[currentSceneManager.sceneCount] = resultInit;
+      currentSceneManager.currentScene = resultInit;
     }
   }
 }
@@ -49,15 +57,17 @@ Scene getSceneByName(char name[]) {
 }
 
 void sceneUpdate() {
-  SceneId idTagScene = currentSceneManager.currentScene->idTag;
+  SceneId idTagScene = currentSceneManager.currentScene.idTag;
   if (idTagScene == SCENE_MAIN_MENU) {
     mainMenuSceneUpdate();
+  } else if (idTagScene == SCENE_HIDEOUT) {
+    hideoutSceneUpdate();
   }
 }
 
 void sceneInputHandle() {
-  SceneId idTagScene = currentSceneManager.currentScene->idTag;
+  SceneId idTagScene = currentSceneManager.currentScene.idTag;
   if (idTagScene == SCENE_MAIN_MENU) {
-    mainMenuInputHandler();
+    mainMenuSceneInputHandler();
   }
 }

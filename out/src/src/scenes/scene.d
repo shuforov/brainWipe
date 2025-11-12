@@ -55,4 +55,6 @@ out/src/src/scenes/scene.o: src/src/scenes/scene.c \
  src/src/scenes/../../headers/scenes/scene.h \
  src/src/scenes/../../headers/scenes/mainMenuScene.h \
  src/src/scenes/../../headers/scenes/scene.h \
- src/src/scenes/../../headers/scenes/../handlers/commonStructHandler.h
+ src/src/scenes/../../headers/scenes/../handlers/commonStructHandler.h \
+ src/src/scenes/../../headers/scenes/hideoutScene.h \
+ src/src/scenes/../../headers/scenes/../scenes/scene.h

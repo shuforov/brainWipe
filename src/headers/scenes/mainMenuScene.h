@@ -20,12 +20,23 @@ typedef struct {
   Vec2 mainSelectorPosition;
   Vec2 loadSelectorPosition;
   u16 currentPopup;
+  Vec2 borderPosition;
+  SizeBox borderSize;
+  BorderTiles borderTilesData;
+  VerticalScrollTransform verticalScrollMainWindow;
+  VerticalScrollTransform verticalScrollLoadWindow;
+  Vec2 mainAButtonPosition;
+  Vec2 loadAButtonPosition;
+  Vec2 loadBButtonPosition;
+  CursorTiles cursorTilesData;
+  Vec2 mainCursorRightPosition;
 } MainMenuPopupData;
 
 Scene mainMenuSceneInit();
 void mainMenuSceneLoadTiles();
 void mainMenuSceneUpdate();
-void mainMenuInputHandler();
-void mainMenuSelectorHandle(u16 typePopUp, u16 typeDiraction);
+void mainMenuSceneInputHandler();
+void mainMenuSceneSelectorHandle(u16 typePopUp, u16 typeDiraction);
+void mainMenuSceneUnloadTiles();
 
 #endif

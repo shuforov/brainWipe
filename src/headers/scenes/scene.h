@@ -14,12 +14,12 @@ typedef struct {
 } Scene;
 
 typedef struct {
-  Scene *currentScene;
+  Scene currentScene;
   u16 sceneCount;
   Scene scenes[MAX_SCENES];
 } SceneManager;
 
-typedef enum { SCENE_MAIN_MENU, SCENE_HIDE_OUT } SceneId;
+typedef enum { SCENE_MAIN_MENU, SCENE_HIDEOUT } SceneId;
 
 void sceneManagerInit();
 SceneManager getSceneManager();
