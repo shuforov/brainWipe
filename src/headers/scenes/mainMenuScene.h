@@ -15,23 +15,43 @@ typedef enum {
 } MainMenuPopupDiraction;
 
 typedef struct {
-  u16 mainSelectorIndex;
-  u16 loadSelectorIndex;
-  Vec2 mainSelectorPosition;
-  Vec2 loadSelectorPosition;
-  u16 currentPopup;
+  u16 selectorIndex;
   Vec2 borderPosition;
   SizeBox borderSize;
+  VerticalScrollTransform verticalScroll;
+  Vec2 aButtonPosition;
+  u16 titleTiles[10];
+  Vec2 titlePosition;
+  u16 newGameTiles[8];
+  Vec2 newGamePosition;
+  u16 loadTiles[11];
+  Vec2 loadPosition;
+  Vec2 cursorRightPosition;
+} MainMenuWindowData;
+
+typedef struct {
+  u16 titleTiles[11];
+  Vec2 titlePosition;
+  u16 slotTiles[7];
+  Vec2 slotPosition;
+  u16 selectorIndex;
+  Vec2 selectorPosition;
+  Vec2 aButtonPosition;
+  Vec2 bButtonPosition;
+  Vec2 borderPosition;
+  SizeBox borderSize;
+  VerticalScrollTransform verticalScroll;
+  Vec2 cursorRightPosition;
+  Vec2 cursorLeftPosition;
+} LoadMenuWindowData;
+
+typedef struct {
+  MainMenuWindowData mainMenuMetaData;
+  LoadMenuWindowData loadMenuMetaData;
+  u16 currentPopup;
   BorderTiles borderTilesData;
-  VerticalScrollTransform verticalScrollMainWindow;
   VerticalScrollTransform verticalScrollLoadWindow;
-  Vec2 mainAButtonPosition;
-  Vec2 loadAButtonPosition;
-  Vec2 loadBButtonPosition;
   CursorTiles cursorTilesData;
-  Vec2 mainCursorRightPosition;
-  u16 mainMenuTextTiles[4];
-  Vec2 mainMenuTextPosition;
 } MainMenuPopupData;
 
 Scene mainMenuSceneInit();
@@ -40,5 +60,12 @@ void mainMenuSceneUpdate();
 void mainMenuSceneInputHandler();
 void mainMenuSceneSelectorHandle(u16 typePopUp, u16 typeDiraction);
 void mainMenuSceneUnloadTiles();
+void mainMenuDrawMainWindow();
+void mainMenuDrawMainCursor();
+void mainMenuDrawLoadWindow();
+void mainMenuMainWindowInit();
+void mainMenuLoadWindowInit();
+void mainMenuDrawLoadCursor();
+void mainMenuMetaDataInit();
 
 #endif

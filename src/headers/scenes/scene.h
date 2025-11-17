@@ -6,6 +6,7 @@
 #define MAX_ENTITIES 256
 #define MAX_SCENES 10
 #define MAX_SCENE_NAME 23
+#define ARRAY_LEN(x) (sizeof(x) / sizeof((x)[0]))
 
 typedef struct {
   u16 entityCount;

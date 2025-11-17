@@ -48,4 +48,8 @@ typedef struct {
   Vec2 rightPosition;
 } HorizontalScrolTransform;
 
+typedef struct {
+  u16 nameHex[13];
+} SaveData;
+
 #endif

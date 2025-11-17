@@ -3,8 +3,18 @@
 #include "../../headers/handlers/drawButtonHandler.h"
 #include "../../headers/handlers/commonStructHandler.h"
 
-void drawTiles(Vec2 position, u16 tiles[]) {
-  for (u16 i = 0; i < sizeof(&tiles); i++) {
+void drawFillBox(Vec2 position, SizeBox fillSize, u16 fillTile) {
+  for (u16 j = 0; j < fillSize.h; j++) {
+    for (u16 i = 0; i < fillSize.w; i++) {
+      VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, fillTile),
+                       position.x + i, position.y + j);
+    }
+  }
+}
+
+void drawTextTiles(Vec2 position, u16 tiles[], u16 tilesSize) {
+  // Using special for drawing of text symbol array
+  for (u16 i = 0; i < tilesSize; i++) {
     VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, tiles[i]),
                      position.x + i, position.y);
   }
