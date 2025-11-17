@@ -148,7 +148,7 @@ void setPopUpRenderAnimationState(bool state) {
 
 bool isButtonRedraw() { return isButtonRedrawActive; }
 
-void updateMiniGame() {
+void miniGameUpdate() {
   if (isPopUpRenderAnimation()) {
     popUpAnimation(10, 8, 8, 9);
   }

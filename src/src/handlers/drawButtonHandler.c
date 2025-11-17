@@ -1,6 +1,73 @@
 #include <genesis.h>
 #include "../../headers/miniGameConstants.h"
 #include "../../headers/handlers/drawButtonHandler.h"
+#include "../../headers/handlers/commonStructHandler.h"
+
+void drawFillBox(Vec2 position, SizeBox fillSize, u16 fillTile) {
+  for (u16 j = 0; j < fillSize.h; j++) {
+    for (u16 i = 0; i < fillSize.w; i++) {
+      VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, fillTile),
+                       position.x + i, position.y + j);
+    }
+  }
+}
+
+void drawTextTiles(Vec2 position, u16 tiles[], u16 tilesSize) {
+  // Using special for drawing of text symbol array
+  for (u16 i = 0; i < tilesSize; i++) {
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, tiles[i]),
+                     position.x + i, position.y);
+  }
+}
+
+void drawTile(Vec2 position, u16 tile) {
+  VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, tile), position.x,
+                   position.y);
+}
+
+void drawVerticalScroll(Vec2 upPosition, Vec2 downPosition,
+                        CursorTiles tilesData) {
+  VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, tilesData.up),
+                   upPosition.x, upPosition.y);
+  VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, tilesData.down),
+                   downPosition.x, downPosition.y);
+}
+
+void drawBorder(Vec2 position, SizeBox size, BorderTiles tilesData) {
+  // corners
+  VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, tilesData.topLeft),
+                   position.x, position.y);
+  VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, tilesData.topRight),
+                   position.x + size.w - 1, position.y);
+  VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, tilesData.bottomLeft),
+                   position.x, position.y + size.h - 1);
+  VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, tilesData.bottomRight),
+                   position.x + size.w - 1, position.y + size.h - 1);
+
+  // top and bottom edges
+  for (u16 i = 1; i < size.w - 1; i++) {
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, tilesData.topSide),
+                     position.x + i, position.y);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, tilesData.bottomSide),
+                     position.x + i, position.y + size.h - 1);
+  }
+
+  // left and right edges
+  for (u16 j = 1; j < size.h - 1; j++) {
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, tilesData.leftSide),
+                     position.x, position.y + j);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, tilesData.rightSide),
+                     position.x + size.w - 1, position.y + j);
+  }
+
+  // fill center
+  for (u16 j = 1; j < size.h - 1; j++) {
+    for (u16 i = 1; i < size.w - 1; i++) {
+      VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, tilesData.fill),
+                       position.x + i, position.y + j);
+    }
+  }
+}
 
 void drawButtonShape(u16 x, u16 y, int buttonType) {
   switch (buttonType) {
@@ -373,6 +440,13 @@ void drawButtonShape(u16 x, u16 y, int buttonType) {
     VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, S_S_T_R), x + 1, y);
     VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, S_S_B_L), x, y + 1);
     VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, S_S_B_R), x + 1,
+                     y + 1);
+    break;
+  case 47: // Blank black square
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, TILE_BLACK), x, y);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, TILE_BLACK), x + 1, y);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, TILE_BLACK), x, y + 1);
+    VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, TILE_BLACK), x + 1,
                      y + 1);
     break;
   }

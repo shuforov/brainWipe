@@ -25,7 +25,7 @@ void firstStartMgna();
 bool isPopUpRenderAnimation();
 void setPopUpRenderAnimationState(bool state);
 bool isButtonRedraw();
-void updateMiniGame();
+void miniGameUpdate();
 void setPauseBetweenRound(bool state);
 bool getPauseBetweenRoundActive();
 

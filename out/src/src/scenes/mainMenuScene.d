@@ -1,4 +1,4 @@
-out/src/src/miniGame.o: src/src/miniGame.c \
+out/src/src/scenes/mainMenuScene.o: src/src/scenes/mainMenuScene.c \
  /opt/toolchains/mars/m68k-elf/inc/genesis.h \
  /opt/toolchains/mars/m68k-elf/inc/types.h \
  /opt/toolchains/mars/m68k-elf/inc/config.h \
@@ -52,10 +52,13 @@ out/src/src/miniGame.o: src/src/miniGame.c \
  /opt/toolchains/mars/m68k-elf/inc/string.h \
  /opt/toolchains/mars/m68k-elf/inc/maths.h \
  /opt/toolchains/mars/m68k-elf/inc/dma.h src/../res/resources.h \
- src/src/../headers/miniGame.h src/src/../headers/gameEngine.h \
- src/src/../headers/miniGameConstants.h \
- src/src/../headers/handlers/drawButtonHandler.h \
- src/src/../headers/handlers/commonStructHandler.h \
- src/src/../headers/handlers/buttonAnimationHandler.h \
- src/src/../headers/handlers/commonMiniGameHandler.h \
- src/src/../headers/handlers/debugHandler.h
+ src/src/scenes/../../headers/scenes/scene.h \
+ src/src/scenes/../../headers/scenes/mainMenuScene.h \
+ src/src/scenes/../../headers/scenes/scene.h \
+ src/src/scenes/../../headers/scenes/../handlers/commonStructHandler.h \
+ src/src/scenes/../../headers/handlers/debugHandler.h \
+ src/src/scenes/../../headers/handlers/inputHandler.h \
+ src/src/scenes/../../headers/handlers/drawButtonHandler.h \
+ src/src/scenes/../../headers/handlers/commonStructHandler.h \
+ src/src/scenes/../../headers/scenes/mainMenuConstantsScene.h \
+ src/src/scenes/../../headers/handlers/commonStructHandler.h
