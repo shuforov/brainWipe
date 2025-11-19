@@ -60,5 +60,4 @@ out/src/src/scenes/mainMenuScene.o: src/src/scenes/mainMenuScene.c \
  src/src/scenes/../../headers/handlers/inputHandler.h \
  src/src/scenes/../../headers/handlers/drawButtonHandler.h \
  src/src/scenes/../../headers/handlers/commonStructHandler.h \
- src/src/scenes/../../headers/scenes/mainMenuConstantsScene.h \
  src/src/scenes/../../headers/handlers/commonStructHandler.h

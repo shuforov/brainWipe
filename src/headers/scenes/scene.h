@@ -3,6 +3,29 @@
 
 #include <genesis.h>
 
+// border tiles
+#define BORDER_TOP_RIGHT 0x10
+#define BORDER_TOP_LEFT 0x18
+#define BORDER_BOTTOM_RIGHT 0x11
+#define BORDER_BOTTOM_LEFT 0x12
+#define BORDER_RIGHT_SIDE 0x13
+#define BORDER_TOP_SIDE 0x14
+#define BORDER_LEFT_SIDE 0x15
+#define BORDER_FILL 0x16
+#define BORDER_BOTTOM_SIDE 0x17
+
+// cursor selector buttons tiles
+#define LEFT_CURSOR 0x6F
+#define RIGHT_CURSOR 0x70
+#define DOWN_CURSOR 0x73
+#define UP_CURSOR 0x74
+#define A_SELECTOR_BUTTON 0x72
+#define B_SELECTOR_BUTTON 0x71
+#define C_SELECTOR_BUTTON 0x75
+#define X_SELECTOR_BUTTON 0x77
+#define Y_SELECTOR_BUTTON 0x78
+#define Z_SELECTOR_BUTTON 0x79
+
 #define MAX_ENTITIES 256
 #define MAX_SCENES 10
 #define MAX_SCENE_NAME 23

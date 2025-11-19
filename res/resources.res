@@ -1,9 +1,9 @@
 PALETTE commonPalette "palette/commonPalette.pal"
 
-PALETTE mainMenuPalette "palette/mainMenuPalette.pal"
-IMAGE mainMenuBorder "tiles/mainMenu/border.png" NONE 2 0
-IMAGE mainMenuSelectorButtons "tiles/mainMenu/selectorButtons.png" NONE 2 0
-IMAGE mainMenuAlphabetUa "tiles/mainMenu/AlphabetUA.png" NONE 2 0
+PALETTE mainScenesPalette "palette/mainScenesPalette.pal"
+IMAGE scenesBorder "tiles/scenes/border.png" NONE 2 0
+IMAGE scenesSelectorButtons "tiles/scenes/selectorButtons.png" NONE 2 0
+IMAGE scenesAlphabetUa "tiles/scenes/AlphabetUA.png" NONE 2 0
 
 IMAGE borderTiles "tiles/border.png" NONE 2 0
 IMAGE buttonShape "tiles/button_shape.png" NONE 2 0

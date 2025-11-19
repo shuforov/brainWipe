@@ -69,5 +69,7 @@ void sceneInputHandle() {
   SceneId idTagScene = currentSceneManager.currentScene.idTag;
   if (idTagScene == SCENE_MAIN_MENU) {
     mainMenuSceneInputHandler();
+  } else if (idTagScene == SCENE_HIDEOUT) {
+    hideoutSceneInputHandler();
   }
 }

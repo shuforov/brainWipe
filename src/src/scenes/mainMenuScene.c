@@ -5,7 +5,6 @@
 #include "../../headers/handlers/debugHandler.h"
 #include "../../headers/handlers/inputHandler.h"
 #include "../../headers/handlers/drawButtonHandler.h"
-#include "../../headers/scenes/mainMenuConstantsScene.h"
 #include "../../headers/handlers/commonStructHandler.h"
 
 static const u16 NUMBERS_HEX[10] = {0x5F, 0x60, 0x61, 0x62, 0x63,
@@ -28,10 +27,12 @@ static const Vec2 LOAD_MENU_CURSOR_POSITIONS[20] = {
     (Vec2){22, 13}, (Vec2){21, 13}, (Vec2){22, 14}, (Vec2){21, 14},
     (Vec2){22, 15}, (Vec2){21, 15}, (Vec2){22, 16}, (Vec2){21, 16},
     (Vec2){22, 17}, (Vec2){21, 17}, (Vec2){22, 18}, (Vec2){21, 18}};
-MainMenuPopupData metaData;
+
+static MainMenuPopupData metaData;
+
 Scene mainMenuSceneInit() {
   mainMenuSceneLoadTiles();
-  PAL_setPalette(PAL1, mainMenuPalette.data, DMA);
+  PAL_setPalette(PAL1, mainScenesPalette.data, DMA);
 
   VDP_drawText("Brain Wipe", 15, 2);
   setRandomSeed(getTick());
@@ -211,14 +212,14 @@ void mainMenuDrawLoadCursor() {
 void mainMenuSceneLoadTiles() {
   u16 ind = TILE_USER_INDEX;
 
-  VDP_loadTileSet(mainMenuBorder.tileset, ind, DMA);
-  ind += mainMenuBorder.tileset->numTile;
+  VDP_loadTileSet(scenesBorder.tileset, ind, DMA);
+  ind += scenesBorder.tileset->numTile;
 
-  VDP_loadTileSet(mainMenuAlphabetUa.tileset, ind, DMA);
-  ind += mainMenuAlphabetUa.tileset->numTile;
+  VDP_loadTileSet(scenesAlphabetUa.tileset, ind, DMA);
+  ind += scenesAlphabetUa.tileset->numTile;
 
-  VDP_loadTileSet(mainMenuSelectorButtons.tileset, ind, DMA);
-  ind += mainMenuAlphabetUa.tileset->numTile;
+  VDP_loadTileSet(scenesSelectorButtons.tileset, ind, DMA);
+  ind += scenesAlphabetUa.tileset->numTile;
 }
 
 void mainMenuSceneUnloadTiles() {
