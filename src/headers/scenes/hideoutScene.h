@@ -13,5 +13,11 @@ void hideoutSceneLoadTiles();
 void hideoutDrawTopPanelCursor();
 void hideoutSceneSelectorHandle(u16 typeFocus, u16 typeButton);
 void hideoutSceneClearOptionSpace();
+void hideoutSceneDrawPlayerAvatar(Vec2 avatarPosition);
+void hideoutSceneDrawStatisticsOption();
+void hideoutTopPanelInventoryDataInit();
+void hideoutTopPanelStatisticDataInit();
+void hideoutTopPanelMapDataInit();
+void hideoutTopPanelMenuDataInit();
 
 #endif

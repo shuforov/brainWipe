@@ -72,8 +72,23 @@ typedef struct {
 } InventoryData;
 
 typedef struct {
+  u16 health;
+  Vec2 borderPosition;
+  SizeBox borderSize;
+  Vec2 position;
+} PlayerStatisticData;
+
+typedef struct {
+  Vec2 borderPosition;
+  SizeBox borderSize;
+  Vec2 position;
+} PlayerStatisticAvatarData;
+
+typedef struct {
   u16 textTitle[5];
   Vec2 textTitlePosition;
+  PlayerStatisticAvatarData avatar;
+  PlayerStatisticData stats;
 } StatisticData;
 
 typedef struct {
@@ -98,9 +113,9 @@ typedef struct {
   BorderTiles borderTilesData;
   CursorTiles cursorTilesData;
   u16 currentFocus;
-  Vec2 optionSpacePosition; // Position of rendering data of selected option from top
-                       // panel
-  SizeBox optionSpaceSize;  // Size of option box for clearing this space
+  Vec2 optionSpacePosition; // Position of rendering data of selected option
+                            // from top panel
+  SizeBox optionSpaceSize; // Size of option box for clearing this space
 } MetaData;
 
 static const u16 STATISTIC_TEXT[5] = {0x42, 0x48, 0x1E, 0x48, 0x5E};
@@ -108,7 +123,8 @@ static const u16 INVENTORY_TEXT[8] = {0x2E, 0x3E, 0x20, 0x28,
                                       0x3E, 0x48, 0x1E, 0x46};
 static const u16 MAP_TEXT[5] = {0x31, 0x1E, 0x46, 0x48, 0x1E};
 static const u16 MENU_TEXT[4] = {0x38, 0x28, 0x3E, 0x5B};
-static const Vec2 CURSOR_POSITIONS[4] = {(Vec2){3, 2}, (Vec2){11, 2}, (Vec2){22, 2}, (Vec2){31, 2}};
+static const Vec2 CURSOR_POSITIONS[4] = {(Vec2){3, 2}, (Vec2){11, 2},
+                                         (Vec2){22, 2}, (Vec2){31, 2}};
 static MetaData metaData;
 
 Scene hideoutSceneInit() {
@@ -130,7 +146,10 @@ void hideoutSceneLoadTiles() {
   ind += scenesAlphabetUa.tileset->numTile;
 
   VDP_loadTileSet(scenesSelectorButtons.tileset, ind, DMA);
-  ind += scenesAlphabetUa.tileset->numTile;
+  ind += scenesSelectorButtons.tileset->numTile;
+
+  VDP_loadTileSet(playerAvatar.tileset, ind, DMA);
+  ind += playerAvatar.tileset->numTile;
 }
 
 void hideoutTopPanelInit() {
@@ -140,16 +159,11 @@ void hideoutTopPanelInit() {
       (BorderTiles){BORDER_TOP_RIGHT,   BORDER_TOP_LEFT,    BORDER_BOTTOM_RIGHT,
                     BORDER_BOTTOM_LEFT, BORDER_TOP_SIDE,    BORDER_LEFT_SIDE,
                     BORDER_RIGHT_SIDE,  BORDER_BOTTOM_SIDE, BORDER_FILL};
-  metaData.cursorTilesData = (CursorTiles){LEFT_CURSOR,
-                                           RIGHT_CURSOR,
-                                           UP_CURSOR,
-                                           DOWN_CURSOR,
-                                           A_SELECTOR_BUTTON,
-                                           B_SELECTOR_BUTTON,
-                                           C_SELECTOR_BUTTON,
-                                           X_SELECTOR_BUTTON,
-                                           Y_SELECTOR_BUTTON,
-                                           Z_SELECTOR_BUTTON};
+  metaData.cursorTilesData =
+      (CursorTiles){LEFT_CURSOR,       RIGHT_CURSOR,      UP_CURSOR,
+                    DOWN_CURSOR,       A_SELECTOR_BUTTON, B_SELECTOR_BUTTON,
+                    C_SELECTOR_BUTTON, X_SELECTOR_BUTTON, Y_SELECTOR_BUTTON,
+                    Z_SELECTOR_BUTTON};
   memcpy(metaData.topPanelData.statisticData.textTitle, STATISTIC_TEXT,
          sizeof(STATISTIC_TEXT));
   memcpy(metaData.topPanelData.inventoryData.textTitle, INVENTORY_TEXT,
@@ -157,16 +171,38 @@ void hideoutTopPanelInit() {
   memcpy(metaData.topPanelData.mapData.textTitle, MAP_TEXT, sizeof(MAP_TEXT));
   memcpy(metaData.topPanelData.menuData.textTitle, MENU_TEXT,
          sizeof(MENU_TEXT));
-  metaData.topPanelData.statisticData.textTitlePosition = (Vec2){4, 2};
-  metaData.topPanelData.inventoryData.textTitlePosition = (Vec2){12, 2};
-  metaData.topPanelData.mapData.textTitlePosition = (Vec2){23, 2};
-  metaData.topPanelData.menuData.textTitlePosition = (Vec2){32, 2};
+  hideoutTopPanelStatisticDataInit();
+  hideoutTopPanelInventoryDataInit();
+  hideoutTopPanelMapDataInit();
+  hideoutTopPanelMenuDataInit();
   metaData.topPanelData.cursorRightPosition = (Vec2){3, 2};
   metaData.topPanelData.selectorIndex = 0;
   memcpy(metaData.topPanelData.cursorPostions, CURSOR_POSITIONS,
          sizeof(CURSOR_POSITIONS));
   metaData.optionSpacePosition = (Vec2){1, 5};
   metaData.optionSpaceSize = (SizeBox){38, 25};
+}
+
+void hideoutTopPanelStatisticDataInit() {
+  metaData.topPanelData.statisticData.textTitlePosition = (Vec2){4, 2};
+  metaData.topPanelData.statisticData.avatar.borderPosition = (Vec2){1, 5};
+  metaData.topPanelData.statisticData.avatar.borderSize = (SizeBox){10, 10};
+  metaData.topPanelData.statisticData.avatar.position = (Vec2){2, 6};
+  metaData.topPanelData.statisticData.stats.borderPosition = (Vec2){12, 5};
+  metaData.topPanelData.statisticData.stats.borderSize = (SizeBox){10, 5};
+  metaData.topPanelData.statisticData.stats.health = 100;
+}
+
+void hideoutTopPanelInventoryDataInit() {
+  metaData.topPanelData.inventoryData.textTitlePosition = (Vec2){12, 2};
+}
+
+void hideoutTopPanelMapDataInit() {
+  metaData.topPanelData.mapData.textTitlePosition = (Vec2){23, 2};
+}
+
+void hideoutTopPanelMenuDataInit() {
+  metaData.topPanelData.menuData.textTitlePosition = (Vec2){32, 2};
 }
 
 void hideoutDrawTopPanel() {
@@ -246,6 +282,20 @@ void hideoutSceneClearOptionSpace() {
   drawFillBox(metaData.optionSpacePosition, metaData.optionSpaceSize, 0x00);
 }
 
+void hideoutSceneDrawPlayerAvatar(Vec2 avatarPosition) {
+  PAL_setPalette(PAL1, hideoutStatisticPalette.data, DMA);
+  VDP_drawImageEx(BG_A, &playerAvatar, TILE_ATTR_FULL(PAL1, 0, 0, 0, 0x7A), avatarPosition.x, avatarPosition.y, 0, CPU);
+}
+
+void hideoutSceneDrawStatisticsOption() {
+  // Draw border
+  drawBorder(metaData.topPanelData.statisticData.avatar.borderPosition,
+             metaData.topPanelData.statisticData.avatar.borderSize,
+             metaData.borderTilesData);
+  // Draw avatar
+  hideoutSceneDrawPlayerAvatar(metaData.topPanelData.statisticData.avatar.position);
+}
+
 void hideoutSceneSelectorHandle(u16 typePopUp, u16 typeButton) {
   if (typePopUp == TOP_PANEL) {
     if (typeButton == MOVE_SELECTOR_LEFT) {
@@ -267,7 +317,7 @@ void hideoutSceneSelectorHandle(u16 typePopUp, u16 typeButton) {
     } else if (typeButton == PRESS_Y_BUTTON) {
       if (metaData.topPanelData.selectorIndex == STATISTICS_OPTION) {
         hideoutSceneClearOptionSpace();
-        VDP_drawText("Statistic option", 10, 10);
+	hideoutSceneDrawStatisticsOption();
       } else if (metaData.topPanelData.selectorIndex == INVENTORY_OPTION) {
         hideoutSceneClearOptionSpace();
         VDP_drawText("Inventory option", 10, 10);
