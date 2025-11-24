@@ -6,9 +6,8 @@
 #include "../../headers/handlers/inputHandler.h"
 #include "../../headers/handlers/drawButtonHandler.h"
 #include "../../headers/handlers/commonStructHandler.h"
+#include "../../headers/handlers/entityManagerHandler.h"
 
-static const u16 NUMBERS_HEX[10] = {0x5F, 0x60, 0x61, 0x62, 0x63,
-                                    0x64, 0x65, 0x66, 0x67, 0x68};
 static const u16 MENU_TEXT[10] = {0x38, 0x28, 0x3E, 0x5B, BORDER_FILL,
                                   0x43, 0x28, 0x36, 0x47, 0x48};
 static const u16 NEW_GAME_TEXT[8] = {0x39,        0x3F, 0x20, 0x1E,
@@ -46,6 +45,9 @@ Scene mainMenuSceneInit() {
 }
 
 void mainMenuMetaDataInit() {
+  // Init default player node
+  EMH_createNewPlayer();
+
   metaData.currentPopup = MAIN_MENU_POPUP_BOX;
   metaData.borderTilesData =
       (BorderTiles){BORDER_TOP_RIGHT,   BORDER_TOP_LEFT,    BORDER_BOTTOM_RIGHT,
@@ -64,7 +66,7 @@ void mainMenuMetaDataInit() {
   // MainMenu data
   mainMenuMainWindowInit();
   // LoadMenu data
-  mainMenuLoadWindowInit();  
+  mainMenuLoadWindowInit();
 }
 
 void mainMenuLoadWindowInit() {
@@ -80,7 +82,7 @@ void mainMenuLoadWindowInit() {
   metaData.loadMenuMetaData.cursorRightPosition = (Vec2){22, 9};
   metaData.loadMenuMetaData.cursorLeftPosition = (Vec2){22, 8};
   metaData.loadMenuMetaData.aButtonPosition = (Vec2){21, 9};
-  metaData.loadMenuMetaData.bButtonPosition = (Vec2){21, 8};  
+  metaData.loadMenuMetaData.bButtonPosition = (Vec2){21, 8};
 }
 
 void mainMenuMainWindowInit() {
@@ -103,13 +105,13 @@ void mainMenuMainWindowInit() {
 
 void mainMenuDrawMainWindow() {
   // Draw border
-  drawBorder(metaData.mainMenuMetaData.borderPosition, metaData.mainMenuMetaData.borderSize,
-             metaData.borderTilesData);
+  drawBorder(metaData.mainMenuMetaData.borderPosition,
+             metaData.mainMenuMetaData.borderSize, metaData.borderTilesData);
   // Draw vertical scroll
   drawVerticalScroll(metaData.mainMenuMetaData.verticalScroll.upPosition,
                      metaData.mainMenuMetaData.verticalScroll.downPosition,
                      metaData.cursorTilesData);
-  // Draw cursor  
+  // Draw cursor
   mainMenuDrawMainCursor();
   // Draw Text in border
   // Draw title
@@ -222,9 +224,7 @@ void mainMenuSceneLoadTiles() {
   ind += scenesAlphabetUa.tileset->numTile;
 }
 
-void mainMenuSceneUnloadTiles() {
-  VDP_resetScreen();
-}
+void mainMenuSceneUnloadTiles() { VDP_resetScreen(); }
 
 void mainMenuSceneUpdate() {
   printInt(0, 0, getTick()); // print current frame from start of rom
@@ -237,7 +237,7 @@ void mainMenuSceneSelectorHandle(u16 typePopUp, u16 typeDiraction) {
         metaData.mainMenuMetaData.selectorIndex--;
         metaData.mainMenuMetaData.cursorRightPosition.y--;
         metaData.mainMenuMetaData.aButtonPosition.y--;
-	mainMenuDrawMainCursor();        
+        mainMenuDrawMainCursor();
       }
     } else if (typeDiraction == MAIN_MENU_MOVE_SELECTOR_DOWN) {
       if (metaData.mainMenuMetaData.selectorIndex < 1) {
@@ -253,7 +253,7 @@ void mainMenuSceneSelectorHandle(u16 typePopUp, u16 typeDiraction) {
         metaData.loadMenuMetaData.selectorIndex--;
         metaData.loadMenuMetaData.cursorRightPosition.y--;
         metaData.loadMenuMetaData.aButtonPosition.y--;
-	mainMenuDrawLoadCursor();
+        mainMenuDrawLoadCursor();
       }
     } else if (typeDiraction == MAIN_MENU_MOVE_SELECTOR_DOWN) {
       if (metaData.loadMenuMetaData.selectorIndex < 9) {
@@ -289,7 +289,8 @@ void mainMenuSceneInputHandler() {
   if (getJoyStates().bButton) {
     if (metaData.currentPopup == MAIN_MENU_LOAD_POPUP_BOX) {
       metaData.currentPopup = MAIN_MENU_POPUP_BOX;
-      drawFillBox(metaData.loadMenuMetaData.borderPosition, metaData.loadMenuMetaData.borderSize, 0x0);
+      drawFillBox(metaData.loadMenuMetaData.borderPosition,
+                  metaData.loadMenuMetaData.borderSize, 0x0);
     }
   }
   if (getJoyStates().cButton) {

@@ -2,6 +2,7 @@
 #define SCENE_H
 
 #include <genesis.h>
+#include "../handlers/commonFunctionsHandler.h"
 
 // border tiles
 #define BORDER_TOP_RIGHT 0x10
@@ -45,6 +46,13 @@ typedef struct {
 
 typedef enum { SCENE_MAIN_MENU, SCENE_HIDEOUT } SceneId;
 
+typedef struct {
+  u16 hexDigits[3];
+  u16 count;
+} SceneTransformDigits;
+
+extern const u16 NUMBERS_HEX[10];
+
 void sceneManagerInit();
 SceneManager getSceneManager();
 Scene createScene(char name[], u16 entityCount, SceneId idTag);
@@ -53,5 +61,6 @@ void setScene(SceneId sceneTagId);
 Scene getSceneByName(char name[]);
 void sceneUpdate();
 void sceneInputHandle();
+SceneTransformDigits sceneTransformDigitsToHex(CFH_SplitDigits splitDigits);
 
 #endif

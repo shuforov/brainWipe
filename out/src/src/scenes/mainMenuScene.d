@@ -53,6 +53,7 @@ out/src/src/scenes/mainMenuScene.o: src/src/scenes/mainMenuScene.c \
  /opt/toolchains/mars/m68k-elf/inc/maths.h \
  /opt/toolchains/mars/m68k-elf/inc/dma.h src/../res/resources.h \
  src/src/scenes/../../headers/scenes/scene.h \
+ src/src/scenes/../../headers/scenes/../handlers/commonFunctionsHandler.h \
  src/src/scenes/../../headers/scenes/mainMenuScene.h \
  src/src/scenes/../../headers/scenes/scene.h \
  src/src/scenes/../../headers/scenes/../handlers/commonStructHandler.h \
@@ -60,4 +61,5 @@ out/src/src/scenes/mainMenuScene.o: src/src/scenes/mainMenuScene.c \
  src/src/scenes/../../headers/handlers/inputHandler.h \
  src/src/scenes/../../headers/handlers/drawButtonHandler.h \
  src/src/scenes/../../headers/handlers/commonStructHandler.h \
- src/src/scenes/../../headers/handlers/commonStructHandler.h
+ src/src/scenes/../../headers/handlers/commonStructHandler.h \
+ src/src/scenes/../../headers/handlers/entityManagerHandler.h

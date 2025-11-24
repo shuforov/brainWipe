@@ -3,6 +3,9 @@
 #include "../../headers/scenes/mainMenuScene.h"
 #include "../../headers/scenes/hideoutScene.h"
 
+const u16 NUMBERS_HEX[10] = {0x5F, 0x60, 0x61, 0x62, 0x63,
+                             0x64, 0x65, 0x66, 0x67, 0x68};
+
 SceneManager currentSceneManager;
 
 void sceneManagerInit() { currentSceneManager.sceneCount = 0; }
@@ -72,4 +75,13 @@ void sceneInputHandle() {
   } else if (idTagScene == SCENE_HIDEOUT) {
     hideoutSceneInputHandler();
   }
+}
+
+SceneTransformDigits sceneTransformDigitsToHex(CFH_SplitDigits splitDigits) {
+  SceneTransformDigits result;
+  result.count = splitDigits.count;
+  for (u16 i = 0; i < result.count; i++) {
+    result.hexDigits[i] = NUMBERS_HEX[splitDigits.digits[i]];
+  }
+  return result;
 }

@@ -5,6 +5,8 @@
 #include "../../headers/handlers/inputHandler.h"
 #include "../../headers/scenes/scene.h"
 #include "../../headers/handlers/drawButtonHandler.h"
+#include "../../headers/handlers/entityManagerHandler.h"
+#include "../../headers/handlers/commonFunctionsHandler.h"
 
 typedef enum {
   MOVE_SELECTOR_UP,
@@ -72,10 +74,17 @@ typedef struct {
 } InventoryData;
 
 typedef struct {
-  u16 health;
   Vec2 borderPosition;
   SizeBox borderSize;
   Vec2 position;
+  u16 nameTitle[4];
+  Vec2 nameTitilePosition;
+  u16 nameValue[8];
+  Vec2 nameValuePosition;
+  u16 healthTitle[4];
+  Vec2 healthTitlePosition;
+  u16 healthValue;
+  Vec2 healthValuePosition;
 } PlayerStatisticData;
 
 typedef struct {
@@ -115,7 +124,8 @@ typedef struct {
   u16 currentFocus;
   Vec2 optionSpacePosition; // Position of rendering data of selected option
                             // from top panel
-  SizeBox optionSpaceSize; // Size of option box for clearing this space
+  SizeBox optionSpaceSize;  // Size of option box for clearing this space
+  Player *playerNode;
 } MetaData;
 
 static const u16 STATISTIC_TEXT[5] = {0x42, 0x48, 0x1E, 0x48, 0x5E};
@@ -125,11 +135,16 @@ static const u16 MAP_TEXT[5] = {0x31, 0x1E, 0x46, 0x48, 0x1E};
 static const u16 MENU_TEXT[4] = {0x38, 0x28, 0x3E, 0x5B};
 static const Vec2 CURSOR_POSITIONS[4] = {(Vec2){3, 2}, (Vec2){11, 2},
                                          (Vec2){22, 2}, (Vec2){31, 2}};
+static const u16 STATS_NAME_TITLE[4] = {0x2E, 0x3D, 0x58, 0x5C};
+static const u16 STATS_NAME_DEFAULT[8] = {
+    0x1C, 0x33, 0x46, 0x66, BORDER_FILL, BORDER_FILL, BORDER_FILL, BORDER_FILL};
+static const u16 STATS_HEALTH_TITLE[4] = {0x27, 0x2A, 0x46, 0x5E};
 static MetaData metaData;
 
 Scene hideoutSceneInit() {
   hideoutSceneLoadTiles();
   PAL_setPalette(PAL1, mainScenesPalette.data, DMA);
+  PAL_setColor(0, 0x0000); // Set 0 index color to transparent
 
   hideoutTopPanelInit();
   hideoutDrawTopPanel();
@@ -153,6 +168,7 @@ void hideoutSceneLoadTiles() {
 }
 
 void hideoutTopPanelInit() {
+  metaData.playerNode = EMH_getPlayerNode();
   metaData.topPanelData.borderPosition = (Vec2){1, 1};
   metaData.topPanelData.borderSize = (SizeBox){38, 3};
   metaData.borderTilesData =
@@ -184,13 +200,30 @@ void hideoutTopPanelInit() {
 }
 
 void hideoutTopPanelStatisticDataInit() {
+  // TopPanel title name
   metaData.topPanelData.statisticData.textTitlePosition = (Vec2){4, 2};
+  // Player avatar data Border
   metaData.topPanelData.statisticData.avatar.borderPosition = (Vec2){1, 5};
   metaData.topPanelData.statisticData.avatar.borderSize = (SizeBox){10, 10};
+  // Player avatar data Position
   metaData.topPanelData.statisticData.avatar.position = (Vec2){2, 6};
+  // Player stats data Border
   metaData.topPanelData.statisticData.stats.borderPosition = (Vec2){12, 5};
-  metaData.topPanelData.statisticData.stats.borderSize = (SizeBox){10, 5};
-  metaData.topPanelData.statisticData.stats.health = 100;
+  metaData.topPanelData.statisticData.stats.borderSize = (SizeBox){15, 5};
+  // Player stats data name
+  memcpy(metaData.topPanelData.statisticData.stats.nameTitle, STATS_NAME_TITLE,
+         sizeof(STATS_NAME_TITLE));
+  metaData.topPanelData.statisticData.stats.nameTitilePosition = (Vec2){13, 6};
+  metaData.topPanelData.statisticData.stats.nameValuePosition = (Vec2){18, 6};
+  memcpy(metaData.topPanelData.statisticData.stats.nameValue,
+         STATS_NAME_DEFAULT, sizeof(STATS_NAME_DEFAULT));
+  // Player stats data health
+  memcpy(metaData.topPanelData.statisticData.stats.healthTitle,
+         STATS_HEALTH_TITLE, sizeof(STATS_HEALTH_TITLE));
+  metaData.topPanelData.statisticData.stats.healthTitlePosition = (Vec2){13, 7};
+  metaData.topPanelData.statisticData.stats.healthValue =
+      metaData.playerNode->stats.health;
+  metaData.topPanelData.statisticData.stats.healthValuePosition = (Vec2){18, 7};
 }
 
 void hideoutTopPanelInventoryDataInit() {
@@ -228,6 +261,87 @@ void hideoutDrawTopPanel() {
                 ARRAY_LEN(metaData.topPanelData.menuData.textTitle));
   // Draw Right cursor arrow button
   hideoutDrawTopPanelCursor();
+}
+
+void hideoutSceneClearOptionSpace() {
+  drawFillBox(metaData.optionSpacePosition, metaData.optionSpaceSize, 0x00);
+}
+
+void hideoutSceneDrawPlayerAvatar(Vec2 avatarPosition) {
+  PAL_setPalette(PAL1, hideoutStatisticPalette.data, DMA);
+  PAL_setColor(0, 0x0000); // set 0 index collor transparent
+  VDP_drawImageEx(BG_A, &playerAvatar, TILE_ATTR_FULL(PAL1, 0, 0, 0, 0x7A),
+                  avatarPosition.x, avatarPosition.y, 0, CPU);
+}
+
+void hideoutSceneDrawStatisticsOption() {
+  // Draw border avatar
+  drawBorder(metaData.topPanelData.statisticData.avatar.borderPosition,
+             metaData.topPanelData.statisticData.avatar.borderSize,
+             metaData.borderTilesData);
+  // Draw avatar
+  hideoutSceneDrawPlayerAvatar(
+      metaData.topPanelData.statisticData.avatar.position);
+  // Draw border stats
+  drawBorder(metaData.topPanelData.statisticData.stats.borderPosition,
+             metaData.topPanelData.statisticData.stats.borderSize,
+             metaData.borderTilesData);
+  // Draw name text title stats
+  drawTextTiles(metaData.topPanelData.statisticData.stats.nameTitilePosition,
+                metaData.topPanelData.statisticData.stats.nameTitle,
+                ARRAY_LEN(metaData.topPanelData.statisticData.stats.nameTitle));
+  // Draw name stats
+  drawTextTiles(metaData.topPanelData.statisticData.stats.nameValuePosition,
+                metaData.topPanelData.statisticData.stats.nameValue,
+                ARRAY_LEN(metaData.topPanelData.statisticData.stats.nameValue));
+  // Draw health text title stats
+  drawTextTiles(
+      metaData.topPanelData.statisticData.stats.healthTitlePosition,
+      metaData.topPanelData.statisticData.stats.healthTitle,
+      ARRAY_LEN(metaData.topPanelData.statisticData.stats.healthTitle));
+  // Draw health stats
+  CFH_SplitDigits u16ToSplitDigits =
+      CFH_splitDigits(metaData.topPanelData.statisticData.stats.healthValue);
+  SceneTransformDigits splitDigitsToHex =
+      sceneTransformDigitsToHex(u16ToSplitDigits);
+  drawTextTiles(metaData.topPanelData.statisticData.stats.healthValuePosition,
+                splitDigitsToHex.hexDigits, splitDigitsToHex.count);
+}
+
+void hideoutSceneSelectorHandle(u16 typePopUp, u16 typeButton) {
+  if (typePopUp == TOP_PANEL) {
+    if (typeButton == MOVE_SELECTOR_LEFT) {
+      if (metaData.topPanelData.selectorIndex > 0) {
+        metaData.topPanelData.selectorIndex--;
+        metaData.topPanelData.cursorRightPosition =
+            metaData.topPanelData
+                .cursorPostions[metaData.topPanelData.selectorIndex];
+        hideoutDrawTopPanelCursor();
+      }
+    } else if (typeButton == MOVE_SELECTOR_RIGHT) {
+      if (metaData.topPanelData.selectorIndex < 3) {
+        metaData.topPanelData.selectorIndex++;
+        metaData.topPanelData.cursorRightPosition =
+            metaData.topPanelData
+                .cursorPostions[metaData.topPanelData.selectorIndex];
+        hideoutDrawTopPanelCursor();
+      }
+    } else if (typeButton == PRESS_Y_BUTTON) {
+      if (metaData.topPanelData.selectorIndex == STATISTICS_OPTION) {
+        hideoutSceneClearOptionSpace();
+        hideoutSceneDrawStatisticsOption();
+      } else if (metaData.topPanelData.selectorIndex == INVENTORY_OPTION) {
+        hideoutSceneClearOptionSpace();
+        VDP_drawText("Inventory option", 10, 10);
+      } else if (metaData.topPanelData.selectorIndex == MAP_OPTION) {
+        hideoutSceneClearOptionSpace();
+        VDP_drawText("Map option", 10, 10);
+      } else if (metaData.topPanelData.selectorIndex == MENU_OPTION) {
+        hideoutSceneClearOptionSpace();
+        VDP_drawText("Menu option", 10, 10);
+      }
+    }
+  }
 }
 
 void hideoutDrawTopPanelCursor() {
@@ -274,60 +388,6 @@ void hideoutSceneInputHandler() {
   if (getJoyStates().yButton) {
     if (metaData.currentFocus == TOP_PANEL) {
       hideoutSceneSelectorHandle(TOP_PANEL, PRESS_Y_BUTTON);
-    }
-  }
-}
-
-void hideoutSceneClearOptionSpace() {
-  drawFillBox(metaData.optionSpacePosition, metaData.optionSpaceSize, 0x00);
-}
-
-void hideoutSceneDrawPlayerAvatar(Vec2 avatarPosition) {
-  PAL_setPalette(PAL1, hideoutStatisticPalette.data, DMA);
-  VDP_drawImageEx(BG_A, &playerAvatar, TILE_ATTR_FULL(PAL1, 0, 0, 0, 0x7A), avatarPosition.x, avatarPosition.y, 0, CPU);
-}
-
-void hideoutSceneDrawStatisticsOption() {
-  // Draw border
-  drawBorder(metaData.topPanelData.statisticData.avatar.borderPosition,
-             metaData.topPanelData.statisticData.avatar.borderSize,
-             metaData.borderTilesData);
-  // Draw avatar
-  hideoutSceneDrawPlayerAvatar(metaData.topPanelData.statisticData.avatar.position);
-}
-
-void hideoutSceneSelectorHandle(u16 typePopUp, u16 typeButton) {
-  if (typePopUp == TOP_PANEL) {
-    if (typeButton == MOVE_SELECTOR_LEFT) {
-      if (metaData.topPanelData.selectorIndex > 0) {
-        metaData.topPanelData.selectorIndex--;
-        metaData.topPanelData.cursorRightPosition =
-            metaData.topPanelData
-                .cursorPostions[metaData.topPanelData.selectorIndex];
-        hideoutDrawTopPanelCursor();
-      }
-    } else if (typeButton == MOVE_SELECTOR_RIGHT) {
-      if (metaData.topPanelData.selectorIndex < 3) {
-        metaData.topPanelData.selectorIndex++;
-        metaData.topPanelData.cursorRightPosition =
-            metaData.topPanelData
-                .cursorPostions[metaData.topPanelData.selectorIndex];
-        hideoutDrawTopPanelCursor();
-      }
-    } else if (typeButton == PRESS_Y_BUTTON) {
-      if (metaData.topPanelData.selectorIndex == STATISTICS_OPTION) {
-        hideoutSceneClearOptionSpace();
-	hideoutSceneDrawStatisticsOption();
-      } else if (metaData.topPanelData.selectorIndex == INVENTORY_OPTION) {
-        hideoutSceneClearOptionSpace();
-        VDP_drawText("Inventory option", 10, 10);
-      } else if (metaData.topPanelData.selectorIndex == MAP_OPTION) {
-        hideoutSceneClearOptionSpace();
-        VDP_drawText("Map option", 10, 10);
-      } else if (metaData.topPanelData.selectorIndex == MENU_OPTION) {
-        hideoutSceneClearOptionSpace();
-        VDP_drawText("Menu option", 10, 10);
-      }
     }
   }
 }

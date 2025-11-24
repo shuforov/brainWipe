@@ -54,9 +54,12 @@ out/src/src/scenes/hideoutScene.o: src/src/scenes/hideoutScene.c \
  /opt/toolchains/mars/m68k-elf/inc/dma.h src/../res/resources.h \
  src/src/scenes/../../headers/scenes/hideoutScene.h \
  src/src/scenes/../../headers/scenes/../scenes/scene.h \
+ src/src/scenes/../../headers/scenes/../scenes/../handlers/commonFunctionsHandler.h \
  src/src/scenes/../../headers/scenes/../handlers/commonStructHandler.h \
  src/src/scenes/../../headers/handlers/debugHandler.h \
  src/src/scenes/../../headers/handlers/inputHandler.h \
  src/src/scenes/../../headers/scenes/scene.h \
  src/src/scenes/../../headers/handlers/drawButtonHandler.h \
- src/src/scenes/../../headers/handlers/commonStructHandler.h
+ src/src/scenes/../../headers/handlers/commonStructHandler.h \
+ src/src/scenes/../../headers/handlers/entityManagerHandler.h \
+ src/src/scenes/../../headers/handlers/commonFunctionsHandler.h
