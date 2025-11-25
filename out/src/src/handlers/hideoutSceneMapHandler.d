@@ -1,4 +1,5 @@
-out/src/src/scenes/hideoutScene.o: src/src/scenes/hideoutScene.c \
+out/src/src/handlers/hideoutSceneMapHandler.o: \
+ src/src/handlers/hideoutSceneMapHandler.c \
  /opt/toolchains/mars/m68k-elf/inc/genesis.h \
  /opt/toolchains/mars/m68k-elf/inc/types.h \
  /opt/toolchains/mars/m68k-elf/inc/config.h \
@@ -51,21 +52,8 @@ out/src/src/scenes/hideoutScene.o: src/src/scenes/hideoutScene.c \
  /opt/toolchains/mars/m68k-elf/inc/config.h \
  /opt/toolchains/mars/m68k-elf/inc/string.h \
  /opt/toolchains/mars/m68k-elf/inc/maths.h \
- /opt/toolchains/mars/m68k-elf/inc/dma.h src/../res/resources.h \
- src/src/scenes/../../headers/scenes/hideoutScene.h \
- src/src/scenes/../../headers/scenes/../scenes/scene.h \
- src/src/scenes/../../headers/scenes/../scenes/../handlers/commonFunctionsHandler.h \
- src/src/scenes/../../headers/scenes/../handlers/commonStructHandler.h \
- src/src/scenes/../../headers/handlers/debugHandler.h \
- src/src/scenes/../../headers/handlers/inputHandler.h \
- src/src/scenes/../../headers/scenes/scene.h \
- src/src/scenes/../../headers/handlers/drawButtonHandler.h \
- src/src/scenes/../../headers/handlers/commonStructHandler.h \
- src/src/scenes/../../headers/handlers/commonFunctionsHandler.h \
- src/src/scenes/../../headers/handlers/hideoutSceneStatsHandler.h \
- src/src/scenes/../../headers/handlers/commonHideoutStructHandler.h \
- src/src/scenes/../../headers/handlers/entityManagerHandler.h \
- src/src/scenes/../../headers/handlers/hideoutSceneTopPanelHandler.h \
- src/src/scenes/../../headers/handlers/hideoutSceneInventoryHandler.h \
- src/src/scenes/../../headers/handlers/hideoutSceneMapHandler.h \
- src/src/scenes/../../headers/handlers/hideoutSceneMenuHandler.h
+ /opt/toolchains/mars/m68k-elf/inc/dma.h \
+ src/src/handlers/../../headers/handlers/hideoutSceneMapHandler.h \
+ src/src/handlers/../../headers/handlers/commonHideoutStructHandler.h \
+ src/src/handlers/../../headers/handlers/commonStructHandler.h \
+ src/src/handlers/../../headers/handlers/entityManagerHandler.h
