@@ -35,7 +35,8 @@ typedef struct {
   u16 cButton;
   u16 xButton;
   u16 yButton;
-  u16 zButton;  
+  u16 zButton;
+  u16 dropDownIcon;
 } CursorTiles;
 
 typedef struct {

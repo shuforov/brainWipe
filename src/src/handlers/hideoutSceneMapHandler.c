@@ -8,8 +8,4 @@ void HSMH_dataInit(MetaData *metaData) {
   metaData->topPanelData.mapData.textTitlePosition = (Vec2){23, 2};
 }
 
-void HSMH_selectorInventoryHandle(MetaData *metaData, u16 typeButton) {
-  if (typeButton == PRESS_C_BUTTON) {
-    metaData->currentFocus = TOP_PANEL_FOCUS;
-  }
-}
+void HSMH_selectorInventoryHandle(MetaData *metaData, u16 typeButton) {}

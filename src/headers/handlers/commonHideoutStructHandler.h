@@ -18,7 +18,12 @@ typedef enum {
 } CursorButtons;
 
 typedef enum {
-  TOP_PANEL_FOCUS,
+  HINT_MENU_OPTION_FOCUS,
+  STATISTICS_TOP_MENU_FOCUS,
+  STATISTICS_STATS_FOCUS,
+  STATISTICS_OFFENSIVE_FOCUS,
+  STATISTICS_DEFENSIVE_FOCUS,
+  STATISTICS_UTILITY_FOCUS,
   STATISTICS_FOCUS,
   INVENTORY_FOCUS,
   MAP_FOCUS,
@@ -104,25 +109,68 @@ typedef struct {
 } PlayerStatisticAvatarData;
 
 typedef struct {
+  Vec2 hintButtonPosition;
+  Vec2 selectorPosition;
+  u16 hintButtonTile;
+  u16 selectorTile;
+  u16 selectorIndex;
+} StatisticTopSelector;
+
+typedef struct {
+  Vec2 statPositiona;
+  u16 statTextTitles[5];
+  Vec2 offensivePosition;
+  u16 offensiveTextTitles[5];
+  Vec2 defensivePosition;
+  u16 defensiveTextTitles[6];
+  Vec2 utilityPosition;
+  u16 utilityTextTitles[9];
+} StatisticTopOptions;
+
+typedef struct {
+  StatisticTopSelector selectorData;
+  StatisticTopOptions optionsData;
+  Vec2 leftHintPosition;
+  Vec2 rightHintPosition;
+} StatisticTopMenuData;
+
+typedef struct {
   u16 textTitle[5];
   Vec2 textTitlePosition;
   PlayerStatisticAvatarData avatar;
   PlayerStatisticData stats;
+  Vec2 borderPosition;
+  SizeBox borderSize;
+  Vec2 focusBoxPosition;
+  SizeBox focusBoxSize;
+  StatisticTopMenuData topMenuData;
 } StatisticData;
 
 typedef struct {
   MenuData menuData;
-  StatisticData statisticData;
   InventoryData inventoryData;
   MapData mapData;
   Vec2 borderPosition;
   SizeBox borderSize;
-  Vec2 cursorRightPosition;
-  u16 selectorIndex;
-  Vec2 cursorPostions[4];
 } TopPanelData;
 
 typedef struct {
+  u16 selectorIndex;
+  Vec2 borderPosition;
+  SizeBox borderSize;
+} HintOptionMenuData;
+
+typedef struct {
+  Vec2 borderPosition;
+  SizeBox borderSize;
+  Vec2 hintButtonPosition;
+  Vec2 hintIconPosition;
+  HintOptionMenuData menuData;
+  StatisticData statisticData;
+} HintOptionData;
+
+typedef struct {
+  HintOptionData hintOptionData;
   TopPanelData topPanelData;
   BorderTiles borderTilesData;
   CursorTiles cursorTilesData;
@@ -131,6 +179,7 @@ typedef struct {
                             // from top panel
   SizeBox optionSpaceSize;  // Size of option box for clearing this space
   Player *playerNode;
+  bool reRenderTrigger;
 } MetaData;
 
 #endif

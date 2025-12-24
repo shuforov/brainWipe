@@ -10,5 +10,7 @@ void hideoutSceneInputHandler();
 void hideoutSceneLoadTiles();
 void hideoutSceneSelectorHandle(u16 typeFocus, u16 typeButton);
 void hideoutSceneDrawPlayerAvatar(Vec2 avatarPosition);
+void HS_clearScreen();
+void HS_reRenderHideout();
 
 #endif

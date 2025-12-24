@@ -10,8 +10,4 @@ void HSIH_dataInit(MetaData *metaData) {
          sizeof(INVENTORY_TEXT));
 }
 
-void HSIH_selectorInventoryHandle(MetaData *metaData, u16 typeButton) {
-  if (typeButton == PRESS_C_BUTTON) {
-    metaData->currentFocus = TOP_PANEL_FOCUS;
-  }
-}
+void HSIH_selectorInventoryHandle(MetaData *metaData, u16 typeButton) {}

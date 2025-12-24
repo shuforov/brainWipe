@@ -11,6 +11,7 @@
 #include "../../headers/handlers/hideoutSceneInventoryHandler.h"
 #include "../../headers/handlers/hideoutSceneMapHandler.h"
 #include "../../headers/handlers/hideoutSceneMenuHandler.h"
+#include "../../headers/handlers/hideoutSceneHintOptionHandler.h"
 
 static MetaData metaData;
 
@@ -20,14 +21,22 @@ Scene hideoutSceneInit() {
 
   // Init player data
   metaData.playerNode = EMH_getPlayerNode();
-  // Init all options data
-  HSIH_dataInit(&metaData);
-  HSMH_dataInit(&metaData);
-  HSMEH_dataInit(&metaData);
+  // Set reRenderTrigger
+  metaData.reRenderTrigger = false;
+  // Set default focus state
+  metaData.currentFocus = STATISTICS_FOCUS;
+  // Init top panel data
   HSTPH_dataInit(&metaData);
+  // Init hint menu of options data
+  HSHOH_dataInit(&metaData);
+  // Init all options data
   HSSH_dataInit(&metaData);
-  // Draw top panel
-  HSTPH_drawTopPanel(&metaData);
+  /* HSIH_dataInit(&metaData) */
+  /* HSMH_dataInit(&metaData); */
+  /* HSMEH_dataInit(&metaData); */
+  // First init render
+  HS_reRenderHideout();
+
   return createScene("hideout", 0, SCENE_HIDEOUT);
 }
 
@@ -48,8 +57,8 @@ void hideoutSceneLoadTiles() {
 }
 
 void hideoutSceneSelectorHandle(u16 typeFocus, u16 typeButton) {
-  if (typeFocus == TOP_PANEL_FOCUS) {
-    HSTPH_selectorTopPanelHandle(&metaData, typeButton);
+  if (typeFocus == HINT_MENU_OPTION_FOCUS) {
+    HSHO_selectorStatsHandle(&metaData, typeButton);
   } else if (typeFocus == STATISTICS_FOCUS) {
     HSSH_selectorStatsHandle(&metaData, typeButton);
   } else if (typeFocus == INVENTORY_FOCUS) {
@@ -63,30 +72,62 @@ void hideoutSceneSelectorHandle(u16 typeFocus, u16 typeButton) {
 
 void hideoutSceneUpdate() {
   printInt(0, 0, getTick()); // print current frame from start of rom
+  if (metaData.reRenderTrigger) {
+    HS_reRenderHideout();
+    metaData.reRenderTrigger = false;
+  }
 }
 
 void hideoutSceneInputHandler() {
-  if (getJoyStates().leftButton) {
-    if (metaData.currentFocus == TOP_PANEL_FOCUS) {
-      hideoutSceneSelectorHandle(TOP_PANEL_FOCUS, MOVE_SELECTOR_LEFT);
+  if (getJoyStates().upButton) {
+    if (metaData.currentFocus == HINT_MENU_OPTION_FOCUS) {
+      hideoutSceneSelectorHandle(HINT_MENU_OPTION_FOCUS, MOVE_SELECTOR_UP);
+    }
+  }
+  if (getJoyStates().downButton) {
+    if (metaData.currentFocus == HINT_MENU_OPTION_FOCUS) {
+      hideoutSceneSelectorHandle(HINT_MENU_OPTION_FOCUS, MOVE_SELECTOR_DOWN);
+    }
+  }
+  if (getJoyStates().yButton) {
+    if (metaData.currentFocus != HINT_MENU_OPTION_FOCUS) {
+      hideoutSceneSelectorHandle(HINT_MENU_OPTION_FOCUS, PRESS_Y_BUTTON);
     }
   }
   if (getJoyStates().rightButton) {
-    if (metaData.currentFocus == TOP_PANEL_FOCUS) {
-      hideoutSceneSelectorHandle(TOP_PANEL_FOCUS, MOVE_SELECTOR_RIGHT);
+    if (metaData.currentFocus == STATISTICS_FOCUS) {
+      hideoutSceneSelectorHandle(STATISTICS_FOCUS, MOVE_SELECTOR_RIGHT);
     }
   }
-  if (getJoyStates().cButton) {
-    if (metaData.currentFocus == TOP_PANEL_FOCUS) {
-      hideoutSceneSelectorHandle(TOP_PANEL_FOCUS, PRESS_C_BUTTON);
-    } else if (metaData.currentFocus == STATISTICS_FOCUS) {
-      hideoutSceneSelectorHandle(STATISTICS_FOCUS, PRESS_C_BUTTON);
-    } else if (metaData.currentFocus == INVENTORY_FOCUS) {
-      hideoutSceneSelectorHandle(INVENTORY_FOCUS, PRESS_C_BUTTON);
-    } else if (metaData.currentFocus == MAP_FOCUS) {
-      hideoutSceneSelectorHandle(MAP_FOCUS, PRESS_C_BUTTON);
-    } else if (metaData.currentFocus == MENU_FOCUS) {
-      hideoutSceneSelectorHandle(MENU_FOCUS, PRESS_C_BUTTON);
+  if (getJoyStates().leftButton) {
+    if (metaData.currentFocus == STATISTICS_FOCUS) {
+      hideoutSceneSelectorHandle(STATISTICS_FOCUS, MOVE_SELECTOR_LEFT);
     }
   }
+  if (getJoyStates().xButton) {
+    if (metaData.currentFocus == STATISTICS_FOCUS) {
+      hideoutSceneSelectorHandle(STATISTICS_FOCUS, PRESS_X_BUTTON);
+    }
+  }
+}
+
+void HS_reRenderHideout() {
+  // Clear screen
+  HS_clearScreen();
+  // Render hint menu
+  HSHOH_drawHintMenu(&metaData);
+  // Render top panel
+  HSTPH_drawTopPanel(&metaData);
+  // Render currentfocus option
+  if (metaData.currentFocus == STATISTICS_FOCUS) {
+    HSSH_drawTopMenuOptions(&metaData);
+  } else if (metaData.currentFocus == HINT_MENU_OPTION_FOCUS) {
+    HSHOH_drawHintMenu(&metaData);
+  }
+}
+
+void HS_clearScreen() {
+  VDP_clearPlane(BG_A, TRUE);
+  VDP_clearPlane(BG_B, TRUE);
+  VDP_clearPlane(WINDOW, TRUE);
 }

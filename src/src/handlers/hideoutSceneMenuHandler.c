@@ -9,8 +9,4 @@ void HSMEH_dataInit(MetaData *metaData) {
   metaData->topPanelData.menuData.textTitlePosition = (Vec2){32, 2};
 }
 
-void HSMEH_selectorInventoryHandle(MetaData *metaData, u16 typeButton) {
-  if (typeButton == PRESS_C_BUTTON) {
-    metaData->currentFocus = TOP_PANEL_FOCUS;
-  }
-}
+void HSMEH_selectorInventoryHandle(MetaData *metaData, u16 typeButton) {}
