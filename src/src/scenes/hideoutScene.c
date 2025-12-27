@@ -109,6 +109,11 @@ void hideoutSceneInputHandler() {
       hideoutSceneSelectorHandle(STATISTICS_FOCUS, PRESS_X_BUTTON);
     }
   }
+  if (getJoyStates().aButton) {
+    if (metaData.currentFocus == HINT_MENU_OPTION_FOCUS) {
+      hideoutSceneSelectorHandle(HINT_MENU_OPTION_FOCUS, PRESS_A_BUTTON);
+    }
+  }
 }
 
 void HS_reRenderHideout() {

@@ -6,5 +6,7 @@
 void HSHOH_dataInit(MetaData *metaData);
 void HSHOH_drawHintMenu(MetaData *metaData);
 void HSHO_selectorStatsHandle(MetaData *metaData, u16 typeButton);
+void HSHOH_drawHintPopUpMenu(MetaData *metaData);
+void HSHOH_drawHintMenuSelector(MetaData *metaData);
 
 #endif

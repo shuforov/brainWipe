@@ -35,7 +35,7 @@ typedef enum {
   INVENTORY_OPTION,
   MAP_OPTION,
   MENU_OPTION
-} TopPanelOptionTypes;
+} HintMenuOptionTypes;
 
 typedef struct {
   u16 indexLevel;
@@ -155,9 +155,29 @@ typedef struct {
 } TopPanelData;
 
 typedef struct {
+  Vec2 hintButtonPosition;
+  Vec2 selectorPosition;
+  u16 hintButtonTile;
+  u16 selectorTile;
   u16 selectorIndex;
+} HintOptionMenuSelector;
+
+typedef struct {
+  Vec2 statsPosition;
+  u16 statsTiles[5];
+  Vec2 inventoryPosition;
+  u16 inventoryTiles[8];
+  Vec2 mapPosition;
+  u16 mapTiles[4];
+  Vec2 menuPosition;
+  u16 menuTiles[4];
+} HintOptionMenuOptionsData;
+
+typedef struct {
   Vec2 borderPosition;
   SizeBox borderSize;
+  HintOptionMenuSelector selectorData;
+  HintOptionMenuOptionsData optionsData;
 } HintOptionMenuData;
 
 typedef struct {
