@@ -135,6 +135,58 @@ typedef struct {
 } StatisticTopMenuData;
 
 typedef struct {
+  Vec2 namePosition;
+  Vec2 descriptionPosition;
+} SOD_leftSkill;
+
+typedef struct {
+  Vec2 namePosition;
+  Vec2 descriptionPosition;
+} SOD_rightSkill;
+
+typedef struct {
+  Vec2 positionTiles;
+  u16 textTiles[11];
+  Vec2 positionValue;
+  u16 value;
+} SOD_skillPoinstData;
+
+typedef struct {
+  Vec2 leftSelectorPosition;
+  u16 leftSelectorTile;
+  Vec2 rightSelectorPosition;
+  u16 rightSelectorTile;
+  Vec2 hintSelectorPosition;
+  u16 hintSelectorTile;
+  u16 index;
+} SD_selectorData;
+
+typedef struct {
+  Vec2 borderPosition;
+  SizeBox borderSize;
+  SOD_leftSkill leftSkill;
+  SOD_rightSkill rightSkill;
+  u16 skills[2];
+} SOD_NextSkills;
+
+typedef struct {
+  Vec2 titleTilesPosition;
+  u16 titleTiles[15];
+  Vec2 borderPosition;
+  SizeBox borderSize;
+  Vec2 firstSkillPosition;
+  u16 skills[5];
+  u16 skillsSize;
+  Vec2 focusBoxPosition;
+  SizeBox focusBoxSize;
+} SOD_CurrentSkills;
+
+typedef struct {
+  SOD_NextSkills nextSkills;
+  SOD_CurrentSkills currentSkills;
+} StatisticOffensiveData;
+
+typedef struct {
   u16 textTitle[5];
   Vec2 textTitlePosition;
   PlayerStatisticAvatarData avatar;
@@ -144,6 +196,9 @@ typedef struct {
   Vec2 focusBoxPosition;
   SizeBox focusBoxSize;
   StatisticTopMenuData topMenuData;
+  StatisticOffensiveData offensiveData;
+  SOD_skillPoinstData skillPointsData;
+  SD_selectorData selectorData;
 } StatisticData;
 
 typedef struct {

@@ -10,6 +10,6 @@ void drawTile(Vec2 position, u16 tile);
 void drawVerticalScroll(Vec2 upPosition, Vec2 downPosition, CursorTiles tilesData);
 void drawBorder(Vec2 position, SizeBox size, BorderTiles tilesData);
 void drawButtonShape(u16 x, u16 y, int buttonType);
-
+void drawTextTilesWHLimits(Vec2 position, u16 tiles[], u16 tilesSize, Vec2 limitPosition);
 
 #endif

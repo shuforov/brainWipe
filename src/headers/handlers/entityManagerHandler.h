@@ -2,6 +2,7 @@
 #define ENTITY_MANAGER_HANDLER_H
 
 #include <genesis.h>
+#include "../commonConstants.h"
 
 typedef enum {
   SMALL_BATTERY
@@ -35,6 +36,7 @@ typedef struct {
   Weapon weapon; // currect geared weapon
   BackPack backPack;
   CharacterStats stats;
+  SkillsData skillsData;
 } Player;
 
 typedef struct {

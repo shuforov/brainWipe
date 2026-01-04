@@ -59,6 +59,8 @@ out/src/src/handlers/hideoutSceneTopPanelHandler.o: \
  src/src/handlers/../../headers/handlers/commonStructHandler.h \
  src/src/handlers/../../headers/handlers/commonHideoutStructHandler.h \
  src/src/handlers/../../headers/handlers/entityManagerHandler.h \
+ src/src/handlers/../../headers/handlers/../commonConstants.h \
+ src/src/handlers/../../headers/handlers/.././handlers/commonStructHandler.h \
  src/src/handlers/../../headers/handlers/drawButtonHandler.h \
  src/src/handlers/../../headers/handlers/hideoutSceneCommonFunctions.h \
  src/src/handlers/../../headers/handlers/hideoutSceneStatsHandler.h

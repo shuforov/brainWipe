@@ -20,6 +20,27 @@ void drawTextTiles(Vec2 position, u16 tiles[], u16 tilesSize) {
   }
 }
 
+void drawTextTilesWHLimits(Vec2 position, u16 tiles[], u16 tilesSize, Vec2 limitPosition) {
+  // Draw text tiles with width and height limitation coordinations
+  if (position.x < limitPosition.x && position.y <= limitPosition.y) {
+    Vec2 startPosition = position;
+    Vec2 tilePosition = startPosition;
+    for (u16 i = 0; i < tilesSize; i++) {
+      if (tilePosition.y > limitPosition.y) {
+        break;
+      }
+      if (tilePosition.x < limitPosition.x) {
+        drawTile(tilePosition, tiles[i]);
+        tilePosition.x++;
+      } else if (tilePosition.x == limitPosition.x) {
+        drawTile(tilePosition, tiles[i]);
+        tilePosition.x = startPosition.x;
+        tilePosition.y++;
+      }
+    }
+  }
+}
+
 void drawTile(Vec2 position, u16 tile) {
   VDP_setTileMapXY(BG_A, TILE_ATTR_FULL(PAL1, 0, 0, 0, tile), position.x,
                    position.y);

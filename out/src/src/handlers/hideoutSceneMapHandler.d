@@ -56,4 +56,6 @@ out/src/src/handlers/hideoutSceneMapHandler.o: \
  src/src/handlers/../../headers/handlers/hideoutSceneMapHandler.h \
  src/src/handlers/../../headers/handlers/commonHideoutStructHandler.h \
  src/src/handlers/../../headers/handlers/commonStructHandler.h \
- src/src/handlers/../../headers/handlers/entityManagerHandler.h
+ src/src/handlers/../../headers/handlers/entityManagerHandler.h \
+ src/src/handlers/../../headers/handlers/../commonConstants.h \
+ src/src/handlers/../../headers/handlers/.././handlers/commonStructHandler.h

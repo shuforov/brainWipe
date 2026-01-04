@@ -112,6 +112,8 @@ void hideoutSceneInputHandler() {
   if (getJoyStates().aButton) {
     if (metaData.currentFocus == HINT_MENU_OPTION_FOCUS) {
       hideoutSceneSelectorHandle(HINT_MENU_OPTION_FOCUS, PRESS_A_BUTTON);
+    } else if (metaData.currentFocus == STATISTICS_FOCUS) {
+      hideoutSceneSelectorHandle(STATISTICS_FOCUS, PRESS_A_BUTTON);
     }
   }
 }

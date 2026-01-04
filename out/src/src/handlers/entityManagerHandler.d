@@ -53,4 +53,6 @@ out/src/src/handlers/entityManagerHandler.o: \
  /opt/toolchains/mars/m68k-elf/inc/string.h \
  /opt/toolchains/mars/m68k-elf/inc/maths.h \
  /opt/toolchains/mars/m68k-elf/inc/dma.h \
- src/src/handlers/../../headers/handlers/entityManagerHandler.h
+ src/src/handlers/../../headers/handlers/entityManagerHandler.h \
+ src/src/handlers/../../headers/handlers/../commonConstants.h \
+ src/src/handlers/../../headers/handlers/.././handlers/commonStructHandler.h

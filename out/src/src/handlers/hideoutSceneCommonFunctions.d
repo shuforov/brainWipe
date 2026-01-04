@@ -57,4 +57,6 @@ out/src/src/handlers/hideoutSceneCommonFunctions.o: \
  /opt/toolchains/mars/m68k-elf/inc/dma.h \
  src/src/handlers/../../headers/handlers/commonHideoutStructHandler.h \
  src/src/handlers/../../headers/handlers/entityManagerHandler.h \
+ src/src/handlers/../../headers/handlers/../commonConstants.h \
+ src/src/handlers/../../headers/handlers/.././handlers/commonStructHandler.h \
  src/src/handlers/../../headers/handlers/drawButtonHandler.h

@@ -14,6 +14,7 @@ void EMH_createNewPlayer() {
   playerNode = &playerInstance;
   memcpy(playerNode->name, BASIC_PLAYER_NAME, sizeof(BASIC_PLAYER_NAME));
   playerNode->stats.health = 100;
+  playerNode->skillsData.skillPoints = 6;
 }
 
 Player *EMH_getPlayerNode() { return playerNode; }

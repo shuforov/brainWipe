@@ -53,4 +53,23 @@ typedef struct {
   u16 nameHex[13];
 } SaveData;
 
+typedef struct {
+  u16 name[21];
+  u16 description[48];
+  u16 nameSize;
+  u16 descriptionSize;
+  u16 value;
+  u16 valueAdditional;
+} Skill;
+
+typedef struct {
+  Skill offensive[5];
+  u16 offensiveSize;
+  Skill defensive[5];
+  u16 defensiveSize;
+  Skill utility[5];
+  u16 utilitySize;
+  u16 skillPoints;
+} SkillsData;
+
 #endif
