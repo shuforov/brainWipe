@@ -1,10 +1,11 @@
-#include <genesis.h>
-#include "../../headers/scenes/scene.h"
 #include "../../headers/handlers/hideoutSceneStatsHandler.h"
 #include "../../headers/handlers/drawButtonHandler.h"
+#include "../../headers/handlers/hideoutSceneStatsDefensiveHandler.h"
 #include "../../headers/handlers/hideoutSceneStatsOffensiveHandler.h"
-#include "../../headers/handlers/hideoutSceneStatsTopPanelHandler.h"
 #include "../../headers/handlers/hideoutSceneStatsStatisticsHandler.h"
+#include "../../headers/handlers/hideoutSceneStatsTopPanelHandler.h"
+#include "../../headers/scenes/scene.h"
+#include <genesis.h>
 
 typedef enum {
   TMS_STATS,
@@ -27,6 +28,7 @@ void HSSH_dataInit(MetaData *metaData) {
   HSSSH_dataInit(metaData);
   HSSTPH_dataInit(metaData);
   HSSOH_dataInit(metaData);
+  HSSDH_dataInit(metaData);
 }
 
 void HSSH_drawStatisticsOption(MetaData *metaData) {
@@ -62,14 +64,27 @@ void HSSH_drawDefensiveOption(MetaData *metaData) {
 }
 
 void HSSH_nextSkillsRender(MetaData *metaData, u16 skillTypeTree) {
+  bool skillSelectorRender = false;
   if (skillTypeTree == OFFENSIVE) {
     HSSOH_nextSkillsRender(metaData);
-    // Selector of next skill
+    // Set Selector of next skill rendering state
     if (HSSH_skillPointsAvailable(metaData) &&
         metaData->hintOptionData.statisticData.offensiveData.currentSkills
                 .skillsSize < 5) {
-      HSSH_skillSelectorRender(metaData, SST_LEFT);
+      skillSelectorRender = true;
     }
+
+  } else if (skillTypeTree == DEFENSIVE) {
+    HSSDH_nextSkillsRender(metaData);
+    // Set Selector of next skill rendering state
+    if (HSSH_skillPointsAvailable(metaData) &&
+        metaData->hintOptionData.statisticData.defensiveData.currentSkills
+                .skillsSize < 5) {
+      skillSelectorRender = true;
+    }
+  }
+  if (skillSelectorRender) {
+    HSSH_skillSelectorRender(metaData, SST_LEFT);
   }
   // Skill points
   drawTextTilesWHLimits(
@@ -134,12 +149,17 @@ void HSSH_skillConfirmHandler(MetaData *metaData, u16 skillTypeTree,
   if (skillTypeTree == OFFENSIVE) {
     HSSOH_acceptSkillHandelr(metaData, skillId);
     HSSH_nextSkillsRender(metaData, OFFENSIVE);
-  }
+  } else if (skillTypeTree == DEFENSIVE) {
+    HSSDH_acceptSkillHandelr(metaData, skillId);
+    HSSH_nextSkillsRender(metaData, DEFENSIVE);
+}
 }
 
 void HSSH_currentSkillsRender(MetaData *metaData, u16 skillTreeType) {
   if (skillTreeType == OFFENSIVE) {
     HSSOH_currentSkillsRender(metaData);
+  } else if (skillTreeType == DEFENSIVE) {
+    HSSDH_currentSkillsRender(metaData);
   }
 }
 
@@ -158,6 +178,13 @@ void HSSH_selectorStatsHandle(MetaData *metaData, u16 typeButton) {
                   .skillsSize < 5) {
         HSSH_skillSelectorRender(metaData, SST_RIGHT);
       }
+    } else if (metaData->hintOptionData.statisticData.topMenuData
+                   .currentFocus == STATISTICS_DEFENSIVE_FOCUS) {
+      if (HSSH_skillPointsAvailable(metaData) &&
+          metaData->hintOptionData.statisticData.defensiveData.currentSkills
+                  .skillsSize < 5) {
+        HSSH_skillSelectorRender(metaData, SST_RIGHT);
+      }
     }
   } else if (typeButton == MOVE_SELECTOR_LEFT) {
     if (metaData->hintOptionData.statisticData.topMenuData.currentFocus ==
@@ -167,6 +194,13 @@ void HSSH_selectorStatsHandle(MetaData *metaData, u16 typeButton) {
                    .currentFocus == STATISTICS_OFFENSIVE_FOCUS) {
       if (HSSH_skillPointsAvailable(metaData) &&
           metaData->hintOptionData.statisticData.offensiveData.currentSkills
+                  .skillsSize < 5) {
+        HSSH_skillSelectorRender(metaData, SST_LEFT);
+      }
+    } else if (metaData->hintOptionData.statisticData.topMenuData
+                   .currentFocus == STATISTICS_DEFENSIVE_FOCUS) {
+      if (HSSH_skillPointsAvailable(metaData) &&
+          metaData->hintOptionData.statisticData.defensiveData.currentSkills
                   .skillsSize < 5) {
         HSSH_skillSelectorRender(metaData, SST_LEFT);
       }
@@ -184,6 +218,11 @@ void HSSH_selectorStatsHandle(MetaData *metaData, u16 typeButton) {
         HSSH_drawOffensiveOption(metaData);
         metaData->hintOptionData.statisticData.topMenuData.currentFocus =
             STATISTICS_OFFENSIVE_FOCUS;
+      } else if (metaData->hintOptionData.statisticData.topMenuData.selectorData
+                     .selectorIndex == TMS_DEFENSIVE) {
+        HSSH_drawDefensiveOption(metaData);
+        metaData->hintOptionData.statisticData.topMenuData.currentFocus =
+            STATISTICS_DEFENSIVE_FOCUS;
       }
     } else if (metaData->hintOptionData.statisticData.topMenuData
                    .currentFocus == STATISTICS_STATS_FOCUS) {
@@ -192,6 +231,11 @@ void HSSH_selectorStatsHandle(MetaData *metaData, u16 typeButton) {
           STATISTICS_TOP_MENU_FOCUS;
     } else if (metaData->hintOptionData.statisticData.topMenuData
                    .currentFocus == STATISTICS_OFFENSIVE_FOCUS) {
+      HSSH_clearFocusBox(metaData);
+      metaData->hintOptionData.statisticData.topMenuData.currentFocus =
+          STATISTICS_TOP_MENU_FOCUS;
+    } else if (metaData->hintOptionData.statisticData.topMenuData
+                   .currentFocus == STATISTICS_DEFENSIVE_FOCUS) {
       HSSH_clearFocusBox(metaData);
       metaData->hintOptionData.statisticData.topMenuData.currentFocus =
           STATISTICS_TOP_MENU_FOCUS;
@@ -209,6 +253,19 @@ void HSSH_selectorStatsHandle(MetaData *metaData, u16 typeButton) {
                             .index];
         HSSH_skillConfirmHandler(metaData, OFFENSIVE, skillId);
         HSSH_currentSkillsRender(metaData, OFFENSIVE);
+      }
+    } else if (metaData->hintOptionData.statisticData.topMenuData
+                   .currentFocus == STATISTICS_DEFENSIVE_FOCUS) {
+      if (HSSH_skillPointsAvailable(metaData) &&
+          metaData->hintOptionData.statisticData.defensiveData.currentSkills
+                  .skillsSize < 5) {
+        // Accept selected skill
+        u16 skillId =
+            metaData->hintOptionData.statisticData.defensiveData.nextSkills
+                .skills[metaData->hintOptionData.statisticData.selectorData
+                            .index];
+        HSSH_skillConfirmHandler(metaData, DEFENSIVE, skillId);
+        HSSH_currentSkillsRender(metaData, DEFENSIVE);
       }
     }
   }
