@@ -4,8 +4,6 @@
 #include "../../headers/handlers/debugHandler.h"
 #include "../../headers/handlers/inputHandler.h"
 #include "../../headers/scenes/scene.h"
-#include "../../headers/handlers/drawButtonHandler.h"
-#include "../../headers/handlers/commonFunctionsHandler.h"
 #include "../../headers/handlers/hideoutSceneStatsHandler.h"
 #include "../../headers/handlers/hideoutSceneTopPanelHandler.h"
 #include "../../headers/handlers/hideoutSceneInventoryHandler.h"

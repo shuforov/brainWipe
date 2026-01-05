@@ -59,11 +59,9 @@ out/src/src/scenes/hideoutScene.o: src/src/scenes/hideoutScene.c \
  src/src/scenes/../../headers/handlers/debugHandler.h \
  src/src/scenes/../../headers/handlers/inputHandler.h \
  src/src/scenes/../../headers/scenes/scene.h \
- src/src/scenes/../../headers/handlers/drawButtonHandler.h \
- src/src/scenes/../../headers/handlers/commonStructHandler.h \
- src/src/scenes/../../headers/handlers/commonFunctionsHandler.h \
  src/src/scenes/../../headers/handlers/hideoutSceneStatsHandler.h \
  src/src/scenes/../../headers/handlers/commonHideoutStructHandler.h \
+ src/src/scenes/../../headers/handlers/commonStructHandler.h \
  src/src/scenes/../../headers/handlers/entityManagerHandler.h \
  src/src/scenes/../../headers/handlers/../commonConstants.h \
  src/src/scenes/../../headers/handlers/.././handlers/commonStructHandler.h \

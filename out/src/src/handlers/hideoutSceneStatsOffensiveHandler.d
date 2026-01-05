@@ -1,5 +1,5 @@
-out/src/src/handlers/hideoutSceneStatsHandler.o: \
- src/src/handlers/hideoutSceneStatsHandler.c \
+out/src/src/handlers/hideoutSceneStatsOffensiveHandler.o: \
+ src/src/handlers/hideoutSceneStatsOffensiveHandler.c \
  /opt/toolchains/mars/m68k-elf/inc/genesis.h \
  /opt/toolchains/mars/m68k-elf/inc/types.h \
  /opt/toolchains/mars/m68k-elf/inc/config.h \
@@ -55,13 +55,11 @@ out/src/src/handlers/hideoutSceneStatsHandler.o: \
  /opt/toolchains/mars/m68k-elf/inc/dma.h \
  src/src/handlers/../../headers/scenes/scene.h \
  src/src/handlers/../../headers/scenes/../handlers/commonFunctionsHandler.h \
- src/src/handlers/../../headers/handlers/hideoutSceneStatsHandler.h \
+ src/src/handlers/../../headers/handlers/hideoutSceneStatsOffensiveHandler.h \
  src/src/handlers/../../headers/handlers/commonHideoutStructHandler.h \
  src/src/handlers/../../headers/handlers/commonStructHandler.h \
  src/src/handlers/../../headers/handlers/entityManagerHandler.h \
  src/src/handlers/../../headers/handlers/../commonConstants.h \
  src/src/handlers/../../headers/handlers/.././handlers/commonStructHandler.h \
- src/src/handlers/../../headers/handlers/drawButtonHandler.h \
- src/src/handlers/../../headers/handlers/hideoutSceneStatsOffensiveHandler.h \
- src/src/handlers/../../headers/handlers/hideoutSceneStatsTopPanelHandler.h \
- src/src/handlers/../../headers/handlers/hideoutSceneStatsStatisticsHandler.h
+ src/src/handlers/../../headers/scenes/hideoutConstants.h \
+ src/src/handlers/../../headers/handlers/drawButtonHandler.h
