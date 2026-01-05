@@ -54,12 +54,10 @@ typedef struct {
 } SaveData;
 
 typedef struct {
-  u16 name[21];
-  u16 description[48];
+  u16 name[26];
+  u16 description[56];
   u16 nameSize;
   u16 descriptionSize;
-  u16 value;
-  u16 valueAdditional;
 } Skill;
 
 typedef struct {
