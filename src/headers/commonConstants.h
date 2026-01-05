@@ -87,7 +87,7 @@ static const Skill CCH_OFFENSIVE_DATA[10] = {
             3,
             40}};
 
-static const Skill CCH_DEFENSIVE_DATA[3] = {
+static const Skill CCH_DEFENSIVE_DATA[10] = {
     // HP Boost +20 max HP
     (Skill){{0x3B, 0x33, 0x3C, 0x20, 0x32, 0x54, 0x28, 0x3E, 0x3E, 0x5C, 0x16,
              0x27, 0x23, 0x41},
@@ -162,7 +162,7 @@ static const Skill CCH_DEFENSIVE_DATA[3] = {
             13}
 };
 
-static const Skill CCH_UTILITY_DATA[3] = {
+static const Skill CCH_UTILITY_DATA[10] = {
     // Key finder: +10% key drop chance
     (Skill){{0x4E, 0x49, 0x36, 0x1E, 0x52, 0x16, 0x36, 0x3C, 0x5B, 0x52, 0x33,
              0x20},
