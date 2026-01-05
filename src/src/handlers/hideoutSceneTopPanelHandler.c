@@ -2,11 +2,6 @@
 #include "../../headers/scenes/scene.h"
 #include "../../headers/handlers/hideoutSceneTopPanelHandler.h"
 #include "../../headers/handlers/drawButtonHandler.h"
-#include "../../headers/handlers/hideoutSceneCommonFunctions.h"
-#include "../../headers/handlers/hideoutSceneStatsHandler.h"
-
-static const Vec2 CURSOR_POSITIONS[4] = {(Vec2){3, 2}, (Vec2){11, 2},
-                                         (Vec2){22, 2}, (Vec2){31, 2}};
 
 void HSTPH_dataInit(MetaData *metaData) {
   metaData->topPanelData.borderPosition = (Vec2){6, 1};
