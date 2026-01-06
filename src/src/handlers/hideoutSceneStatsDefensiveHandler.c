@@ -62,7 +62,7 @@ void HSSDH_nextSkillsRender(MetaData *metaData) {
              metaData->hintOptionData.statisticData.defensiveData.nextSkills
                  .borderSize,
              metaData->borderTilesData);
-  if (metaData->hintOptionData.statisticData.offensiveData.currentSkills
+  if (metaData->hintOptionData.statisticData.defensiveData.currentSkills
           .skillsSize < 5) {
     // Draw next skill data
     Skill leftDefensiveData =

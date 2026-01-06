@@ -193,6 +193,11 @@ typedef struct {
 } StatisticDefensiveData;
 
 typedef struct {
+  SD_NextSkills nextSkills;
+  SD_CurrentSkills currentSkills;
+} StatisticUtilityData;
+
+typedef struct {
   PlayerStatisticAvatarData avatar;
   PlayerStatisticData stats;
   Vec2 borderPosition;
@@ -202,6 +207,7 @@ typedef struct {
   StatisticTopMenuData topMenuData;
   StatisticOffensiveData offensiveData;
   StatisticDefensiveData defensiveData;
+  StatisticUtilityData utilityData;
   SD_skillPoinstData skillPointsData;
   SD_selectorData selectorData;
 } StatisticData;

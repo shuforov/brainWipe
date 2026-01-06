@@ -4,6 +4,7 @@
 #include "../../headers/handlers/hideoutSceneStatsOffensiveHandler.h"
 #include "../../headers/handlers/hideoutSceneStatsStatisticsHandler.h"
 #include "../../headers/handlers/hideoutSceneStatsTopPanelHandler.h"
+#include "../../headers/handlers/hideoutSceneStatsUtility.h"
 #include "../../headers/scenes/scene.h"
 #include <genesis.h>
 
@@ -29,6 +30,7 @@ void HSSH_dataInit(MetaData *metaData) {
   HSSTPH_dataInit(metaData);
   HSSOH_dataInit(metaData);
   HSSDH_dataInit(metaData);
+  HSSUH_dataInit(metaData);
 }
 
 void HSSH_drawStatisticsOption(MetaData *metaData) {
@@ -63,6 +65,13 @@ void HSSH_drawDefensiveOption(MetaData *metaData) {
   HSSH_currentSkillsRender(metaData, DEFENSIVE);
 }
 
+void HSSH_drawUtilityOption(MetaData *metaData) {
+  // Draw next skills block
+  HSSH_nextSkillsRender(metaData, UTILITY);
+  // Draw current skill block
+  HSSH_currentSkillsRender(metaData, UTILITY);
+}
+
 void HSSH_nextSkillsRender(MetaData *metaData, u16 skillTypeTree) {
   bool skillSelectorRender = false;
   if (skillTypeTree == OFFENSIVE) {
@@ -79,6 +88,14 @@ void HSSH_nextSkillsRender(MetaData *metaData, u16 skillTypeTree) {
     // Set Selector of next skill rendering state
     if (HSSH_skillPointsAvailable(metaData) &&
         metaData->hintOptionData.statisticData.defensiveData.currentSkills
+                .skillsSize < 5) {
+      skillSelectorRender = true;
+    }
+  } else if (skillTypeTree == UTILITY) {
+    HSSUH_nextSkillsRender(metaData);
+    // Set Selector of next skill rendering state
+    if (HSSH_skillPointsAvailable(metaData) &&
+        metaData->hintOptionData.statisticData.utilityData.currentSkills
                 .skillsSize < 5) {
       skillSelectorRender = true;
     }
@@ -152,7 +169,10 @@ void HSSH_skillConfirmHandler(MetaData *metaData, u16 skillTypeTree,
   } else if (skillTypeTree == DEFENSIVE) {
     HSSDH_acceptSkillHandelr(metaData, skillId);
     HSSH_nextSkillsRender(metaData, DEFENSIVE);
-}
+  } else if (skillTypeTree == UTILITY) {
+    HSSUH_acceptSkillHandelr(metaData, skillId);
+    HSSH_nextSkillsRender(metaData, UTILITY);
+  }
 }
 
 void HSSH_currentSkillsRender(MetaData *metaData, u16 skillTreeType) {
@@ -160,6 +180,8 @@ void HSSH_currentSkillsRender(MetaData *metaData, u16 skillTreeType) {
     HSSOH_currentSkillsRender(metaData);
   } else if (skillTreeType == DEFENSIVE) {
     HSSDH_currentSkillsRender(metaData);
+  } else if (skillTreeType == UTILITY) {
+    HSSUH_currentSkillsRender(metaData);
   }
 }
 
@@ -167,6 +189,8 @@ void HSSH_selectorStatsHandle(MetaData *metaData, u16 typeButton) {
   if (typeButton == PRESS_Y_BUTTON) {
     metaData->currentFocus = HINT_MENU_OPTION_FOCUS;
     metaData->reRenderTrigger = true;
+    metaData->hintOptionData.statisticData.topMenuData.currentFocus =
+        STATISTICS_STATS_FOCUS;
   } else if (typeButton == MOVE_SELECTOR_RIGHT) {
     if (metaData->hintOptionData.statisticData.topMenuData.currentFocus ==
         STATISTICS_TOP_MENU_FOCUS) {
@@ -182,6 +206,13 @@ void HSSH_selectorStatsHandle(MetaData *metaData, u16 typeButton) {
                    .currentFocus == STATISTICS_DEFENSIVE_FOCUS) {
       if (HSSH_skillPointsAvailable(metaData) &&
           metaData->hintOptionData.statisticData.defensiveData.currentSkills
+                  .skillsSize < 5) {
+        HSSH_skillSelectorRender(metaData, SST_RIGHT);
+      }
+    } else if (metaData->hintOptionData.statisticData.topMenuData
+                   .currentFocus == STATISTICS_UTILITY_FOCUS) {
+      if (HSSH_skillPointsAvailable(metaData) &&
+          metaData->hintOptionData.statisticData.utilityData.currentSkills
                   .skillsSize < 5) {
         HSSH_skillSelectorRender(metaData, SST_RIGHT);
       }
@@ -204,6 +235,13 @@ void HSSH_selectorStatsHandle(MetaData *metaData, u16 typeButton) {
                   .skillsSize < 5) {
         HSSH_skillSelectorRender(metaData, SST_LEFT);
       }
+    } else if (metaData->hintOptionData.statisticData.topMenuData
+                   .currentFocus == STATISTICS_UTILITY_FOCUS) {
+      if (HSSH_skillPointsAvailable(metaData) &&
+          metaData->hintOptionData.statisticData.utilityData.currentSkills
+                  .skillsSize < 5) {
+        HSSH_skillSelectorRender(metaData, SST_LEFT);
+      }
     }
   } else if (typeButton == PRESS_X_BUTTON) {
     if (metaData->hintOptionData.statisticData.topMenuData.currentFocus ==
@@ -223,6 +261,11 @@ void HSSH_selectorStatsHandle(MetaData *metaData, u16 typeButton) {
         HSSH_drawDefensiveOption(metaData);
         metaData->hintOptionData.statisticData.topMenuData.currentFocus =
             STATISTICS_DEFENSIVE_FOCUS;
+      } else if (metaData->hintOptionData.statisticData.topMenuData.selectorData
+                     .selectorIndex == TMS_UTILITY) {
+        HSSH_drawUtilityOption(metaData);
+        metaData->hintOptionData.statisticData.topMenuData.currentFocus =
+            STATISTICS_UTILITY_FOCUS;
       }
     } else if (metaData->hintOptionData.statisticData.topMenuData
                    .currentFocus == STATISTICS_STATS_FOCUS) {
@@ -236,6 +279,11 @@ void HSSH_selectorStatsHandle(MetaData *metaData, u16 typeButton) {
           STATISTICS_TOP_MENU_FOCUS;
     } else if (metaData->hintOptionData.statisticData.topMenuData
                    .currentFocus == STATISTICS_DEFENSIVE_FOCUS) {
+      HSSH_clearFocusBox(metaData);
+      metaData->hintOptionData.statisticData.topMenuData.currentFocus =
+          STATISTICS_TOP_MENU_FOCUS;
+    } else if (metaData->hintOptionData.statisticData.topMenuData
+                   .currentFocus == STATISTICS_UTILITY_FOCUS) {
       HSSH_clearFocusBox(metaData);
       metaData->hintOptionData.statisticData.topMenuData.currentFocus =
           STATISTICS_TOP_MENU_FOCUS;
@@ -266,6 +314,18 @@ void HSSH_selectorStatsHandle(MetaData *metaData, u16 typeButton) {
                             .index];
         HSSH_skillConfirmHandler(metaData, DEFENSIVE, skillId);
         HSSH_currentSkillsRender(metaData, DEFENSIVE);
+      }
+    } else if (metaData->hintOptionData.statisticData.topMenuData
+                   .currentFocus == STATISTICS_UTILITY_FOCUS) {
+      if (HSSH_skillPointsAvailable(metaData) &&
+          metaData->hintOptionData.statisticData.utilityData.currentSkills
+                  .skillsSize < 5) {
+        // Accept selected skill
+        u16 skillId =
+            metaData->hintOptionData.statisticData.utilityData.nextSkills.skills
+                [metaData->hintOptionData.statisticData.selectorData.index];
+        HSSH_skillConfirmHandler(metaData, UTILITY, skillId);
+        HSSH_currentSkillsRender(metaData, UTILITY);
       }
     }
   }

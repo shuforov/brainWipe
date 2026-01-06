@@ -10,6 +10,8 @@ void HSSH_drawTopMenuOptions(MetaData *metaData);
 void HSSH_reRenderSelector(MetaData *metaData);
 void HSSH_clearFocusBox(MetaData *metaData);
 void HSSH_drawOffensiveOption(MetaData *metaData);
+void HSSH_drawDefensiveOption(MetaData *metaData);
+void HSSH_drawUtilityOption(MetaData *metaData);
 bool HSSH_skillPointsAvailable(MetaData *metaData);
 void HSSH_skillSelectorRender(MetaData *metaData, u16 selectorType);
 void HSSH_skillConfirmHandler(MetaData *metaData, u16 skillTypeTree,

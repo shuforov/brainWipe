@@ -133,6 +133,7 @@ void HSHO_selectorStatsHandle(MetaData *metaData, u16 typeButton) {
       if (metaData->hintOptionData.menuData.selectorData.selectorIndex ==
           STATISTICS_OPTION) {
         metaData->currentFocus = STATISTICS_FOCUS;
+	metaData->hintOptionData.statisticData.topMenuData.currentFocus = STATISTICS_TOP_MENU_FOCUS;
       } else if (metaData->hintOptionData.menuData.selectorData.selectorIndex ==
                  INVENTORY_OPTION) {
         metaData->currentFocus = INVENTORY_FOCUS;
