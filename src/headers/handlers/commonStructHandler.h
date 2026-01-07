@@ -61,8 +61,20 @@ typedef struct {
 } Skill;
 
 typedef struct {
+  u16 damage;
+  u16 critChance;
+  u16 durabilityLoss;
+  u16 hitChance;
+  u16 damageWHPH50P; // damage when HP > 50%
+  u16 damageWHPL40P; // damage when HP < 40%
+  u16 critsDealXD; // crits deal * X damage
+  u16 damageNPEnemyHPL30P; // damage n% enemy HP < 30%
+} OffensiveSkillStats;
+
+typedef struct {
   u16 offensive[5]; // ids of offensive accepted skills
   u16 offensiveSize;
+  OffensiveSkillStats offensiveSkillStats;
   u16 defensive[5]; // ids of defensive accepted skills
   u16 defensiveSize;
   u16 utility[5]; // ids of utility accepted skills
