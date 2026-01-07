@@ -61,11 +61,11 @@ typedef struct {
 } Skill;
 
 typedef struct {
-  Skill offensive[5];
+  u16 offensive[5]; // ids of offensive accepted skills
   u16 offensiveSize;
-  Skill defensive[5];
+  u16 defensive[5]; // ids of defensive accepted skills
   u16 defensiveSize;
-  Skill utility[5];
+  u16 utility[5]; // ids of utility accepted skills
   u16 utilitySize;
   u16 skillPoints;
 } SkillsData;

@@ -176,8 +176,9 @@ typedef struct {
   Vec2 borderPosition;
   SizeBox borderSize;
   Vec2 firstSkillPosition;
-  u16 skills[5];
-  u16 skillsSize;
+  u16 (*skills)[5]; // offensive defensive utility pointer of player SkillsData
+                  // struct
+  u16 *skillsSize;
   Vec2 focusBoxPosition;
   SizeBox focusBoxSize;
 } SD_CurrentSkills;

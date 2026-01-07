@@ -2,14 +2,18 @@
 #define ENTITY_MANAGER_HANDLER_H
 
 #include <genesis.h>
-#include "../commonConstants.h"
+#include "../handlers/commonStructHandler.h"
 
 typedef enum {
   SMALL_BATTERY
 } HealingItemTypes;
 
 typedef struct {
-  u16 health;
+  u16 healthPoint; // health points - здоров'я ЗДР.
+  u16 attak; // attack - атака АТК.
+  u16 defense; // defense - захист ЗХТ.
+  u16 crit; // crit % - критична шкода КРТ.
+  u16 evasion; // evasion % - ухилення УХЛ.
 } CharacterStats;
 
 typedef struct {

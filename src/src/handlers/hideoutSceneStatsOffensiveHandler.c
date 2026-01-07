@@ -3,6 +3,7 @@
 #include "../../headers/handlers/hideoutSceneStatsOffensiveHandler.h"
 #include "../../headers/scenes/hideoutConstants.h"
 #include "../../headers/handlers/drawButtonHandler.h"
+#include "../../headers/commonConstants.h"
 
 void HSSOH_dataInit(MetaData *metaData) {
   // Current skills init data
@@ -11,7 +12,9 @@ void HSSOH_dataInit(MetaData *metaData) {
   metaData->hintOptionData.statisticData.offensiveData.currentSkills
       .borderSize = (SizeBox){36, 9};
   metaData->hintOptionData.statisticData.offensiveData.currentSkills
-      .skillsSize = 0;
+      .skillsSize = &metaData->playerNode->skillsData.offensiveSize;
+  metaData->hintOptionData.statisticData.offensiveData.currentSkills
+      .skills = &metaData->playerNode->skillsData.offensive;
   memcpy(metaData->hintOptionData.statisticData.offensiveData.currentSkills
              .titleTiles,
          CURRENT_SKILL_TITLE_NAME, sizeof(CURRENT_SKILL_TITLE_NAME));
@@ -86,7 +89,7 @@ void HSSOH_nextSkillsRender(MetaData *metaData) {
              metaData->hintOptionData.statisticData.offensiveData.nextSkills
                  .borderSize,
              metaData->borderTilesData);
-  if (metaData->hintOptionData.statisticData.offensiveData.currentSkills
+  if (*metaData->hintOptionData.statisticData.offensiveData.currentSkills
           .skillsSize < 5) {
     // Draw next skill data
     Skill leftOffensiveData =
@@ -116,18 +119,18 @@ void HSSOH_nextSkillsRender(MetaData *metaData) {
 }
 
 void HSSOH_acceptSkillHandelr(MetaData *metaData, u16 skillId) {
-  metaData->hintOptionData.statisticData.offensiveData.currentSkills
-      .skills[metaData->hintOptionData.statisticData.offensiveData.currentSkills
-                  .skillsSize] = skillId;
-  metaData->hintOptionData.statisticData.offensiveData.currentSkills
-      .skillsSize++;
-  u16 secondSkillId =
-      metaData->hintOptionData.statisticData.offensiveData.nextSkills.skills[1];
-  if (secondSkillId < 9) {
-    metaData->hintOptionData.statisticData.offensiveData.nextSkills.skills[0] =
-        secondSkillId + 1;
-    metaData->hintOptionData.statisticData.offensiveData.nextSkills.skills[1] =
-        secondSkillId + 2;
+    (*metaData->hintOptionData.statisticData.offensiveData.currentSkills
+         .skills)[(*metaData->hintOptionData.statisticData.offensiveData
+                      .currentSkills.skillsSize)] = skillId;
+    (*metaData->hintOptionData.statisticData.offensiveData.currentSkills
+        .skillsSize)++;
+    u16 secondSkillId = metaData->hintOptionData.statisticData.offensiveData
+                            .nextSkills.skills[1];
+    if (secondSkillId < 9) {
+      metaData->hintOptionData.statisticData.offensiveData.nextSkills
+          .skills[0] = secondSkillId + 1;
+      metaData->hintOptionData.statisticData.offensiveData.nextSkills
+          .skills[1] = secondSkillId + 2;
   }
 }
 
@@ -151,12 +154,12 @@ void HSSOH_currentSkillsRender(MetaData *metaData) {
                 ARRAY_LEN(metaData->hintOptionData.statisticData.offensiveData
                               .currentSkills.titleTiles));
   // render each available skill
-  for (u16 i = 0; i < metaData->hintOptionData.statisticData.offensiveData
+  for (u16 i = 0; i < *metaData->hintOptionData.statisticData.offensiveData
                           .currentSkills.skillsSize;
        i++) {
     Skill skillMetaData =
-        CCH_OFFENSIVE_DATA[metaData->hintOptionData.statisticData.offensiveData
-                               .currentSkills.skills[i]];
+        CCH_OFFENSIVE_DATA[(*metaData->hintOptionData.statisticData.offensiveData
+                               .currentSkills.skills)[i]];
     Vec2 namePosition =
         (Vec2){metaData->hintOptionData.statisticData.offensiveData
                    .currentSkills.firstSkillPosition.x,

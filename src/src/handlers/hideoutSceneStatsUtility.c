@@ -3,6 +3,7 @@
 #include "../../headers/handlers/hideoutSceneStatsUtility.h"
 #include "../../headers/handlers/drawButtonHandler.h"
 #include "../../headers/scenes/hideoutConstants.h"
+#include "../../headers/commonConstants.h"
 
 void HSSUH_dataInit(MetaData *metaData) {
   // Next Skill init data
@@ -26,7 +27,9 @@ void HSSUH_dataInit(MetaData *metaData) {
   metaData->hintOptionData.statisticData.utilityData.currentSkills.borderSize =
       (SizeBox){36, 9};
   metaData->hintOptionData.statisticData.utilityData.currentSkills.skillsSize =
-      0;
+      &metaData->playerNode->skillsData.utilitySize;
+  metaData->hintOptionData.statisticData.utilityData.currentSkills.skills =
+      &metaData->playerNode->skillsData.utility;
   memcpy(metaData->hintOptionData.statisticData.utilityData.currentSkills
              .titleTiles,
          CURRENT_SKILL_TITLE_NAME, sizeof(CURRENT_SKILL_TITLE_NAME));
@@ -61,7 +64,7 @@ void HSSUH_nextSkillsRender(MetaData *metaData) {
           .borderPosition,
       metaData->hintOptionData.statisticData.utilityData.nextSkills.borderSize,
       metaData->borderTilesData);
-  if (metaData->hintOptionData.statisticData.utilityData.currentSkills
+  if (*metaData->hintOptionData.statisticData.utilityData.currentSkills
           .skillsSize < 5) {
     // Draw next skill data
     Skill leftUtilityData =
@@ -90,10 +93,10 @@ void HSSUH_nextSkillsRender(MetaData *metaData) {
   }
 }
 void HSSUH_acceptSkillHandelr(MetaData *metaData, u16 skillId) {
-  metaData->hintOptionData.statisticData.utilityData.currentSkills
-      .skills[metaData->hintOptionData.statisticData.utilityData.currentSkills
+  (*metaData->hintOptionData.statisticData.utilityData.currentSkills
+      .skills)[*metaData->hintOptionData.statisticData.utilityData.currentSkills
                   .skillsSize] = skillId;
-  metaData->hintOptionData.statisticData.utilityData.currentSkills.skillsSize++;
+  (*metaData->hintOptionData.statisticData.utilityData.currentSkills.skillsSize)++;
   u16 secondSkillId =
       metaData->hintOptionData.statisticData.utilityData.nextSkills.skills[1];
   if (secondSkillId < 9) {
@@ -123,12 +126,12 @@ void HSSUH_currentSkillsRender(MetaData *metaData) {
                 ARRAY_LEN(metaData->hintOptionData.statisticData.utilityData
                               .currentSkills.titleTiles));
   // render each available skill
-  for (u16 i = 0; i < metaData->hintOptionData.statisticData.utilityData
+  for (u16 i = 0; i < *metaData->hintOptionData.statisticData.utilityData
                           .currentSkills.skillsSize;
        i++) {
     Skill skillMetaData =
-        CCH_UTILITY_DATA[metaData->hintOptionData.statisticData.utilityData
-                             .currentSkills.skills[i]];
+        CCH_UTILITY_DATA[(*metaData->hintOptionData.statisticData.utilityData
+                             .currentSkills.skills)[i]];
     Vec2 namePosition =
         (Vec2){metaData->hintOptionData.statisticData.utilityData.currentSkills
                    .firstSkillPosition.x,

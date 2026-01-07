@@ -63,8 +63,7 @@ out/src/src/scenes/hideoutScene.o: src/src/scenes/hideoutScene.c \
  src/src/scenes/../../headers/handlers/commonHideoutStructHandler.h \
  src/src/scenes/../../headers/handlers/commonStructHandler.h \
  src/src/scenes/../../headers/handlers/entityManagerHandler.h \
- src/src/scenes/../../headers/handlers/../commonConstants.h \
- src/src/scenes/../../headers/handlers/.././handlers/commonStructHandler.h \
+ src/src/scenes/../../headers/handlers/../handlers/commonStructHandler.h \
  src/src/scenes/../../headers/handlers/hideoutSceneTopPanelHandler.h \
  src/src/scenes/../../headers/handlers/hideoutSceneInventoryHandler.h \
  src/src/scenes/../../headers/handlers/hideoutSceneMapHandler.h \

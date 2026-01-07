@@ -60,6 +60,7 @@ out/src/src/handlers/hideoutSceneStatsDefensiveHandler.o: \
  src/src/handlers/../../headers/handlers/hideoutSceneStatsDefensiveHandler.h \
  src/src/handlers/../../headers/handlers/commonHideoutStructHandler.h \
  src/src/handlers/../../headers/handlers/entityManagerHandler.h \
- src/src/handlers/../../headers/handlers/../commonConstants.h \
- src/src/handlers/../../headers/handlers/.././handlers/commonStructHandler.h \
- src/src/handlers/../../headers/scenes/hideoutConstants.h
+ src/src/handlers/../../headers/handlers/../handlers/commonStructHandler.h \
+ src/src/handlers/../../headers/scenes/hideoutConstants.h \
+ src/src/handlers/../../headers/commonConstants.h \
+ src/src/handlers/../../headers/./handlers/commonStructHandler.h

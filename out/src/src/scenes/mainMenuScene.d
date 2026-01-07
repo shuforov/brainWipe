@@ -63,5 +63,4 @@ out/src/src/scenes/mainMenuScene.o: src/src/scenes/mainMenuScene.c \
  src/src/scenes/../../headers/handlers/commonStructHandler.h \
  src/src/scenes/../../headers/handlers/commonStructHandler.h \
  src/src/scenes/../../headers/handlers/entityManagerHandler.h \
- src/src/scenes/../../headers/handlers/../commonConstants.h \
- src/src/scenes/../../headers/handlers/.././handlers/commonStructHandler.h
+ src/src/scenes/../../headers/handlers/../handlers/commonStructHandler.h

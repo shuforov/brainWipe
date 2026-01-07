@@ -11,7 +11,6 @@ static const u16 STATS_NAME_DEFAULT[8] = {
 static const u16 START_AVATAR_IMAGE_REGISTER = 0x81;
 
 void HSSSH_dataInit(MetaData *metaData) {
-
   // Player avatar data Border
   metaData->hintOptionData.statisticData.avatar.borderPosition = (Vec2){2, 8};
   metaData->hintOptionData.statisticData.avatar.borderSize = (SizeBox){10, 10};
@@ -35,7 +34,7 @@ void HSSSH_dataInit(MetaData *metaData) {
   metaData->hintOptionData.statisticData.stats.healthTitlePosition =
       (Vec2){14, 10};
   metaData->hintOptionData.statisticData.stats.healthValue =
-      metaData->playerNode->stats.health;
+      metaData->playerNode->stats.healthPoint;
   metaData->hintOptionData.statisticData.stats.healthValuePosition =
       (Vec2){19, 10};
 }
