@@ -92,20 +92,6 @@ typedef struct {
   Vec2 borderPosition;
   SizeBox borderSize;
   Vec2 position;
-  u16 nameTitle[4];
-  Vec2 nameTitilePosition;
-  u16 nameValue[8];
-  Vec2 nameValuePosition;
-  u16 healthTitle[4];
-  Vec2 healthTitlePosition;
-  u16 healthValue;
-  Vec2 healthValuePosition;
-} PlayerStatisticData;
-
-typedef struct {
-  Vec2 borderPosition;
-  SizeBox borderSize;
-  Vec2 position;
 } PlayerStatisticAvatarData;
 
 typedef struct {
@@ -177,11 +163,41 @@ typedef struct {
   SizeBox borderSize;
   Vec2 firstSkillPosition;
   u16 (*skills)[5]; // offensive defensive utility pointer of player SkillsData
-                  // struct
+                    // struct
   u16 *skillsSize;
   Vec2 focusBoxPosition;
   SizeBox focusBoxSize;
 } SD_CurrentSkills;
+
+typedef struct {
+  Vec2 borderPosition;
+  SizeBox borderSize;
+  PlayerStatisticAvatarData avatar;
+  u16 nameTitle[4];
+  Vec2 nameTitilePosition;
+  u16 nameValue[8];
+  Vec2 nameValuePosition;
+  u16 healthTitle[4];
+  Vec2 healthTitlePosition;
+  u16 *healthValue;
+  Vec2 healthValuePosition;
+  u16 attackTitle[4];
+  Vec2 attackTitlePosition;
+  u16 *attackValue;
+  Vec2 attackValuePosition;
+  u16 defenseTitle[4];
+  Vec2 defenseTitlePosition;
+  u16 *defenseValue;
+  Vec2 defenseValuePosition;
+  u16 critTitle[4];
+  Vec2 critTitlePosition;
+  u16 *critValue;
+  Vec2 critValuePosition;
+  u16 evasionTitle[4];
+  Vec2 evasionTitlePosition;
+  u16 *evasionValue;
+  Vec2 evasionValuePosition;
+} StatisticStatsStatisticsData;
 
 typedef struct {
   SD_NextSkills nextSkills;
@@ -199,13 +215,12 @@ typedef struct {
 } StatisticUtilityData;
 
 typedef struct {
-  PlayerStatisticAvatarData avatar;
-  PlayerStatisticData stats;
   Vec2 borderPosition;
   SizeBox borderSize;
   Vec2 focusBoxPosition;
   SizeBox focusBoxSize;
   StatisticTopMenuData topMenuData;
+  StatisticStatsStatisticsData statisticsData;
   StatisticOffensiveData offensiveData;
   StatisticDefensiveData defensiveData;
   StatisticUtilityData utilityData;

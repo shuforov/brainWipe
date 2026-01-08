@@ -72,9 +72,35 @@ typedef struct {
 } OffensiveSkillStats;
 
 typedef struct {
+  u16 maxHP;
+  u16 defense;
+  u16 damageTaken;
+  u16 chanceECY;     // chance enemy crits you
+  u16 chanceCA;      // chance to counter attack
+  u16 healNPM;       // heal N% more
+  u16 damageWHPL20P; // damage when HP < 20%
+  u16 defendR60D;    // defend reduces 60% damage (insted of 50%)
+} DefensiveSkillStats;
+
+typedef struct {
+  u16 keyDropChance;
+  u16 medkitsHeal;
+  u16 chanceAF; // chance to act first
+  bool rEDHBF; // reveals enemy Def & HP before fight
+  u16 damageT; // throwables deal +N damage
+  u16 lastSEET; // last status effects N extra turn
+  u16 creditsFK; // +N% more credits from kills
+  u16 storeItemsCost; // store items cost -N%
+  bool freeHeal; // N free heal at 0HP (only once per battle)
+  u16 dropChanceFAI; // +N% drop chance for all items
+} UtilitySkillStats ;
+
+typedef struct {
   u16 offensive[5]; // ids of offensive accepted skills
   u16 offensiveSize;
   OffensiveSkillStats offensiveSkillStats;
+  DefensiveSkillStats defensiveSkillStats;
+  UtilitySkillStats utilitySkillStats;
   u16 defensive[5]; // ids of defensive accepted skills
   u16 defensiveSize;
   u16 utility[5]; // ids of utility accepted skills

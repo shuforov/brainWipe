@@ -7,5 +7,6 @@ void HSSDH_dataInit(MetaData *metaData);
 void HSSDH_nextSkillsRender(MetaData *metaData);
 void HSSDH_currentSkillsRender(MetaData *metaData);
 void HSSDH_acceptSkillHandelr(MetaData *metaData, u16 skillId);
+void HSSDH_setSkillStatsHandler(MetaData *metaData, u16 skillId);
 
 #endif

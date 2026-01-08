@@ -4,7 +4,7 @@
 #include "../../headers/handlers/hideoutSceneStatsOffensiveHandler.h"
 #include "../../headers/handlers/hideoutSceneStatsStatisticsHandler.h"
 #include "../../headers/handlers/hideoutSceneStatsTopPanelHandler.h"
-#include "../../headers/handlers/hideoutSceneStatsUtility.h"
+#include "../../headers/handlers/hideoutSceneStatsUtilityHandler.h"
 #include "../../headers/scenes/scene.h"
 #include <genesis.h>
 
