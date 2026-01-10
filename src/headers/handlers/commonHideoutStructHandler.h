@@ -234,6 +234,25 @@ typedef struct {
   MapData mapData;
   Vec2 borderPosition;
   SizeBox borderSize;
+  u16 levelTitle[6];
+  Vec2 levelTitlePosition;
+  u16 *levelValue;
+  Vec2 levelValuePosition;
+  u16 experienceTitle[6];
+  Vec2 experienceTitlePosition;
+  u16 experienceSpliterTile;
+  Vec2 experienceSpliterTilePosition;
+  u16 *currentExperience;
+  Vec2 currentExperiencePosition;
+  u16 *experienceNeededNext;
+  Vec2 experienceNeededNextPosition;
+  u16 creditTitle;
+  Vec2 creditTitlePosition;
+  u16 creditSpliterTile;
+  Vec2 creditSpliterTilePosition;
+  u16 *creditValue;
+  Vec2 creditValuePosition;
+
 } TopPanelData;
 
 typedef struct {

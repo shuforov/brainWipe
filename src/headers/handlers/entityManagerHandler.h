@@ -1,20 +1,24 @@
 #ifndef ENTITY_MANAGER_HANDLER_H
 #define ENTITY_MANAGER_HANDLER_H
 
-#include <genesis.h>
 #include "../handlers/commonStructHandler.h"
+#include <genesis.h>
 
-typedef enum {
-  SMALL_BATTERY
-} HealingItemTypes;
+typedef enum { SMALL_BATTERY } HealingItemTypes;
 
 typedef struct {
   u16 healthPoint; // health points - здоров'я ЗДР.
-  u16 attak; // attack - атака АТК.
-  u16 defense; // defense - захист ЗХТ.
-  u16 crit; // crit % - критична шкода КРТ.
-  u16 evasion; // evasion % - ухилення УХЛ.
+  u16 attak;       // attack - атака АТК.
+  u16 defense;     // defense - захист ЗХТ.
+  u16 crit;        // crit % - критична шкода КРТ.
+  u16 evasion;     // evasion % - ухилення УХЛ.
 } CharacterStats;
+
+typedef struct {
+  u16 level;
+  u16 currentExperience;
+  u16 experienceNeededNext;
+} CharacterLevel;
 
 typedef struct {
   char name[32];
@@ -41,6 +45,8 @@ typedef struct {
   BackPack backPack;
   CharacterStats stats;
   SkillsData skillsData;
+  CharacterLevel levelData;
+  u16 creditValue;
 } Player;
 
 typedef struct {
