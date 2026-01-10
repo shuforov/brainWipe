@@ -2,6 +2,14 @@
 #include "../../headers/miniGameConstants.h"
 #include "../../headers/handlers/drawButtonHandler.h"
 #include "../../headers/handlers/commonStructHandler.h"
+#include "../../headers/handlers/commonFunctionsHandler.h"
+
+void drawNumber(Vec2 position, u16 number) {
+  CFH_SplitDigits u16ToSplitDigits = CFH_splitDigits(number);
+  CFH_transformDigits splitDigitsToHex =
+      CFH_transformDigitsToHex(u16ToSplitDigits);
+  drawTextTiles(position, splitDigitsToHex.hexDigits, splitDigitsToHex.count);
+}
 
 void drawFillBox(Vec2 position, SizeBox fillSize, u16 fillTile) {
   for (u16 j = 0; j < fillSize.h; j++) {

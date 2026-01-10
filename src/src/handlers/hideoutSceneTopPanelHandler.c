@@ -25,21 +25,21 @@ void HSTPH_dataInit(MetaData *metaData) {
   // Level init data
   memcpy(metaData->topPanelData.levelTitle, LEVEL_TITLE, sizeof(LEVEL_TITLE));
   metaData->topPanelData.levelTitlePosition = (Vec2){7, 2};
-  metaData->topPanelData.levelValuePosition = (Vec2){14, 2};
+  metaData->topPanelData.levelValuePosition = (Vec2){13, 2};
   metaData->topPanelData.levelValue = &metaData->playerNode->levelData.level;
   // Experience init data
   memcpy(metaData->topPanelData.experienceTitle, EXPERIENCE_TITLE,
          sizeof(EXPERIENCE_TITLE));
-  metaData->topPanelData.experienceTitlePosition = (Vec2){17, 2};
+  metaData->topPanelData.experienceTitlePosition = (Vec2){16, 2};
   metaData->topPanelData.currentExperience =
       &metaData->playerNode->levelData.currentExperience;
-  metaData->topPanelData.currentExperiencePosition = (Vec2){24, 2};
+  metaData->topPanelData.currentExperiencePosition = (Vec2){22, 2};
   metaData->topPanelData.experienceNeededNext =
       &metaData->playerNode->levelData.experienceNeededNext;
-  metaData->topPanelData.experienceNeededNextPosition = (Vec2){28, 2};
+  metaData->topPanelData.experienceNeededNextPosition = (Vec2){27, 2};
   // Experience spliter init data
   metaData->topPanelData.experienceSpliterTile = EXPERIENCE_SPLITER_TITLE;
-  metaData->topPanelData.experienceSpliterTilePosition = (Vec2){27, 2};
+  metaData->topPanelData.experienceSpliterTilePosition = (Vec2){26, 2};
   // Credit init data
   metaData->topPanelData.creditTitle = CREDITS_TITLE;
   metaData->topPanelData.creditTitlePosition = (Vec2){32, 2};
@@ -64,12 +64,8 @@ void HSTPH_renderLevelData(MetaData *metaData) {
                 metaData->topPanelData.levelTitle,
                 ARRAY_LEN(metaData->topPanelData.levelTitle));
   // Draw level value
-  CFH_SplitDigits LV_u16ToSplitDigits =
-      CFH_splitDigits(*metaData->topPanelData.levelValue);
-  SceneTransformDigits LV_splitDigitsToHex =
-      sceneTransformDigitsToHex(LV_u16ToSplitDigits);
-  drawTextTiles(metaData->topPanelData.levelValuePosition,
-                LV_splitDigitsToHex.hexDigits, LV_splitDigitsToHex.count);
+  drawNumber(metaData->topPanelData.levelValuePosition,
+             *metaData->topPanelData.levelValue);
 }
 
 void HSTPH_renderExperienceData(MetaData *metaData) {
@@ -78,22 +74,14 @@ void HSTPH_renderExperienceData(MetaData *metaData) {
                 metaData->topPanelData.experienceTitle,
                 ARRAY_LEN(metaData->topPanelData.experienceTitle));
   // Draw current experience value
-  CFH_SplitDigits ECV_u16ToSplitDigits =
-      CFH_splitDigits(*metaData->topPanelData.currentExperience);
-  SceneTransformDigits ECV_splitDigitsToHex =
-      sceneTransformDigitsToHex(ECV_u16ToSplitDigits);
-  drawTextTiles(metaData->topPanelData.currentExperiencePosition,
-                ECV_splitDigitsToHex.hexDigits, ECV_splitDigitsToHex.count);
+  drawNumber(metaData->topPanelData.currentExperiencePosition,
+             *metaData->topPanelData.currentExperience);
   // Draw experience split tile
   drawTile(metaData->topPanelData.experienceSpliterTilePosition,
            metaData->topPanelData.experienceSpliterTile);
   // Draw experience needed value
-  CFH_SplitDigits ENV_u16ToSplitDigits =
-      CFH_splitDigits(*metaData->topPanelData.experienceNeededNext);
-  SceneTransformDigits ENV_splitDigitsToHex =
-      sceneTransformDigitsToHex(ENV_u16ToSplitDigits);
-  drawTextTiles(metaData->topPanelData.experienceNeededNextPosition,
-                ENV_splitDigitsToHex.hexDigits, ENV_splitDigitsToHex.count);
+  drawNumber(metaData->topPanelData.experienceNeededNextPosition,
+             *metaData->topPanelData.experienceNeededNext);
 }
 
 void HSTPH_renderCreditsData(MetaData *metaData) {
@@ -104,10 +92,6 @@ void HSTPH_renderCreditsData(MetaData *metaData) {
   drawTile(metaData->topPanelData.creditSpliterTilePosition,
            metaData->topPanelData.creditSpliterTile);
   // Draw credit value
-  CFH_SplitDigits CV_u16ToSplitDigits =
-      CFH_splitDigits(*metaData->topPanelData.creditValue);
-  SceneTransformDigits CV_splitDigitsToHex =
-      sceneTransformDigitsToHex(CV_u16ToSplitDigits);
-  drawTextTiles(metaData->topPanelData.creditValuePosition,
-                CV_splitDigitsToHex.hexDigits, CV_splitDigitsToHex.count);
+  drawNumber(metaData->topPanelData.creditValuePosition,
+             *metaData->topPanelData.creditValue);
 }

@@ -125,26 +125,18 @@ void HSSSH_statisticsRender(MetaData *metaData) {
       ARRAY_LEN(
           metaData->hintOptionData.statisticData.statisticsData.healthTitle));
   // Draw health stats
-  CFH_SplitDigits HS_u16ToSplitDigits = CFH_splitDigits(
-      *metaData->hintOptionData.statisticData.statisticsData.healthValue);
-  SceneTransformDigits HS_splitDigitsToHex =
-      sceneTransformDigitsToHex(HS_u16ToSplitDigits);
-  drawTextTiles(
+  drawNumber(
       metaData->hintOptionData.statisticData.statisticsData.healthValuePosition,
-      HS_splitDigitsToHex.hexDigits, HS_splitDigitsToHex.count);
+      *metaData->hintOptionData.statisticData.statisticsData.healthValue);
   // Draw attack stats
   drawTextTiles(
       metaData->hintOptionData.statisticData.statisticsData.attackTitlePosition,
       metaData->hintOptionData.statisticData.statisticsData.attackTitle,
       ARRAY_LEN(
           metaData->hintOptionData.statisticData.statisticsData.attackTitle));
-  CFH_SplitDigits AS_u16ToSplitDigits = CFH_splitDigits(
-      *metaData->hintOptionData.statisticData.statisticsData.attackValue);
-  SceneTransformDigits AS_splitDigitsToHex =
-      sceneTransformDigitsToHex(AS_u16ToSplitDigits);
-  drawTextTiles(
+  drawNumber(
       metaData->hintOptionData.statisticData.statisticsData.attackValuePosition,
-      AS_splitDigitsToHex.hexDigits, AS_splitDigitsToHex.count);
+      *metaData->hintOptionData.statisticData.statisticsData.attackValue);
   // Draw defense stats
   drawTextTiles(
       metaData->hintOptionData.statisticData.statisticsData
@@ -152,26 +144,19 @@ void HSSSH_statisticsRender(MetaData *metaData) {
       metaData->hintOptionData.statisticData.statisticsData.defenseTitle,
       ARRAY_LEN(
           metaData->hintOptionData.statisticData.statisticsData.defenseTitle));
-  CFH_SplitDigits DS_u16ToSplitDigits = CFH_splitDigits(
+  drawNumber(
+      metaData->hintOptionData.statisticData.statisticsData
+          .defenseValuePosition,
       *metaData->hintOptionData.statisticData.statisticsData.defenseValue);
-  SceneTransformDigits DS_splitDigitsToHex =
-      sceneTransformDigitsToHex(DS_u16ToSplitDigits);
-  drawTextTiles(metaData->hintOptionData.statisticData.statisticsData
-                    .defenseValuePosition,
-                DS_splitDigitsToHex.hexDigits, DS_splitDigitsToHex.count);
   // Draw crit stats
   drawTextTiles(
       metaData->hintOptionData.statisticData.statisticsData.critTitlePosition,
       metaData->hintOptionData.statisticData.statisticsData.critTitle,
       ARRAY_LEN(
           metaData->hintOptionData.statisticData.statisticsData.critTitle));
-  CFH_SplitDigits CS_u16ToSplitDigits = CFH_splitDigits(
-      *metaData->hintOptionData.statisticData.statisticsData.critValue);
-  SceneTransformDigits CS_splitDigitsToHex =
-      sceneTransformDigitsToHex(CS_u16ToSplitDigits);
-  drawTextTiles(
+  drawNumber(
       metaData->hintOptionData.statisticData.statisticsData.critValuePosition,
-      CS_splitDigitsToHex.hexDigits, CS_splitDigitsToHex.count);
+      *metaData->hintOptionData.statisticData.statisticsData.critValue);
   // Draw evasion stats
   drawTextTiles(
       metaData->hintOptionData.statisticData.statisticsData
@@ -179,11 +164,8 @@ void HSSSH_statisticsRender(MetaData *metaData) {
       metaData->hintOptionData.statisticData.statisticsData.evasionTitle,
       ARRAY_LEN(
           metaData->hintOptionData.statisticData.statisticsData.evasionTitle));
-  CFH_SplitDigits ES_u16ToSplitDigits = CFH_splitDigits(
+  drawNumber(
+      metaData->hintOptionData.statisticData.statisticsData
+          .evasionValuePosition,
       *metaData->hintOptionData.statisticData.statisticsData.evasionValue);
-  SceneTransformDigits ES_splitDigitsToHex =
-      sceneTransformDigitsToHex(ES_u16ToSplitDigits);
-  drawTextTiles(metaData->hintOptionData.statisticData.statisticsData
-                    .evasionValuePosition,
-                ES_splitDigitsToHex.hexDigits, ES_splitDigitsToHex.count);
 }

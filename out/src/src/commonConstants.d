@@ -1,5 +1,4 @@
-out/src/src/handlers/commonFunctionsHandler.o: \
- src/src/handlers/commonFunctionsHandler.c \
+out/src/src/commonConstants.o: src/src/commonConstants.c \
  /opt/toolchains/mars/m68k-elf/inc/genesis.h \
  /opt/toolchains/mars/m68k-elf/inc/types.h \
  /opt/toolchains/mars/m68k-elf/inc/config.h \
@@ -53,5 +52,4 @@ out/src/src/handlers/commonFunctionsHandler.o: \
  /opt/toolchains/mars/m68k-elf/inc/string.h \
  /opt/toolchains/mars/m68k-elf/inc/maths.h \
  /opt/toolchains/mars/m68k-elf/inc/dma.h \
- src/src/handlers/../../headers/commonConstants.h \
- src/src/handlers/../../headers/handlers/commonFunctionsHandler.h
+ src/src/../headers/commonConstants.h

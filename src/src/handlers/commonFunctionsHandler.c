@@ -1,11 +1,12 @@
 #include <genesis.h>
+#include "../../headers/commonConstants.h"
 #include "../../headers/handlers/commonFunctionsHandler.h"
 
 CFH_SplitDigits splitNumberData;
 
 void CFH_resetSplitNumberData() {
   splitNumberData.originNum = 0;
-  for (u16 i = 0; i < 3; i++) {
+  for (u16 i = 0; i < 4; i++) {
     splitNumberData.digits[0] = 0;
   }
   splitNumberData.count = 0;
@@ -34,4 +35,13 @@ CFH_SplitDigits CFH_splitDigits(u16 number) {
     }
   }
   return splitNumberData;
+}
+
+CFH_transformDigits CFH_transformDigitsToHex(CFH_SplitDigits splitDigits) {
+  CFH_transformDigits result;
+  result.count = splitDigits.count;
+  for (u16 i = 0; i < result.count; i++) {
+    result.hexDigits[i] = NUMBERS_HEX[splitDigits.digits[i]];
+  }
+  return result;
 }

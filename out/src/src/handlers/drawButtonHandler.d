@@ -56,4 +56,5 @@ out/src/src/handlers/drawButtonHandler.o: \
  src/src/handlers/../../headers/miniGameConstants.h \
  src/src/handlers/../../headers/handlers/drawButtonHandler.h \
  src/src/handlers/../../headers/handlers/commonStructHandler.h \
- src/src/handlers/../../headers/handlers/commonStructHandler.h
+ src/src/handlers/../../headers/handlers/commonStructHandler.h \
+ src/src/handlers/../../headers/handlers/commonFunctionsHandler.h

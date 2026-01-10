@@ -48,7 +48,7 @@ typedef struct {
 typedef enum { SCENE_MAIN_MENU, SCENE_HIDEOUT } SceneId;
 
 typedef struct {
-  u16 hexDigits[3];
+  u16 hexDigits[4];
   u16 count;
 } SceneTransformDigits;
 
@@ -62,6 +62,5 @@ void setScene(SceneId sceneTagId);
 Scene getSceneByName(char name[]);
 void sceneUpdate();
 void sceneInputHandle();
-SceneTransformDigits sceneTransformDigitsToHex(CFH_SplitDigits splitDigits);
 
 #endif

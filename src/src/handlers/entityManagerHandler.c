@@ -22,10 +22,10 @@ void EMH_createNewPlayer() {
   playerNode->skillsData.offensiveSize = 0;
   playerNode->skillsData.defensiveSize = 0;
   playerNode->skillsData.utilitySize = 0;
-  playerNode->levelData.level = 1;
-  playerNode->levelData.currentExperience = 0;
-  playerNode->levelData.experienceNeededNext = 100;
-  playerNode->creditValue = 111;
+  playerNode->levelData.level = 11;
+  playerNode->levelData.currentExperience = 1900;
+  playerNode->levelData.experienceNeededNext = 1900;
+  playerNode->creditValue = 1111;
 }
 
 Player *EMH_getPlayerNode() { return playerNode; }

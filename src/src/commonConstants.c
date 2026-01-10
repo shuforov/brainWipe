@@ -1,0 +1,5 @@
+#include <genesis.h>
+#include "../headers/commonConstants.h"
+
+const u16 NUMBERS_HEX[10] = {0x5F, 0x60, 0x61, 0x62, 0x63,
+                             0x64, 0x65, 0x66, 0x67, 0x68};
